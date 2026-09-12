@@ -76,3 +76,20 @@ test("product grid is uniform and never overflows the viewport", async ({ page }
   );
   expect(overflow, "page should not scroll horizontally").toBeLessThanOrEqual(1);
 });
+
+test("order button sits at the same offset in every card, regardless of name length", async ({ page }) => {
+  const offsets = await page.locator(".product-card").evaluateAll((cards) =>
+    cards.map((card) => {
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = card.querySelector(".order-button").getBoundingClientRect();
+      return Math.round((btnRect.top - cardRect.top) * 100) / 100;
+    })
+  );
+
+  expect(offsets.length).toBeGreaterThan(1);
+
+  const [first, ...rest] = offsets;
+  for (const offset of rest) {
+    expect(Math.abs(offset - first), "order button should be the same distance from its card's top on every card").toBeLessThanOrEqual(1);
+  }
+});

@@ -33,7 +33,7 @@ test.describe("product data integrity", () => {
 });
 
 test.describe("no leftover placeholders", () => {
-  const files = ["index.html", "js/main.js", "js/data.js"];
+  const files = ["index.html", "about.html", "shipping.html", "js/main.js", "js/data.js"];
 
   for (const file of files) {
     test(`${file} does not contain a placeholder Instagram handle`, () => {

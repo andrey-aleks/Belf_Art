@@ -37,8 +37,17 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
 
 ## Architecture
 
-- `index.html` — static page shell: header (shop name + Instagram link), an empty
-  `#product-grid` container, and a footer. Loads `js/data.js` then `js/main.js`.
+- Three separate pages, each with its own copy of the header/nav/footer markup (no
+  templating — plain static HTML, so shared chrome is hand-duplicated across files):
+  - `index.html` — Shop. Header (shop name, Instagram link, nav), an empty
+    `#product-grid` container. Loads `js/data.js` then `js/main.js` (the only page that
+    does — it's the only one that renders the grid).
+  - `about.html` — About. Photo placeholder + bio text with bracketed placeholders like
+    `[Your Name]` still to fill in.
+  - `shipping.html` — Shipping. Describes how orders ship (from Poland); bracketed
+    placeholders like `[Carrier]`, `[A-B]` (business days) still to fill in.
+  - The nav on each page marks its own link with `aria-current="page"` by hand (styled via
+    `.site-nav a[aria-current="page"]`) — when adding a page, replicate this pattern.
 - `js/data.js` — the product catalog as a plain `products` array (id, name, price, image
   URL). This is the only file that needs editing to add/remove/change products.
 - `media/goods_icons/` — original, full-resolution product photos (not referenced directly
@@ -54,8 +63,11 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   match the jewelry photos themselves) and a responsive CSS grid
   (`repeat(auto-fill, minmax(...))`) for the product cards.
 - `tests/` — Playwright test suite (`data.spec.js` data integrity, `shop.spec.js`
-  functional/layout checks, `visual.spec.js` screenshot regression). See README.md for
-  how to run them. `tests/visual.spec.js-snapshots/` holds the committed baseline images.
+  Shop-page functional/layout checks, `sections.spec.js` nav + About/Shipping page checks
+  across all three pages, `visual.spec.js` screenshot regression for all three pages). See
+  README.md for how to run them. `tests/visual.spec.js-snapshots/` holds the committed
+  baseline images — regenerate with `npm run test:update-snapshots` after any intentional
+  layout/content change.
 
 There is intentionally no cart, checkout, or payment integration — ordering happens off-site
 via Instagram DM, so the site only needs to display products and link out.

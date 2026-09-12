@@ -1,12 +1,13 @@
 :root {
-  --color-bg: #0e0c10;
-  --color-surface: #17141a;
-  --color-surface-alt: #1e1a22;
-  --color-text: #e9e2d6;
-  --color-muted: #9c9188;
-  --color-accent: #b08d57;
-  --color-accent-hover: #c9a35e;
-  --color-border: #33303a;
+  --color-bg: #08080a;
+  --color-surface: #121115;
+  --color-text: #e6e4e8;
+  --color-muted: #8a8790;
+  --color-silver: #c7c8d1;
+  --color-silver-hover: #e5e6ee;
+  --color-blood: #7a1420;
+  --color-blood-hover: #9c1c2a;
+  --color-border: #2a2830;
 }
 
 * {
@@ -16,8 +17,10 @@
 body {
   margin: 0;
   font-family: "EB Garamond", "Georgia", serif;
-  background: var(--color-bg);
   color: var(--color-text);
+  background-color: var(--color-bg);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/></svg>");
+  background-repeat: repeat;
 }
 
 h1,
@@ -35,8 +38,10 @@ h2 {
   margin: 0;
   font-size: 3.2rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--color-silver-hover);
+  text-shadow: 0 0 18px rgba(199, 200, 209, 0.25);
 }
 
 .site-tagline {
@@ -50,17 +55,18 @@ h2 {
   display: inline-block;
   padding: 11px 26px;
   background: transparent;
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent);
+  border: 1px solid var(--color-blood);
+  color: var(--color-silver);
   text-decoration: none;
   letter-spacing: 0.04em;
   font-weight: 500;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .instagram-link:hover {
-  background: var(--color-accent);
-  color: var(--color-bg);
+  background: var(--color-blood);
+  border-color: var(--color-blood-hover);
+  color: var(--color-silver-hover);
 }
 
 .product-grid {
@@ -79,18 +85,19 @@ h2 {
   display: flex;
   flex-direction: column;
   text-align: center;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .product-card:hover {
-  border-color: var(--color-accent);
+  border-color: var(--color-blood);
+  box-shadow: 0 0 24px rgba(122, 20, 32, 0.25);
 }
 
 .product-image {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  filter: grayscale(15%) contrast(1.05);
+  filter: grayscale(10%) contrast(1.1) brightness(0.98);
 }
 
 .product-name {
@@ -98,30 +105,34 @@ h2 {
   font-weight: 600;
   margin: 18px 14px 4px;
   letter-spacing: 0.02em;
+  color: var(--color-silver-hover);
 }
 
 .product-price {
   margin: 0 14px 18px;
-  color: var(--color-accent);
+  color: var(--color-muted);
   font-weight: 500;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
 }
 
 .order-button {
   margin: 0 14px 18px;
   padding: 10px 0;
   background: transparent;
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent);
+  border: 1px solid var(--color-silver);
+  color: var(--color-silver);
   text-decoration: none;
   font-weight: 500;
   letter-spacing: 0.03em;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .order-button:hover {
-  background: var(--color-accent);
-  color: var(--color-bg);
+  background: var(--color-blood);
+  border-color: var(--color-blood-hover);
+  color: var(--color-silver-hover);
 }
 
 .site-footer {
@@ -132,5 +143,5 @@ h2 {
 }
 
 .site-footer a {
-  color: var(--color-accent);
+  color: var(--color-silver);
 }

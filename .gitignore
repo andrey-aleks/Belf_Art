@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Playwright test output (baselines in tests/*-snapshots/ are kept)
+test-results/
+playwright-report/
+blob-report/
+
+# npm/node logs
+npm-debug.log*
+yarn-error.log*
+
+# Environment/secrets
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini

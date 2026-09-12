@@ -30,3 +30,7 @@ const products = [
     image: "media/web/IMG_20260908_120916-01.jpg",
   },
 ];
+
+if (typeof module !== "undefined") {
+  module.exports = { products };
+}

@@ -51,6 +51,32 @@ python -m http.server 5500
 
 Then open `http://localhost:5500`.
 
+## Testing
+
+Automated tests use [Playwright](https://playwright.dev), run against Desktop (1280x800)
+and Mobile (Pixel 5) viewports. This is dev-only tooling — the site itself has no build
+step or dependency on Node.
+
+```bash
+npm install
+npx playwright install chromium   # first time only
+npm test
+```
+
+- `tests/data.spec.js` — validates `js/data.js` (unique ids, well-formed price/fields,
+  every referenced image actually exists on disk) and checks for leftover placeholder
+  text (e.g. a forgotten `your_instagram`).
+- `tests/shop.spec.js` — loads the live page and checks: the grid renders exactly one
+  card per product, every card has an image/name/price/working Instagram link, no image
+  fails to load, no request returns an error status, and the grid is geometrically
+  uniform (equal-width cards, single column on narrow viewports, multiple columns on
+  wide ones, no horizontal overflow).
+- `tests/visual.spec.js` — full-page screenshot comparison against a committed baseline
+  (`tests/visual.spec.js-snapshots/`), to catch unintended visual changes. Screenshots
+  are OS-dependent (font rendering differs across platforms) — if you run this on a
+  different OS than the baseline was generated on, regenerate it there with
+  `npm run test:update-snapshots` rather than treating a mismatch as a real bug.
+
 ## Hosting on GitHub Pages
 
 1. Push this repository to GitHub.

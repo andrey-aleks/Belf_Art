@@ -10,7 +10,7 @@ the shop on Instagram.
 
 ## Commands
 
-There is no build/lint/test tooling. To preview locally, serve the directory with any
+The site itself has no build/lint step. To preview locally, serve the directory with any
 static file server, e.g.:
 
 ```bash
@@ -19,6 +19,21 @@ python -m http.server 5500
 
 (A `.claude/launch.json` config named `static-server` already does this for browser
 previews in this tool.)
+
+Automated tests (dev-only Node/Playwright tooling — does not affect the site itself):
+
+```bash
+npm install
+npx playwright install chromium   # first time only
+npm test                          # run all tests (Desktop + Mobile projects)
+npx playwright test tests/data.spec.js   # run a single test file
+npm run test:update-snapshots     # regenerate visual baselines after an intentional UI change
+```
+
+The Playwright config (`playwright.config.js`) serves the site via `npx http-server` on
+port 5510 for tests — not Python's `http.server`, which drops connections under the
+concurrent load Playwright's parallel workers generate (verified empirically; caused
+flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
 
 ## Architecture
 
@@ -34,9 +49,13 @@ previews in this tool.)
 - `js/main.js` — reads `products` and renders one `.product-card` per item into
   `#product-grid`. Also defines `INSTAGRAM_URL`, used for every "Order via Instagram"
   link/button.
-- `css/style.css` — all styling: a dark/gothic/elegant theme (near-black background, gold
-  accent, serif display font via Google Fonts) and a responsive CSS grid
+- `css/style.css` — all styling: a dark/gothic/elegant theme (near-black background with a
+  subtle grain texture, cool silver text/borders, blood-red accent — colors picked to
+  match the jewelry photos themselves) and a responsive CSS grid
   (`repeat(auto-fill, minmax(...))`) for the product cards.
+- `tests/` — Playwright test suite (`data.spec.js` data integrity, `shop.spec.js`
+  functional/layout checks, `visual.spec.js` screenshot regression). See README.md for
+  how to run them. `tests/visual.spec.js-snapshots/` holds the committed baseline images.
 
 There is intentionally no cart, checkout, or payment integration — ordering happens off-site
 via Instagram DM, so the site only needs to display products and link out.

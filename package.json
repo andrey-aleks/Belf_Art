@@ -1,0 +1,26 @@
+{
+  "name": "belf_art",
+  "version": "1.0.0",
+  "description": "Static handmade-goods shop site with Instagram ordering; no backend, no payment processing.",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:update-snapshots": "playwright test --update-snapshots"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrey-aleks/Belf_Art.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/andrey-aleks/Belf_Art/issues"
+  },
+  "homepage": "https://github.com/andrey-aleks/Belf_Art#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "http-server": "^14.1.1"
+  }
+}

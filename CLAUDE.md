@@ -26,6 +26,11 @@ previews in this tool.)
   `#product-grid` container, and a footer. Loads `js/data.js` then `js/main.js`.
 - `js/data.js` — the product catalog as a plain `products` array (id, name, price, image
   URL). This is the only file that needs editing to add/remove/change products.
+- `media/goods_icons/` — original, full-resolution product photos (not referenced directly
+  by the site). `media/web/` — compressed/resized copies (max 1000px, JPEG q78) that
+  `data.js` actually points to, since raw phone photos are 1.6-6MB each and would make the
+  page slow to load. Generate new web copies with Pillow before adding a product photo —
+  see README.md.
 - `js/main.js` — reads `products` and renders one `.product-card` per item into
   `#product-grid`. Also defines `INSTAGRAM_URL`, used for every "Order via Instagram"
   link/button.

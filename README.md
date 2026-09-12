@@ -19,13 +19,27 @@ Open `js/data.js` and edit the `products` array. Each product needs:
 {
   id: 7,
   name: "Product Name",
-  price: "20 USD",
-  image: "path/or/url/to/image.jpg",
+  price: "20 EUR",
+  image: "media/web/your-photo.jpg",
 }
 ```
 
 Also update the `INSTAGRAM_URL` constant in `js/main.js` and the Instagram links in
 `index.html` with the real Instagram profile URL.
+
+### Adding product photos
+
+Original, full-resolution photos live in `media/goods_icons/`. Before referencing a new
+photo from `js/data.js`, create a compressed web copy in `media/web/` (max 1000px on the
+long edge, JPEG quality ~78) so the page stays fast to load — a phone photo can easily be
+20-50x larger than needed for a product-grid thumbnail. Use `Pillow` for this, e.g.:
+
+```python
+from PIL import Image, ImageOps
+img = ImageOps.exif_transpose(Image.open("media/goods_icons/your-photo.jpeg")).convert("RGB")
+img.thumbnail((1000, 1000))
+img.save("media/web/your-photo.jpg", "JPEG", quality=78, optimize=True)
+```
 
 ## Running locally
 

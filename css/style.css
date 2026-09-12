@@ -1,0 +1,136 @@
+:root {
+  --color-bg: #0e0c10;
+  --color-surface: #17141a;
+  --color-surface-alt: #1e1a22;
+  --color-text: #e9e2d6;
+  --color-muted: #9c9188;
+  --color-accent: #b08d57;
+  --color-accent-hover: #c9a35e;
+  --color-border: #33303a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "EB Garamond", "Georgia", serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+h1,
+h2 {
+  font-family: "Cormorant Garamond", "Georgia", serif;
+}
+
+.site-header {
+  text-align: center;
+  padding: 56px 20px 36px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-title {
+  margin: 0;
+  font-size: 3.2rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.site-tagline {
+  margin: 10px 0 24px;
+  color: var(--color-muted);
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.instagram-link {
+  display: inline-block;
+  padding: 11px 26px;
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.instagram-link:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.product-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: border-color 0.2s ease;
+}
+
+.product-card:hover {
+  border-color: var(--color-accent);
+}
+
+.product-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  filter: grayscale(15%) contrast(1.05);
+}
+
+.product-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 18px 14px 4px;
+  letter-spacing: 0.02em;
+}
+
+.product-price {
+  margin: 0 14px 18px;
+  color: var(--color-accent);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.order-button {
+  margin: 0 14px 18px;
+  padding: 10px 0;
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.order-button:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.site-footer {
+  text-align: center;
+  padding: 28px 20px 56px;
+  color: var(--color-muted);
+  border-top: 1px solid var(--color-border);
+}
+
+.site-footer a {
+  color: var(--color-accent);
+}

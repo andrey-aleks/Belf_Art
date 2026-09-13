@@ -57,8 +57,24 @@ modal's), and moves it under the "Out of stock" availability filter.
 Clicking a product card (or focusing it and pressing Enter/Space) opens a modal with the
 larger photo(s), description, and price — see `#product-modal` in `index.html` and the
 `openModal`/`closeModal` functions in `js/main.js`. Closes via its close button, the
-backdrop, or Escape. No extra setup needed: it's driven entirely by each product's
-`images`/`description` fields in `js/data.js`.
+backdrop (viewports ≥720px only — see below), or Escape. No extra setup needed: it's
+driven entirely by each product's `images`/`description` fields in `js/data.js`.
+
+**The modal photo is sized in viewport units** (`min(800px, 60vw)`) specifically so it
+stays dramatically bigger than the grid card image on any screen size — a fixed pixel
+cap close to the card's own size defeats the point of a detail view. On narrow screens
+(`max-width: 720px`) the modal goes fullscreen with a full-bleed image instead of a
+padded centered dialog, since fixed padding eats a much bigger fraction of a small
+screen (without this, the image was briefly *smaller* on mobile than in the grid).
+Fullscreen means there's no visible backdrop to tap there — closing works via the button
+or Escape only, the standard pattern for fullscreen mobile sheets.
+
+If you add a control that overlays `.product-image` or `.product-modal-image`, give it
+an explicit `z-index`: both images have a `filter` (for the grayscale/contrast look),
+which creates a CSS stacking context that can paint above a plain
+`position: absolute; z-index: auto` sibling — this actually broke the close button on
+mobile once (see `.product-modal-close` and `.sold-out-badge` in `css/style.css` for the
+fix).
 
 ## Editing the About page
 
@@ -157,11 +173,14 @@ npm test
   viewports, multiple columns on wide ones, no horizontal overflow), and the price sits
   at the same offset in every card regardless of product name length.
 - `tests/product-modal.spec.js` — the click-to-view-details modal: opens with the right
-  product's photo/name/description/price/Instagram link, replaces its content correctly
-  across opens, closes via the close button/backdrop/Escape and returns focus to the
-  triggering card, keyboard-openable (Enter on a focused card), clicking the modal's own
-  Order button does not close the modal, single-image products show no thumbnail row, and
-  multi-image products show thumbnails that switch the main photo.
+  product's photo/name/description/price/Instagram link, is significantly larger than the
+  grid card image (the whole point of a detail view — see "The modal photo" below),
+  replaces its content correctly across opens, closes via the close button/Escape and
+  returns focus to the triggering card (backdrop too, on viewports ≥720px wide — the
+  modal is intentionally fullscreen with no backdrop below that), keyboard-openable
+  (Enter on a focused card), clicking the modal's own Order button does not close the
+  modal, single-image products show no thumbnail row, and multi-image products show
+  thumbnails that switch the main photo.
 - `tests/filters.spec.js` — the Shop filter/sort sidebar: a checkbox exists for every
   distinct category in the data (all checked by default), unchecking a category or the
   "In stock" availability option hides exactly the right products and re-checking

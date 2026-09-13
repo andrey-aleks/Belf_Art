@@ -70,6 +70,28 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   (with a thumbnail row only when `images.length > 1`), description, price, and the
   Order link — ordering only happens from inside the modal. Closes via the close button,
   the backdrop, or Escape, and returns focus to the card that opened it.
+  - **The modal image must stay dramatically bigger than the grid card image** — that's
+    the whole point of a detail view. It's sized in viewport units (`min(800px, 60vw)`)
+    so it actually scales with screen size rather than capping out at a fixed px value
+    close to the card's own size (a real regression we hit once already). On narrow
+    viewports (`max-width: 720px`) the modal goes fullscreen with a full-bleed image (no
+    dialog padding) instead, since a fixed-padding centered dialog eats a much bigger
+    fraction of a small screen — without that, the "detail" image was briefly *smaller*
+    than the grid card on mobile. `tests/product-modal.spec.js` ("modal image is
+    significantly larger...") asserts this directly: >1.4x the card width on viewports
+    ≥600px, at least equal on narrower ones (where the card is already near full-width,
+    so "much bigger" isn't geometrically possible).
+  - **Any element with `filter` (both `.product-image` and `.product-modal-image` have
+    one) creates a CSS stacking context that can paint above a sibling
+    `position: absolute; z-index: auto` element**, even though plain positioning rules
+    say it shouldn't — confirmed by reproducing it (the modal close button became
+    unclickable, sitting under the image, only on narrow/fullscreen viewports where they
+    visually overlap) and fixing it by removing the filter. Both `.product-modal-close`
+    and `.sold-out-badge` now have an explicit `z-index` because of this. Any new control
+    overlaid on a `.product-image`/`.product-modal-image` needs one too.
+  - The "closing via the backdrop" test is skipped below 720px width: a fullscreen mobile
+    sheet has no visible backdrop to tap by design (standard pattern — close via the
+    button or Escape there instead), not a bug to fix.
   - **Shop filters/sort** (UI/UX pattern taken from
     [boldestudios.com/collections/the-shop](https://www.boldestudios.com/collections/the-shop),
     adapted — no cart/search/price-slider since we have no checkout and 5 products):
@@ -93,6 +115,12 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   can keep serving an old cached copy of the CSS indefinitely — this is a real bug we hit
   (nav/section/about/shipping styles silently not applying for a visitor with a warm
   cache) and the version hash is the fix.
+  - **Filter checkboxes/radios are fully custom-drawn** (`appearance: none` +
+    `::after` fill), not native inputs with just `accent-color` — native checkbox/radio
+    rendering (size, shape, whether `accent-color` is even honored) varies a lot across
+    browsers/OSes, so relying on it looked fine in this tool's Chromium preview but
+    rendered as plain oversized native checkboxes for a real user. Never rely on
+    `accent-color` alone for a themed look here.
   - **Every custom-colored `<a>` class must also style `:visited`** (e.g.
     `.order-button, .order-button:visited { color: ...; }`), because the browser's own
     `a:visited { color: purple; }` UA rule beats a plain class selector on specificity

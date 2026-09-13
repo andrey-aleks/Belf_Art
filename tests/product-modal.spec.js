@@ -11,6 +11,36 @@ test("modal is hidden on page load", async ({ page }) => {
   await expect(page.locator("#product-modal")).toBeHidden();
 });
 
+test("modal image is significantly larger than the grid card image", async ({ page }) => {
+  // Regression guard: the modal's photo once ended up barely bigger than the grid
+  // thumbnail (and, briefly while fixing that on desktop, actually SMALLER on mobile
+  // once modal padding ate too much of a small viewport). On wide viewports the modal
+  // should be dramatically bigger; on narrow ones, where the card is already
+  // near-full-width, "much bigger" isn't geometrically possible, so it should at least
+  // never be smaller than the card.
+  const viewport = page.viewportSize();
+
+  const cardImageWidth = await page
+    .locator(".product-card")
+    .first()
+    .locator(".product-image")
+    .evaluate((el) => el.getBoundingClientRect().width);
+
+  await page.locator(".product-card").first().click();
+
+  const modalImageWidth = await page.locator(".product-modal-image").evaluate((el) => el.getBoundingClientRect().width);
+
+  if (viewport.width < 600) {
+    expect(modalImageWidth, "modal image should be at least as wide as the grid card image").toBeGreaterThanOrEqual(
+      cardImageWidth
+    );
+  } else {
+    expect(modalImageWidth, "modal image should be at least 40% wider than the grid card image").toBeGreaterThan(
+      cardImageWidth * 1.4
+    );
+  }
+});
+
 test("clicking a product card opens the modal with that product's details", async ({ page }) => {
   const product = products[0];
   await page.locator(".product-card").first().click();
@@ -51,6 +81,12 @@ test("closing via Escape hides the modal", async ({ page }) => {
 });
 
 test("closing via the backdrop hides the modal", async ({ page }) => {
+  const viewport = page.viewportSize();
+  test.skip(
+    viewport.width < 720,
+    "the modal is intentionally fullscreen with no visible backdrop on narrow viewports (close via the button or Escape instead — the standard pattern for fullscreen mobile sheets)"
+  );
+
   await page.locator(".product-card").first().click();
   await page.locator(".product-modal-backdrop").click({ position: { x: 5, y: 5 } });
   await expect(page.locator("#product-modal")).toBeHidden();

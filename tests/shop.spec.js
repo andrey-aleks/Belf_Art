@@ -77,6 +77,16 @@ test("product grid is uniform and never overflows the viewport", async ({ page }
   expect(overflow, "page should not scroll horizontally").toBeLessThanOrEqual(1);
 });
 
+test("shop layout expands to use available width on wide viewports, not capped like other pages", async ({ page }) => {
+  // Regression guard: the Shop layout used to inherit .section's 1300px max-width like
+  // every other page, leaving large empty margins on wide screens instead of filling
+  // available space the way the reference site does.
+  await page.setViewportSize({ width: 1800, height: 1000 });
+
+  const width = await page.locator(".shop-layout").evaluate((el) => el.getBoundingClientRect().width);
+  expect(width, "shop layout should expand well past the old 1300px page cap on wide screens").toBeGreaterThan(1500);
+});
+
 test("product price sits at the same offset in every card, regardless of name length", async ({ page }) => {
   const offsets = await page.locator(".product-card").evaluateAll((cards) =>
     cards.map((card) => {

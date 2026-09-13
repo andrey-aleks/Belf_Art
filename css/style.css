@@ -105,6 +105,10 @@ h2 {
   padding-bottom: 64px;
 }
 
+.section-shop {
+  max-width: none;
+}
+
 .section-title {
   text-align: center;
   font-size: 2.2rem;

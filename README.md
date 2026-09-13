@@ -52,6 +52,15 @@ Category checkboxes are generated from whatever `category` values exist in `js/d
 `soldOut: true` shows a "SOLD OUT" badge on its card, disables its order control (and the
 modal's), and moves it under the "Out of stock" availability filter.
 
+## Shop layout width
+
+Every page shares `.section { max-width: 1300px; }`, which keeps About/Shipping's text
+readable. The Shop page's `<main>` additionally has a `section-shop` class so
+`.section-shop { max-width: none; }` overrides that cap — the filter sidebar and product
+grid expand to fill available width on wide screens (matching the reference site) instead
+of leaving large empty margins either side, and the grid's `repeat(auto-fill, minmax(...))`
+naturally adds more columns as space allows.
+
 ## Product detail modal
 
 Clicking a product card (or focusing it and pressing Enter/Space) opens a modal with the
@@ -170,8 +179,10 @@ npm test
   card per product, every card has an image/name/price and no order button (ordering only
   happens in the detail modal), no image fails to load, no request returns an error
   status, the grid is geometrically uniform (equal-width cards, single column on narrow
-  viewports, multiple columns on wide ones, no horizontal overflow), and the price sits
-  at the same offset in every card regardless of product name length.
+  viewports, multiple columns on wide ones, no horizontal overflow), the price sits at
+  the same offset in every card regardless of product name length, and the Shop layout
+  expands past the page-wide 1300px cap on wide viewports instead of leaving large empty
+  margins (see "Shop layout width" below).
 - `tests/product-modal.spec.js` — the click-to-view-details modal: opens with the right
   product's photo/name/description/price/Instagram link, is significantly larger than the
   grid card image (the whole point of a detail view — see "The modal photo" below),

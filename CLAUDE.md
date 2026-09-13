@@ -41,7 +41,11 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   templating — plain static HTML, so shared chrome is hand-duplicated across files):
   - `index.html` — Shop. Header (shop name, Instagram link, nav), an empty
     `#product-grid` container. Loads `js/data.js` then `js/main.js` (the only page that
-    does — it's the only one that renders the grid).
+    does — it's the only one that renders the grid). Its `<main>` carries an extra
+    `section-shop` class so `.section-shop { max-width: none; }` can override the
+    otherwise-shared `.section { max-width: 1300px; }` — the Shop page fills available
+    width (matching the reference site) while About/Shipping stay narrower for
+    readable text. Regression-guarded in `tests/shop.spec.js`.
   - `about.html` — About. Photo placeholder + bio text with bracketed placeholders like
     `[Your Name]` still to fill in.
   - `shipping.html` — Shipping. Describes how orders ship (from Poland); bracketed

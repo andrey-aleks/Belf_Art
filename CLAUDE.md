@@ -61,15 +61,15 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   page slow to load. Generate new web copies with Pillow before adding a product photo —
   see README.md.
 - `js/main.js` — reads `products` and renders one `.product-card` per item into
-  `#product-grid` via the global `renderProducts(items)`. Also defines `INSTAGRAM_URL`,
-  used for every "Order via Instagram" link/button. Clicking a card (or focusing it and
-  pressing Enter/Space) opens the `#product-modal` dialog (markup lives in `index.html`,
-  hidden by default) via the global `openModal(product)`/`closeModal()` functions,
-  showing the product's gallery image(s) (with a thumbnail row only when
-  `images.length > 1`), description, price, and an Order link. Closes via the close
-  button, the backdrop, or Escape, and returns focus to the card that opened it. Clicks
-  on a card's own "Order via Instagram" button are excluded from opening the modal
-  (checked before the card-click handler runs).
+  `#product-grid` via the global `renderProducts(items)` — a card is just an image, name,
+  and price (plus a `.sold-out-badge` when relevant); there is no order button on the
+  grid itself. Also defines `INSTAGRAM_URL`, used by the modal's Order link. Clicking a
+  card (or focusing it and pressing Enter/Space) opens the `#product-modal` dialog
+  (markup lives in `index.html`, hidden by default) via the global
+  `openModal(product)`/`closeModal()` functions, showing the product's gallery image(s)
+  (with a thumbnail row only when `images.length > 1`), description, price, and the
+  Order link — ordering only happens from inside the modal. Closes via the close button,
+  the backdrop, or Escape, and returns focus to the card that opened it.
   - **Shop filters/sort** (UI/UX pattern taken from
     [boldestudios.com/collections/the-shop](https://www.boldestudios.com/collections/the-shop),
     adapted — no cart/search/price-slider since we have no checkout and 5 products):
@@ -79,9 +79,10 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
     checkboxes and the selected Sort radio, filters+sorts a copy of `products`, and calls
     `renderProducts`. Every filter/sort input has a `change` listener wired to
     `applyFiltersAndSort`. An empty result renders `.filter-empty` instead of a blank
-    grid. A product with `soldOut: true` renders a `.sold-out-badge` over its image and a
-    disabled `<span class="order-button is-disabled">` instead of the real order link
-    (mirrored in the modal's order control).
+    grid. A product with `soldOut: true` renders a `.sold-out-badge` over its card image
+    (no button-level sold-out state on the card, since cards have no button); the
+    modal's order control still shows a disabled `<span class="order-button is-disabled">`
+    for a sold-out product.
 - `css/style.css` — all styling: a dark/gothic/elegant theme (near-black background with a
   subtle grain texture, cool silver text/borders, blood-red accent — colors picked to
   match the jewelry photos themselves) and a responsive CSS grid

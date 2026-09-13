@@ -111,19 +111,15 @@ test.describe("sold-out product rendering", () => {
     soldOut: true,
   };
 
-  test("shows a Sold Out badge and a disabled, non-navigating order control", async ({ page }) => {
+  test("shows a Sold Out badge on the card image", async ({ page }) => {
     await page.evaluate((product) => window.renderProducts([product]), soldOutProduct);
 
     const card = page.locator(".product-card");
     await expect(card.locator(".sold-out-badge")).toHaveText(/sold out/i);
-
-    const orderControl = card.locator(".order-button");
-    await expect(orderControl).toHaveText(/sold out/i);
-    await expect(orderControl).toHaveAttribute("aria-disabled", "true");
-    expect(await orderControl.evaluate((el) => el.tagName)).toBe("SPAN");
+    await expect(card.locator(".order-button")).toHaveCount(0);
   });
 
-  test("the modal also shows a disabled order control for a sold-out product", async ({ page }) => {
+  test("the modal shows a disabled order control for a sold-out product", async ({ page }) => {
     await page.evaluate((product) => window.openModal(product), soldOutProduct);
 
     const modal = page.locator("#product-modal");
@@ -134,9 +130,8 @@ test.describe("sold-out product rendering", () => {
     await expect(modalOrder).not.toHaveAttribute("href", /.+/);
   });
 
-  test("an in-stock product does not show a badge or disabled control", async ({ page }) => {
+  test("an in-stock product does not show a Sold Out badge", async ({ page }) => {
     const card = page.locator(".product-card").first();
     await expect(card.locator(".sold-out-badge")).toHaveCount(0);
-    await expect(card.locator(".order-button")).not.toHaveAttribute("aria-disabled", "true");
   });
 });

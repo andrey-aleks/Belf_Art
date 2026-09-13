@@ -20,7 +20,7 @@ test("renders exactly one card per product", async ({ page }) => {
   await expect(page.locator(".product-card")).toHaveCount(products.length);
 });
 
-test("every card shows an image, name, price, and order link", async ({ page }) => {
+test("every card shows an image, name, and price, with no order button (ordering happens in the detail modal)", async ({ page }) => {
   const cards = page.locator(".product-card");
   const count = await cards.count();
 
@@ -29,7 +29,7 @@ test("every card shows an image, name, price, and order link", async ({ page }) 
     await expect(card.locator(".product-image")).toBeVisible();
     await expect(card.locator(".product-name")).not.toBeEmpty();
     await expect(card.locator(".product-price")).not.toBeEmpty();
-    await expect(card.locator(".order-button")).toHaveAttribute("href", INSTAGRAM_PATTERN);
+    await expect(card.locator(".order-button")).toHaveCount(0);
   }
 });
 
@@ -77,12 +77,12 @@ test("product grid is uniform and never overflows the viewport", async ({ page }
   expect(overflow, "page should not scroll horizontally").toBeLessThanOrEqual(1);
 });
 
-test("order button sits at the same offset in every card, regardless of name length", async ({ page }) => {
+test("product price sits at the same offset in every card, regardless of name length", async ({ page }) => {
   const offsets = await page.locator(".product-card").evaluateAll((cards) =>
     cards.map((card) => {
       const cardRect = card.getBoundingClientRect();
-      const btnRect = card.querySelector(".order-button").getBoundingClientRect();
-      return Math.round((btnRect.top - cardRect.top) * 100) / 100;
+      const priceRect = card.querySelector(".product-price").getBoundingClientRect();
+      return Math.round((priceRect.top - cardRect.top) * 100) / 100;
     })
   );
 
@@ -90,6 +90,6 @@ test("order button sits at the same offset in every card, regardless of name len
 
   const [first, ...rest] = offsets;
   for (const offset of rest) {
-    expect(Math.abs(offset - first), "order button should be the same distance from its card's top on every card").toBeLessThanOrEqual(1);
+    expect(Math.abs(offset - first), "price should be the same distance from its card's top on every card").toBeLessThanOrEqual(1);
   }
 });

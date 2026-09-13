@@ -151,24 +151,24 @@ npm test
   image actually exists on disk) and checks all three pages for leftover placeholder text
   (e.g. a forgotten `your_instagram`).
 - `tests/shop.spec.js` — loads the Shop page and checks: the grid renders exactly one
-  card per product, every card has an image/name/price/working Instagram link, no image
-  fails to load, no request returns an error status, the grid is geometrically uniform
-  (equal-width cards, single column on narrow viewports, multiple columns on wide ones,
-  no horizontal overflow), and the "Order via Instagram" button sits at the same offset
-  in every card regardless of product name length.
+  card per product, every card has an image/name/price and no order button (ordering only
+  happens in the detail modal), no image fails to load, no request returns an error
+  status, the grid is geometrically uniform (equal-width cards, single column on narrow
+  viewports, multiple columns on wide ones, no horizontal overflow), and the price sits
+  at the same offset in every card regardless of product name length.
 - `tests/product-modal.spec.js` — the click-to-view-details modal: opens with the right
   product's photo/name/description/price/Instagram link, replaces its content correctly
   across opens, closes via the close button/backdrop/Escape and returns focus to the
-  triggering card, keyboard-openable (Enter on a focused card), a card's own Order button
-  does not open the modal, single-image products show no thumbnail row, and multi-image
-  products show thumbnails that switch the main photo.
+  triggering card, keyboard-openable (Enter on a focused card), clicking the modal's own
+  Order button does not close the modal, single-image products show no thumbnail row, and
+  multi-image products show thumbnails that switch the main photo.
 - `tests/filters.spec.js` — the Shop filter/sort sidebar: a checkbox exists for every
   distinct category in the data (all checked by default), unchecking a category or the
   "In stock" availability option hides exactly the right products and re-checking
   restores them, each sort option orders cards correctly (price asc/desc, name A-Z),
   "Most relevant" restores the original catalog order, filtering out everything shows an
-  empty-state message, and a sold-out product shows its badge/disabled order control both
-  on the card and in the modal while an in-stock product shows neither.
+  empty-state message, and a sold-out product shows its badge on the card and a disabled
+  order control in the modal, while an in-stock product shows neither.
 - `tests/sections.spec.js` — for each of the 3 pages: checks the nav has all 3 links in
   the right order, exactly the current page is marked `aria-current="page"`, the header
   Instagram link works, and clicking each other nav link actually navigates to that page.

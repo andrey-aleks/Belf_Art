@@ -11,9 +11,6 @@ function renderProducts(items) {
   grid.innerHTML = items
     .map((product) => {
       const badge = product.soldOut ? `<span class="sold-out-badge">Sold Out</span>` : "";
-      const orderControl = product.soldOut
-        ? `<span class="order-button is-disabled" aria-disabled="true">Sold Out</span>`
-        : `<a class="order-button" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">Order via Instagram</a>`;
 
       return `
     <article class="product-card" data-product-id="${product.id}" tabindex="0" aria-haspopup="dialog" aria-label="View details for ${product.name}">
@@ -23,7 +20,6 @@ function renderProducts(items) {
       </div>
       <h2 class="product-name">${product.name}</h2>
       <p class="product-price">${product.price}</p>
-      ${orderControl}
     </article>
   `;
     })
@@ -167,7 +163,6 @@ function findProductById(id) {
 const grid = document.getElementById("product-grid");
 
 grid.addEventListener("click", (event) => {
-  if (event.target.closest(".order-button")) return;
   const card = event.target.closest(".product-card");
   if (!card) return;
   const product = findProductById(Number(card.dataset.productId));

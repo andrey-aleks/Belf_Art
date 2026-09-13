@@ -77,13 +77,12 @@ test("keyboard: focusing a card and pressing Enter opens its modal", async ({ pa
   await expect(modal.locator(".product-modal-title")).toHaveText(products[2].name);
 });
 
-test("clicking the card's Order button does not open the modal", async ({ page, context }) => {
-  const [popup] = await Promise.all([
-    context.waitForEvent("page"),
-    page.locator(".product-card").first().locator(".order-button").click(),
-  ]);
+test("clicking the modal's Order button does not close the modal", async ({ page, context }) => {
+  await page.locator(".product-card").first().click();
+
+  const [popup] = await Promise.all([context.waitForEvent("page"), page.locator(".product-modal-order").click()]);
   await popup.close();
-  await expect(page.locator("#product-modal")).toBeHidden();
+  await expect(page.locator("#product-modal")).toBeVisible();
 });
 
 test("a product with a single image shows no thumbnail row", async ({ page }) => {

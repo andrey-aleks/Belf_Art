@@ -22,6 +22,7 @@
   "homepage": "https://github.com/andrey-aleks/Belf_Art#readme",
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "js-yaml": "^4.3.2"
   }
 }

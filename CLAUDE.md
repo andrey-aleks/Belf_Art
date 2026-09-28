@@ -6,7 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A plain static HTML/CSS/JS site for a handmade-goods shop — no framework, no build step,
 no backend, no payment processing. Customers browse a product grid and order by messaging
-the shop on Instagram.
+the shop on Instagram. A separate (non-developer) person edits the content through a
+browser-based CMS at `/admin/` (Sveltia CMS) that commits to this **public** repo — see
+"Content & CMS" below; security rules there are hard requirements.
 
 ## Commands
 
@@ -50,8 +52,8 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   - `index.html` — Shop. Hero banner (headline, Shop Now → `#shop`, a product photo
     standing in for a future model shot, Kraków + language links), `#category-filters`
     category strip, toolbar with `#filter-availability`/`#sort-select`, and an empty
-    `#product-grid`. Loads `js/data.js`, `js/i18n.js`, then `js/main.js` (the only page
-    that renders the grid). Its `<main>` carries an extra
+    `#product-grid`. Loads `js/content.js`, `js/i18n.js`, then `js/main.js` (the only
+    page that renders the grid). Its `<main>` carries an extra
     `section-shop` class so `.section-shop { max-width: none; }` can override the
     otherwise-shared `.section { max-width: 1300px; }` — the Shop page fills available
     width (matching the reference site) while About/Shipping stay narrower for
@@ -62,34 +64,61 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   - `shipping.html` — Shipping. Describes how orders ship (from Poland); bracketed
     placeholders like `[Carrier]`, `[A-B]` (business days) still to fill in.
   - `contact.html` — Contact: Instagram/Telegram/Vinted cards, location.
-  - Every page loads `js/i18n.js`. When adding a page, also add it to `PAGES` in
+  - Every page's `<head>` links the favicon (`favicon.ico` [16+32px] and `favicon.png`
+    [32x32], both scaled from the user's silver blackletter "B" artwork, 150x150
+    source). There's no larger source, so no apple-touch-icon (180px would be upscaled).
+  - Every page loads `js/content.js` then `js/i18n.js`. When adding a page, also add it to `PAGES` in
     `scripts/update-css-version.js` (drives CSS versioning and several tests).
   - The nav on each page marks its own link with `aria-current="page"` by hand (styled via
     `.site-nav a[aria-current="page"]`) — when adding a page, replicate this pattern.
+- **Content & CMS** — all editable content is JSON in `content/` (`products.json`,
+  `categories.json`, `texts.json` = `{group: {field: {en,ru,uk,pl}}}`, `site.json` =
+  hero/about photos), fetched at runtime by `js/content.js` (`fetchContent`, with
+  `cache: "no-cache"` so CMS edits show up promptly). `admin/config.yml` defines the
+  editor's forms and **must mirror the JSON shapes exactly** (`tests/data.spec.js`
+  compares them) — when you add a text/field, update the HTML, the JSON *and* the
+  config. `EDITING.md` is the editor's guide; README "Editing content (CMS)" has setup
+  and the security model. Hard rules (public repo):
+  - Never commit secrets (tokens, OAuth client secrets). Sign-in is token-only
+    (`auth_methods: [token]`); the token lives in the editor's browser.
+  - Content is untrusted input: never insert it as HTML. `main.js` escapes every
+    interpolated value with `escapeHtml`; `i18n.js` only sets `textContent`/attributes.
+    Guarded by the injection tests in `tests/i18n.spec.js`.
+  - The CMS script in `admin/index.html` stays pinned to an exact version with an SRI
+    `integrity` hash (tested). Upgrade procedure is in README.
+  - Image paths must be local `media/…` files. The CMS writes them with a leading slash
+    (verified empirically — despite `public_folder: media/web`), which breaks on the
+    GitHub Pages sub-path; `assetUrl()` in `js/content.js` strips it. Always pass
+    content image paths through `assetUrl`.
+  - Uploads are re-encoded by the CMS (`media_libraries.all.transformations`: WebP,
+    ≤1600px), which strips EXIF incl. GPS — verified with a GPS-tagged test photo.
+    Don't disable this.
+  - Tests must read expected values from `content/*.json` (via `tests/helpers.js`),
+    never hard-code current texts/products — CI (`.github/workflows/tests.yml`) runs on
+    every CMS save, and a legitimate content edit must not fail it.
+  - The Sveltia config schema is at
+    `https://unpkg.com/@sveltia/cms@<version>/schema/sveltia-cms.json` — validate config
+    changes against it (e.g. with ajv) rather than guessing keys; an early draft used
+    `media_libraries.default` with options that belong under `media_libraries.all`.
 - `js/i18n.js` — EN/RU/UA/PL switching (`.lang-select` in the header, `.lang-option`
-  buttons in the hero; persisted in `localStorage` with try/catch). English text lives
-  in the HTML (`data-i18n` / `data-i18n-aria-label` attributes), captured from the DOM on
-  first translation, so dictionaries only need `ru`/`uk`/`pl` for HTML keys; strings JS
-  renders itself need an `en` entry too (`t(key, params)`). `localizedProduct(p)` applies
-  a product's optional `translations`. Fires a `languagechange` event that `main.js`
-  uses to re-render the grid, category strip and an open modal. `tests/i18n.spec.js`
-  fails on any missing key/translation.
-- `js/data.js` — the product catalog as a plain `products` array (id, name, price,
-  `image` [grid thumbnail], `images` [gallery array for the modal — currently one entry
-  per product, but the modal supports more], `description`, `category` [drives the Shop
-  page's category strip — a tile is generated per distinct value found in the data, so
-  adding a new category needs no HTML changes, only a `category.<Name>` label in
-  `js/i18n.js`], `soldOut` [boolean — drives the "Availability" filter, the SOLD OUT
-  badge, and disabling the order control], optional `translations` {ru|uk|pl: {name,
-  description}}). This is
-  the only file that needs editing to add/remove/change products.
+  buttons in the hero; persisted in `localStorage` with try/catch). Texts come from
+  `content/texts.json`; HTML elements carry `data-i18n` / `data-i18n-aria-label`
+  (`group.field`) with English inside as a pre-load fallback. `t(key, params)` for JS
+  strings (with small `FALLBACK_TEXTS` if texts.json fails), `localize({en,…})` and
+  `localizedProduct(p)`. Sets `<html data-texts-ready>` when done (main.js sets
+  `data-shop-ready`); tests wait on these via `tests/helpers.js`. Fires a
+  `languagechange` event that `main.js` uses to re-render the grid, category strip and
+  an open modal.
 - `media/goods_icons/` — original, full-resolution product photos (not referenced directly
   by the site). `media/web/` — compressed/resized copies (max 1000px, JPEG q78) that
-  `data.js` actually points to, since raw phone photos are 1.6-6MB each and would make the
-  page slow to load. Generate new web copies with Pillow before adding a product photo —
-  see README.md.
-- `js/main.js` — reads `products` and renders one `.product-card` per item into
-  `#product-grid` via the global `renderProducts(items)` — a card is just an image, name,
+  `content/products.json` points to, since raw phone photos are 1.6-6MB each and would make the
+  page slow to load. Photos uploaded through the CMS land in `media/web/` already
+  optimized (WebP); for photos added by hand, generate web copies with Pillow — see
+  README.md.
+- `js/main.js` — loads `content/products.json` + `categories.json` and renders one
+  `.product-card` per item into `#product-grid` via the global `renderProducts(items)`
+  (cards carry `data-index` into the last rendered list — there are no product ids for
+  the editor to manage; price is a number, shown as `"<price> EUR"`) — a card is just an image, name,
   and price (plus a `.sold-out-badge` when relevant); there is no order button on the
   grid itself (just a decorative `.product-star`). Also defines `INSTAGRAM_URL`, used by the modal's Order link. Clicking a
   card (or focusing it and pressing Enter/Space) opens the `#product-modal` dialog
@@ -124,8 +153,7 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
     [boldestudios.com/collections/the-shop](https://www.boldestudios.com/collections/the-shop),
     adapted — no cart/search/price-slider since we have no checkout and 5 products):
     `renderCategoryFilters(products)` builds the category-strip tiles (`.category-tile`,
-    `aria-pressed`) from whatever distinct `category` values exist in the data (so it
-    can't drift out of sync with `data.js`); clicking a tile makes it the single active
+    `aria-pressed`) for categories that have products, in `categories.json` order; clicking a tile makes it the single active
     category, clicking it again clears it. `applyFiltersAndSort()` reads the active
     category plus the `#filter-availability` and `#sort-select` dropdowns, filters+sorts
     a copy of `products`, and calls `renderProducts`. An empty result renders `.filter-empty` instead of a blank
@@ -170,7 +198,8 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   Shop-page functional/layout checks incl. hero, `sections.spec.js` nav/footer/shared-chrome
   checks across all five pages + each page's content, `product-modal.spec.js` the
   click-to-view-details modal, `filters.spec.js` the category strip, Availability/Sort
-  dropdowns, and sold-out rendering, `i18n.spec.js` translations and language switching,
+  dropdowns, and sold-out rendering, `i18n.spec.js` language switching + content
+  injection/robustness, `data.spec.js` content + CMS-config integrity and security,
   `visual.spec.js` screenshot regression for all five pages). See README.md
   for how to run them. `tests/visual.spec.js-snapshots/` holds the committed baseline
   images — regenerate with `npm run test:update-snapshots` after any intentional

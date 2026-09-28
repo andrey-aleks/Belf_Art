@@ -1,0 +1,104 @@
+{
+  "products": [
+    {
+      "name": {
+        "en": "Gothic Cross Statement Necklace",
+        "ru": "Готическое колье с крестом",
+        "uk": "Готичне кольє з хрестом",
+        "pl": "Gotycki naszyjnik z krzyżem"
+      },
+      "description": {
+        "en": "A dramatic swagged choker with looping chains, faceted red and clear beads, delicate spikes, and an ornate cross pendant at the center.",
+        "ru": "Эффектный чокер с драпированными цепочками, гранёными красными и прозрачными бусинами, тонкими шипами и узорным крестом в центре.",
+        "uk": "Ефектний чокер із драпірованими ланцюжками, гранованими червоними й прозорими намистинами, тонкими шипами та візерунчастим хрестом у центрі.",
+        "pl": "Efektowny choker z opadającymi łańcuszkami, fasetowanymi czerwonymi i przezroczystymi koralikami, delikatnymi kolcami i ozdobnym krzyżem pośrodku."
+      },
+      "price": 20,
+      "category": "Necklace",
+      "soldOut": false,
+      "images": [
+        "media/web/1000030969-01.jpg"
+      ]
+    },
+    {
+      "name": {
+        "en": "Spike Drop Necklace",
+        "ru": "Колье с подвесками-шипами",
+        "uk": "Кольє з підвісками-шипами",
+        "pl": "Naszyjnik z kolcami"
+      },
+      "description": {
+        "en": "A fine chain necklace gathered into a small chainmail cluster at the front, with three slender spikes hanging below.",
+        "ru": "Тонкая цепочка, собранная спереди в небольшой узор из кольчужного плетения, с тремя тонкими шипами внизу.",
+        "uk": "Тонкий ланцюжок, зібраний спереду в невеликий візерунок кольчужного плетіння, з трьома тонкими шипами внизу.",
+        "pl": "Delikatny łańcuszek zebrany z przodu w niewielki splot kolczugowy, z trzema smukłymi kolcami zwisającymi poniżej."
+      },
+      "price": 17,
+      "category": "Necklace",
+      "soldOut": false,
+      "images": [
+        "media/web/IMG_20260908_151912-01.jpg"
+      ]
+    },
+    {
+      "name": {
+        "en": "Chunky Ring-Chain Necklace",
+        "ru": "Массивное колье из колец",
+        "uk": "Масивне кольє з кілець",
+        "pl": "Masywny naszyjnik z ogniw"
+      },
+      "description": {
+        "en": "A bold necklace made of large linked rings, giving a substantial, statement-making chain look.",
+        "ru": "Смелое колье из крупных соединённых колец — объёмная цепь, которая сразу привлекает внимание.",
+        "uk": "Сміливе кольє з великих з'єднаних кілець — об'ємний ланцюг, що одразу привертає увагу.",
+        "pl": "Wyrazisty naszyjnik z dużych połączonych ogniw — masywny łańcuch, który od razu przyciąga uwagę."
+      },
+      "price": 14,
+      "category": "Necklace",
+      "soldOut": false,
+      "images": [
+        "media/web/IMG_20260908_124236-01.jpg"
+      ]
+    },
+    {
+      "name": {
+        "en": "Ring-Chain Choker",
+        "ru": "Чокер из колец",
+        "uk": "Чокер із кілець",
+        "pl": "Choker z ogniw"
+      },
+      "description": {
+        "en": "A shorter, close-fitting version of our ring-chain design — linked rings for a clean, minimal gothic look.",
+        "ru": "Короткая, плотно прилегающая версия нашего дизайна из колец — соединённые кольца для лаконичного готического образа.",
+        "uk": "Коротка, щільно прилегла версія нашого дизайну з кілець — з'єднані кільця для лаконічного готичного образу.",
+        "pl": "Krótsza, dopasowana wersja naszego wzoru z ogniw — połączone kółka w czystym, minimalistycznym gotyckim stylu."
+      },
+      "price": 12,
+      "category": "Choker",
+      "soldOut": false,
+      "images": [
+        "media/web/IMG_20260908_123427-01.jpg"
+      ]
+    },
+    {
+      "name": {
+        "en": "Chainmail Heart Charm",
+        "ru": "Подвеска-сердце из кольчуги",
+        "uk": "Підвіска-серце з кольчуги",
+        "pl": "Zawieszka-serce z kolczugi"
+      },
+      "description": {
+        "en": "A small woven chainmail heart charm on a lobster clasp, perfect as a pendant or keychain accent.",
+        "ru": "Небольшое сердце в технике кольчужного плетения на карабине — подойдёт как кулон или украшение для брелока.",
+        "uk": "Невелике серце в техніці кольчужного плетіння на карабіні — підійде як кулон або прикраса для брелока.",
+        "pl": "Małe serce splecione techniką kolczugi na karabińczyku — idealne jako wisiorek lub ozdoba breloka."
+      },
+      "price": 10,
+      "category": "Charm",
+      "soldOut": false,
+      "images": [
+        "media/web/IMG_20260908_120916-01.jpg"
+      ]
+    }
+  ]
+}

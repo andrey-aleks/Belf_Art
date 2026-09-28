@@ -1,8 +1,8 @@
 const { test, expect } = require("@playwright/test");
-const { products } = require("../js/data.js");
+const { products, categories, gotoAndWait } = require("./helpers");
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/");
+  await gotoAndWait(page, "/");
 });
 
 test("all products are shown by default", async ({ page }) => {
@@ -15,6 +15,24 @@ test("a category tile exists for every distinct category in the data, none activ
 
   for (const category of categories) {
     await expect(page.locator(`.category-tile[data-category="${category}"]`)).toHaveAttribute("aria-pressed", "false");
+  }
+});
+
+test("category tiles follow the order of content/categories.json and show its labels", async ({ page }) => {
+  const used = new Set(products.map((p) => p.category));
+  const expected = categories.filter((c) => used.has(c.key));
+  await expect(page.locator(".category-tile")).toHaveCount(expected.length);
+  for (let i = 0; i < expected.length; i++) {
+    const tile = page.locator(".category-tile").nth(i);
+    await expect(tile).toHaveAttribute("data-category", expected[i].key);
+    await expect(tile.locator(".category-label")).toHaveText(expected[i].label.en);
+  }
+});
+
+test("a category with no products gets no tile", async ({ page }) => {
+  const unused = categories.filter((c) => !products.some((p) => p.category === c.key));
+  for (const c of unused) {
+    await expect(page.locator(`.category-tile[data-category="${c.key}"]`)).toHaveCount(0);
   }
 });
 
@@ -109,7 +127,7 @@ test("choosing Most relevant restores the original catalog order", async ({ page
   await page.selectOption("#sort-select", "relevant");
 
   const names = await page.locator(".product-name").allTextContents();
-  expect(names.map((n) => n.trim())).toEqual(products.map((p) => p.name));
+  expect(names.map((n) => n.trim())).toEqual(products.map((p) => p.name.en));
 });
 
 test("a filter combination with no matches shows an empty-state message", async ({ page }) => {
@@ -121,12 +139,10 @@ test("a filter combination with no matches shows an empty-state message", async 
 
 test.describe("sold-out product rendering", () => {
   const soldOutProduct = {
-    id: 999,
-    name: "Test Sold Out Item",
-    price: "99 EUR",
-    image: "media/web/1000030969-01.jpg",
+    name: { en: "Test Sold Out Item" },
+    price: 99,
     images: ["media/web/1000030969-01.jpg"],
-    description: "A test product used to verify sold-out rendering.",
+    description: { en: "A test product used to verify sold-out rendering." },
     category: "Necklace",
     soldOut: true,
   };
@@ -151,7 +167,11 @@ test.describe("sold-out product rendering", () => {
   });
 
   test("an in-stock product does not show a Sold Out badge", async ({ page }) => {
-    const card = page.locator(".product-card").first();
-    await expect(card.locator(".sold-out-badge")).toHaveCount(0);
+    await page.evaluate((product) => window.renderProducts([{ ...product, soldOut: false }]), soldOutProduct);
+    await expect(page.locator(".product-card .sold-out-badge")).toHaveCount(0);
+  });
+
+  test("the badges in the real catalog match each product's soldOut flag", async ({ page }) => {
+    await expect(page.locator(".product-card .sold-out-badge")).toHaveCount(products.filter((p) => p.soldOut).length);
   });
 });

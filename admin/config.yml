@@ -1,0 +1,841 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@0.222.1/schema/sveltia-cms.json
+#
+# Sveltia CMS configuration — the editor UI at /admin/.
+# Generated structure mirrors content/*.json; see README.md "Editing content (CMS)".
+# SECURITY: this file is public. Never put tokens, passwords or OAuth secrets here.
+
+backend:
+  name: github
+  repo: andrey-aleks/Belf_Art
+  branch: master
+  # Personal-access-token sign-in only: no OAuth server or client secret exists.
+  auth_methods: [token]
+  commit_messages:
+    create: "Content: create {{collection}} “{{slug}}”"
+    update: "Content: update {{collection}} “{{slug}}”"
+    delete: "Content: delete {{collection}} “{{slug}}”"
+    uploadMedia: "Content: upload “{{path}}”"
+    deleteMedia: "Content: delete “{{path}}”"
+
+app_title: Belfegor — content editor
+site_url: https://andrey-aleks.github.io/Belf_Art/
+
+# Relative paths (no leading slash): the site is served from a sub-path on GitHub Pages.
+media_folder: media/web
+public_folder: media/web
+
+media_libraries:
+  all:
+    # Rename uploads to safe, lowercase, dash-separated file names.
+    slugify_filename: true
+    # Phone photos are several MB and carry EXIF metadata (often the GPS location where
+    # they were taken). Optimizing re-encodes them: resized, WebP, metadata stripped.
+    max_file_size: 26214400
+    transformations:
+      raster_image:
+        format: webp
+        quality: 80
+        width: 1600
+        height: 1600
+
+collections:
+  - name: shop
+    label: Shop
+    icon: storefront
+    files:
+      - name: products
+        label: Products
+        file: content/products.json
+        format: json
+        fields:
+          - name: products
+            label: Products
+            label_singular: Product
+            widget: list
+            summary: "{{fields.name.en}} — {{fields.price}} EUR"
+            collapsed: true
+            fields:
+              - name: name
+                label: Name
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: description
+                label: Description
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ru, label: Russian, widget: text }
+                  - { name: uk, label: Ukrainian, widget: text }
+                  - { name: pl, label: Polish, widget: text }
+              - { name: price, label: Price (EUR), widget: number, value_type: float, min: 0 }
+              - name: category
+                label: Category
+                widget: relation
+                collection: shop
+                file: categories
+                value_field: categories.*.key
+                search_fields: [categories.*.key]
+                display_fields: [categories.*.key]
+                hint: To add a new category, edit Shop → Categories first.
+              - name: soldOut
+                label: Sold out
+                widget: boolean
+                default: false
+              - name: images
+                label: Photos
+                label_singular: Photo
+                widget: list
+                min: 1
+                hint: The first photo is shown in the product grid; all of them in the detail window.
+                field: { name: image, label: Photo, widget: image }
+      - name: categories
+        label: Categories
+        file: content/categories.json
+        format: json
+        fields:
+          - name: categories
+            label: Categories
+            label_singular: Category
+            widget: list
+            summary: "{{fields.key}}"
+            hint: Categories appear as tiles above the product grid, in this order (only categories that have products are shown).
+            fields:
+              - name: key
+                label: Internal name
+                widget: string
+                pattern: ['^[A-Za-z][A-Za-z0-9 -]*$', "Letters, numbers, spaces and dashes only"]
+                hint: Used to link products to this category. Renaming it un-links existing products.
+              - name: label
+                label: Label shown on the site (plural, e.g. “Necklaces”)
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+
+  - name: site
+    label: Site
+    icon: web
+    files:
+      - name: texts
+        label: Page texts
+        file: content/texts.json
+        format: json
+        fields:
+          - name: hero
+            label: "Shop page — top banner"
+            widget: object
+            collapsed: true
+            fields:
+              - name: city
+                label: "City"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: cta
+                label: "Cta"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: tag1
+                label: "Tag 1"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: tag2
+                label: "Tag 2"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: tag3
+                label: "Tag 3"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: tag4
+                label: "Tag 4"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: title
+                label: "Title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: shop
+            label: "Shop page — product list"
+            widget: object
+            collapsed: true
+            fields:
+              - name: availability
+                label: "Availability"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: availabilityAll
+                label: "Availability all"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: availabilityInStock
+                label: "Availability in stock"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: availabilityOutOfStock
+                label: "Availability out of stock"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: empty
+                label: "Empty"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: sort
+                label: "Sort"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: title
+                label: "Title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: sort
+            label: "Shop page — sort options"
+            widget: object
+            collapsed: true
+            fields:
+              - name: nameAsc
+                label: "Name asc"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: nameDesc
+                label: "Name desc"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: priceAsc
+                label: "Price asc"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: priceDesc
+                label: "Price desc"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: relevant
+                label: "Relevant"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: product
+            label: "Product cards & detail window"
+            widget: object
+            collapsed: true
+            fields:
+              - name: loadError
+                label: "Load error"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: order
+                label: "Order"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: soldOut
+                label: "Sold out"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: viewDetails
+                label: "View details"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string, hint: "Keep {name} as-is: it is replaced automatically." }
+                  - { name: ru, label: Russian, widget: string, hint: "Keep {name} as-is: it is replaced automatically." }
+                  - { name: uk, label: Ukrainian, widget: string, hint: "Keep {name} as-is: it is replaced automatically." }
+                  - { name: pl, label: Polish, widget: string, hint: "Keep {name} as-is: it is replaced automatically." }
+          - name: modal
+            label: "Product detail window"
+            widget: object
+            collapsed: true
+            fields:
+              - name: close
+                label: "Close"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: photo
+                label: "Photo"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string, hint: "Keep {n} as-is: it is replaced automatically." }
+                  - { name: ru, label: Russian, widget: string, hint: "Keep {n} as-is: it is replaced automatically." }
+                  - { name: uk, label: Ukrainian, widget: string, hint: "Keep {n} as-is: it is replaced automatically." }
+                  - { name: pl, label: Polish, widget: string, hint: "Keep {n} as-is: it is replaced automatically." }
+          - name: categories
+            label: "Shop page — category strip"
+            widget: object
+            collapsed: true
+            fields:
+              - name: label
+                label: "Label"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: nav
+            label: "Menu"
+            widget: object
+            collapsed: true
+            fields:
+              - name: about
+                label: "About"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: contact
+                label: "Contact"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: custom
+                label: "Custom"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: label
+                label: "Label"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: shipping
+                label: "Shipping"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: shop
+                label: "Shop"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: brand
+            label: "Logo"
+            widget: object
+            collapsed: true
+            fields:
+              - name: home
+                label: "Home"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: subtitle
+                label: "Subtitle"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: lang
+            label: "Language switcher"
+            widget: object
+            collapsed: true
+            fields:
+              - name: label
+                label: "Label"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: title
+            label: "Browser tab titles"
+            widget: object
+            collapsed: true
+            fields:
+              - name: about
+                label: "About"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: contact
+                label: "Contact"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: custom
+                label: "Custom"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: shipping
+                label: "Shipping"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: shop
+                label: "Shop"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: feat
+            label: "Features strip (bottom of every page)"
+            widget: object
+            collapsed: true
+            fields:
+              - name: handmadeText
+                label: "Handmade text"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: handmadeTitle
+                label: "Handmade title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: paymentsText
+                label: "Payments text"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: paymentsTitle
+                label: "Payments title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: script
+                label: "Script"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: shippingText
+                label: "Shipping text"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: shippingTitle
+                label: "Shipping title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: features
+            label: "Features strip — screen-reader label"
+            widget: object
+            collapsed: true
+            fields:
+              - name: label
+                label: "Label"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: footer
+            label: "Footer"
+            widget: object
+            collapsed: true
+            fields:
+              - name: orderThrough
+                label: "Order through"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: questions
+                label: "Questions"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: write
+                label: "Write"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: about
+            label: "About page"
+            widget: object
+            collapsed: true
+            fields:
+              - name: bio
+                label: "Bio"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ru, label: Russian, widget: text }
+                  - { name: uk, label: Ukrainian, widget: text }
+                  - { name: pl, label: Polish, widget: text }
+              - name: photo
+                label: "Photo"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: photoLabel
+                label: "Photo label"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: title
+                label: "Title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: custom
+            label: "Custom Orders page"
+            widget: object
+            collapsed: true
+            fields:
+              - name: cta
+                label: "Cta"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: intro
+                label: "Intro"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ru, label: Russian, widget: text }
+                  - { name: uk, label: Ukrainian, widget: text }
+                  - { name: pl, label: Polish, widget: text }
+              - name: step1Text
+                label: "Step 1text"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ru, label: Russian, widget: text }
+                  - { name: uk, label: Ukrainian, widget: text }
+                  - { name: pl, label: Polish, widget: text }
+              - name: step1Title
+                label: "Step 1title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: step2Text
+                label: "Step 2text"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: step2Title
+                label: "Step 2title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: step3Text
+                label: "Step 3text"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: step3Title
+                label: "Step 3title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: step4Text
+                label: "Step 4text"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: step4Title
+                label: "Step 4title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: title
+                label: "Title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: shipping
+            label: "Shipping page"
+            widget: object
+            collapsed: true
+            fields:
+              - name: p1
+                label: "P 1"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ru, label: Russian, widget: text }
+                  - { name: uk, label: Ukrainian, widget: text }
+                  - { name: pl, label: Polish, widget: text }
+              - name: p2
+                label: "P 2"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ru, label: Russian, widget: text }
+                  - { name: uk, label: Ukrainian, widget: text }
+                  - { name: pl, label: Polish, widget: text }
+              - name: p3a
+                label: "P 3a"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ru, label: Russian, widget: text }
+                  - { name: uk, label: Ukrainian, widget: text }
+                  - { name: pl, label: Polish, widget: text }
+              - name: p3b
+                label: "P 3b"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: title
+                label: "Title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+          - name: contact
+            label: "Contact page"
+            widget: object
+            collapsed: true
+            fields:
+              - name: instagram
+                label: "Instagram"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: intro
+                label: "Intro"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ru, label: Russian, widget: text }
+                  - { name: uk, label: Ukrainian, widget: text }
+                  - { name: pl, label: Polish, widget: text }
+              - name: location
+                label: "Location"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: telegram
+                label: "Telegram"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: title
+                label: "Title"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+              - name: vinted
+                label: "Vinted"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
+      - name: images
+        label: Page photos
+        file: content/site.json
+        format: json
+        fields:
+          - { name: heroImage, label: Shop page banner photo, widget: image }
+          - name: aboutPhoto
+            label: About page photo
+            widget: image
+            required: false
+            hint: Leave empty to show the “Photo coming soon” placeholder.

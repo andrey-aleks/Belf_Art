@@ -1,10 +1,10 @@
 const { test, expect } = require("@playwright/test");
-const { products } = require("../js/data.js");
+const { products, assetPath, gotoAndWait } = require("./helpers");
 
 const INSTAGRAM_PATTERN = /instagram\.com\/be1fegor_jewelry/;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/");
+  await gotoAndWait(page, "/");
 });
 
 test("modal is hidden on page load", async ({ page }) => {
@@ -47,10 +47,10 @@ test("clicking a product card opens the modal with that product's details", asyn
 
   const modal = page.locator("#product-modal");
   await expect(modal).toBeVisible();
-  await expect(modal.locator(".product-modal-title")).toHaveText(product.name);
-  await expect(modal.locator(".product-modal-price")).toHaveText(product.price);
-  await expect(modal.locator(".product-modal-description")).toHaveText(product.description);
-  await expect(modal.locator(".product-modal-image")).toHaveAttribute("src", product.images[0]);
+  await expect(modal.locator(".product-modal-title")).toHaveText(product.name.en);
+  await expect(modal.locator(".product-modal-price")).toHaveText(`${product.price} EUR`);
+  await expect(modal.locator(".product-modal-description")).toHaveText(product.description.en);
+  await expect(modal.locator(".product-modal-image")).toHaveAttribute("src", assetPath(product.images[0]));
   await expect(modal.locator(".product-modal-order")).toHaveAttribute("href", INSTAGRAM_PATTERN);
 });
 
@@ -59,12 +59,12 @@ test("opening a different card after closing shows fresh content, not stale data
   const modal = page.locator("#product-modal");
 
   await cards.nth(0).click();
-  await expect(modal.locator(".product-modal-title")).toHaveText(products[0].name);
+  await expect(modal.locator(".product-modal-title")).toHaveText(products[0].name.en);
   await page.keyboard.press("Escape");
   await expect(modal).toBeHidden();
 
   await cards.nth(1).click();
-  await expect(modal.locator(".product-modal-title")).toHaveText(products[1].name);
+  await expect(modal.locator(".product-modal-title")).toHaveText(products[1].name.en);
   await expect(modal.locator(".product-modal-title")).toHaveCount(1);
 });
 
@@ -110,7 +110,7 @@ test("keyboard: focusing a card and pressing Enter opens its modal", async ({ pa
 
   const modal = page.locator("#product-modal");
   await expect(modal).toBeVisible();
-  await expect(modal.locator(".product-modal-title")).toHaveText(products[2].name);
+  await expect(modal.locator(".product-modal-title")).toHaveText(products[2].name.en);
 });
 
 test("clicking the modal's Order button does not close the modal", async ({ page, context }) => {
@@ -122,17 +122,23 @@ test("clicking the modal's Order button does not close the modal", async ({ page
 });
 
 test("a product with a single image shows no thumbnail row", async ({ page }) => {
-  await page.locator(".product-card").first().click();
+  await page.evaluate(() => {
+    window.openModal({
+      name: { en: "Test Single-Image Product" },
+      description: { en: "A product with one photo." },
+      price: 1,
+      images: ["media/web/1000030969-01.jpg"],
+    });
+  });
   await expect(page.locator(".product-modal-thumb")).toHaveCount(0);
 });
 
 test("a product with multiple images shows thumbnails that switch the main photo", async ({ page }) => {
   await page.evaluate(() => {
     window.openModal({
-      id: 999,
-      name: "Test Multi-Image Product",
-      price: "1 EUR",
-      description: "A product with more than one photo.",
+      name: { en: "Test Multi-Image Product" },
+      price: 1,
+      description: { en: "A product with more than one photo." },
       images: ["media/web/1000030969-01.jpg", "media/web/IMG_20260908_151912-01.jpg"],
     });
   });

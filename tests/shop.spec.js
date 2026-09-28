@@ -1,10 +1,10 @@
 const { test, expect } = require("@playwright/test");
-const { products } = require("../js/data.js");
+const { products, site, text, assetPath, gotoAndWait } = require("./helpers");
 
 const INSTAGRAM_PATTERN = /instagram\.com\/be1fegor_jewelry/;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/");
+  await gotoAndWait(page, "/");
 });
 
 test("page has the expected title", async ({ page }) => {
@@ -17,9 +17,13 @@ test("header shows the shop name and the footer has a working Instagram link", a
 });
 
 test("hero shows the headline and a Shop Now link that jumps to the product grid", async ({ page }) => {
-  await expect(page.locator(".hero-title")).toHaveText(/handmade jewelry/i);
+  await expect(page.locator(".hero-title")).toHaveText(text("hero.title"));
   await expect(page.locator(".hero .hero-cta")).toHaveAttribute("href", "#shop");
   await expect(page.locator("#shop #product-grid")).toHaveCount(1);
+});
+
+test("hero image comes from content/site.json", async ({ page }) => {
+  await expect(page.locator(".hero-image")).toHaveAttribute("src", assetPath(site.heroImage));
 });
 
 test("hero image is not broken", async ({ page }) => {
@@ -51,9 +55,20 @@ test("every card shows an image, name, and price, with no order button (ordering
 });
 
 test("no product image is broken", async ({ page }) => {
-  const brokenSrcs = await page
-    .locator(".product-image")
-    .evaluateAll((imgs) => imgs.filter((img) => !img.complete || img.naturalWidth === 0).map((img) => img.src));
+  // Cards render after content/products.json loads and their images are lazy, so wait
+  // for each image to finish loading (decode() rejects if it's broken) rather than
+  // checking `complete` immediately — that raced under parallel test load.
+  const brokenSrcs = await page.locator(".product-image").evaluateAll((imgs) =>
+    Promise.all(
+      imgs.map((img) => {
+        img.loading = "eager";
+        return img
+          .decode()
+          .then(() => (img.naturalWidth > 0 ? null : img.src))
+          .catch(() => img.src);
+      })
+    ).then((results) => results.filter(Boolean))
+  );
 
   expect(brokenSrcs).toEqual([]);
 });
@@ -65,6 +80,7 @@ test("no failed network requests for page assets", async ({ page }) => {
   });
 
   await page.reload();
+  await page.waitForLoadState("networkidle");
   expect(failed).toEqual([]);
 });
 

@@ -982,6 +982,18 @@ body.modal-open {
   letter-spacing: 0.02em;
 }
 
+/* Set when content/site.json has an aboutPhoto (see js/content.js). */
+.about-photo.has-photo {
+  padding: 6px;
+}
+
+.about-photo-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .about-bio {
   flex: 1 1 360px;
   max-width: 560px;

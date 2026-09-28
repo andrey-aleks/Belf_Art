@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Keep the editor out of search results. It is public, but useless without a
+       GitHub token that has write access to the repo. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <title>Belfegor — content editor</title>
+  <link rel="icon" href="../favicon.png" type="image/png" sizes="32x32" />
+</head>
+<body>
+  <!-- Pinned to an exact version with Subresource Integrity: if the CDN ever served
+       different code, the browser refuses to run it (this page handles the editor's
+       GitHub token). To upgrade, change the version AND recompute the hash — see
+       README.md "Updating the CMS". -->
+  <script
+    src="https://unpkg.com/@sveltia/cms@0.222.1/dist/sveltia-cms.js"
+    integrity="sha384-lV41A8CKF2q4nxFyIDXBzxzEb24krghWRbIIYy+bygUhAwyEFko8o4UK1OAV2k0H"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>

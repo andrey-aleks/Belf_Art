@@ -1,13 +1,15 @@
 const { test, expect } = require("@playwright/test");
 const fs = require("fs");
 const path = require("path");
+const { text, site, gotoAndWait } = require("./helpers");
 
+// Nav labels come from content/texts.json (editable in the CMS).
 const PAGES = [
-  { path: "/index.html", href: "index.html", label: "Shop" },
-  { path: "/about.html", href: "about.html", label: "About" },
-  { path: "/custom-orders.html", href: "custom-orders.html", label: "Custom Orders" },
-  { path: "/shipping.html", href: "shipping.html", label: "Shipping" },
-  { path: "/contact.html", href: "contact.html", label: "Contact" },
+  { path: "/index.html", href: "index.html", label: text("nav.shop") },
+  { path: "/about.html", href: "about.html", label: text("nav.about") },
+  { path: "/custom-orders.html", href: "custom-orders.html", label: text("nav.custom") },
+  { path: "/shipping.html", href: "shipping.html", label: text("nav.shipping") },
+  { path: "/contact.html", href: "contact.html", label: text("nav.contact") },
 ];
 
 const INSTAGRAM_PATTERN = /instagram\.com\/be1fegor_jewelry/;
@@ -17,7 +19,7 @@ const VINTED_URL = "https://www.vinted.pl/member/306870155-be1fegor";
 for (const { path: pagePath, href: pageHref, label } of PAGES) {
   test.describe(`${label} page`, () => {
     test.beforeEach(async ({ page }) => {
-      await page.goto(pagePath);
+      await gotoAndWait(page, pagePath);
     });
 
     test("has a nav with all five pages in order", async ({ page }) => {
@@ -122,34 +124,80 @@ test("header and footer markup is identical on every page (apart from the curren
 });
 
 test("About page has a heading, photo placeholder, and non-empty bio", async ({ page }) => {
-  await page.goto("/about.html");
-  await expect(page.locator(".section-title")).toHaveText(/about/i);
+  await gotoAndWait(page, "/about.html");
+  await expect(page.locator(".section-title")).toHaveText(text("about.title"));
   await expect(page.locator(".about-photo")).toBeVisible();
+  if (!site.aboutPhoto) await expect(page.locator(".about-photo")).toHaveText(text("about.photo"));
   await expect(page.locator(".about-bio")).not.toBeEmpty();
 });
 
 test("Shipping page has a heading, mentions Poland, and links to Instagram", async ({ page }) => {
-  await page.goto("/shipping.html");
-  await expect(page.locator(".section-title")).toHaveText(/shipping/i);
+  await gotoAndWait(page, "/shipping.html");
+  await expect(page.locator(".section-title")).toHaveText(text("shipping.title"));
   await expect(page.locator(".shipping-content")).toContainText(/poland/i);
   await expect(page.locator(".shipping-content a")).toHaveAttribute("href", INSTAGRAM_PATTERN);
 });
 
 test("Custom Orders page lists the steps and links to Instagram", async ({ page }) => {
-  await page.goto("/custom-orders.html");
-  await expect(page.locator(".section-title")).toHaveText(/custom orders/i);
+  await gotoAndWait(page, "/custom-orders.html");
+  await expect(page.locator(".section-title")).toHaveText(text("custom.title"));
   await expect(page.locator(".custom-step")).toHaveCount(4);
   await expect(page.locator(".custom-cta-wrap a")).toHaveAttribute("href", INSTAGRAM_PATTERN);
 });
 
 test("Contact page links to Instagram, Telegram and Vinted", async ({ page }) => {
-  await page.goto("/contact.html");
-  await expect(page.locator(".section-title")).toHaveText(/contact/i);
+  await gotoAndWait(page, "/contact.html");
+  await expect(page.locator(".section-title")).toHaveText(text("contact.title"));
   const links = page.locator(".contact-link");
   await expect(links).toHaveCount(3);
   await expect(links.nth(0)).toHaveAttribute("href", INSTAGRAM_PATTERN);
   await expect(links.nth(1)).toHaveAttribute("href", TELEGRAM_URL);
   await expect(links.nth(2)).toHaveAttribute("href", VINTED_URL);
+});
+
+test("every page declares the favicon, and it is served as a 32x32 image", async ({ page }) => {
+  for (const p of PAGES) {
+    await page.goto(p.path);
+    await expect(page.locator('link[rel="icon"][href="favicon.png"]')).toHaveAttribute("sizes", "32x32");
+    await expect(page.locator('link[rel="icon"][href="favicon.ico"]')).toHaveCount(1);
+  }
+
+  const size = await page.evaluate(
+    () =>
+      new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve([img.naturalWidth, img.naturalHeight]);
+        img.onerror = reject;
+        img.src = "favicon.png";
+      })
+  );
+  expect(size).toEqual([32, 32]);
+
+  for (const file of ["favicon.png", "favicon.ico"]) {
+    const res = await page.request.get(`/${file}`);
+    expect(res.status(), file).toBe(200);
+  }
+});
+
+test("About page shows the photo from content/site.json when one is set", async ({ page }) => {
+  // Also covers the leading slash the CMS writes into image paths ("/media/web/x.webp"),
+  // which would point outside the site on a GitHub Pages sub-path if used as-is.
+  await page.route("**/content/site.json", (route) =>
+    route.fulfill({ json: { heroImage: site.heroImage, aboutPhoto: "/media/web/1000030969-01.jpg" } })
+  );
+  await gotoAndWait(page, "/about.html");
+
+  const img = page.locator(".about-photo .about-photo-image");
+  await expect(img).toHaveAttribute("src", "media/web/1000030969-01.jpg");
+  expect(await img.evaluate((el) => el.decode().then(() => el.naturalWidth > 0))).toBe(true);
+});
+
+test("About page keeps the placeholder when no photo is set", async ({ page }) => {
+  await page.route("**/content/site.json", (route) =>
+    route.fulfill({ json: { heroImage: site.heroImage, aboutPhoto: "" } })
+  );
+  await gotoAndWait(page, "/about.html");
+  await expect(page.locator(".about-photo .about-photo-image")).toHaveCount(0);
 });
 
 test("every icon file referenced by the stylesheet exists", () => {

@@ -1,4 +1,5 @@
 const { test, expect } = require("@playwright/test");
+const { gotoAndWait } = require("./helpers");
 
 const PAGES = [
   { path: "/index.html", name: "shop" },
@@ -10,7 +11,8 @@ const PAGES = [
 
 for (const { path, name } of PAGES) {
   test(`${name} page matches visual baseline`, async ({ page }) => {
-    await page.goto(path);
+    await gotoAndWait(page, path);
+    await page.waitForLoadState("networkidle");
     await page.evaluate(() => document.fonts.ready);
     await expect(page).toHaveScreenshot(`${name}.png`, { fullPage: true });
   });

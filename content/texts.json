@@ -1,0 +1,498 @@
+{
+  "about": {
+    "bio": {
+      "en": "Hi, I'm [Your Name] — the hands behind Belfegor. I've been making gothic-inspired jewelry for [X years], turning chain, wire, and small dark details into one-of-a-kind pieces. Every item is handmade start to finish, one link at a time, right here in [Your City].",
+      "ru": "Привет, я [Your Name] — руки, которые создают Belfegor. Я делаю украшения в готическом стиле уже [X years], превращая цепочки, проволоку и мелкие тёмные детали в уникальные вещи. Каждое изделие сделано вручную от начала до конца, звено за звеном, здесь, в [Your City].",
+      "uk": "Привіт, я [Your Name] — руки, що створюють Belfegor. Я роблю прикраси в готичному стилі вже [X years], перетворюючи ланцюжки, дріт і дрібні темні деталі на унікальні речі. Кожен виріб зроблено вручну від початку до кінця, ланка за ланкою, тут, у [Your City].",
+      "pl": "Cześć, jestem [Your Name] — to moje ręce tworzą Belfegor. Robię biżuterię inspirowaną gotykiem od [X years], zamieniając łańcuszki, drut i drobne mroczne detale w jedyne w swoim rodzaju przedmioty. Każdy element powstaje ręcznie od początku do końca, ogniwo po ogniwie, tutaj, w [Your City]."
+    },
+    "photo": {
+      "en": "Photo coming soon",
+      "ru": "Фото скоро появится",
+      "uk": "Фото незабаром",
+      "pl": "Zdjęcie wkrótce"
+    },
+    "photoLabel": {
+      "en": "Photo of the maker (coming soon)",
+      "ru": "Фото мастера (скоро)",
+      "uk": "Фото майстра (незабаром)",
+      "pl": "Zdjęcie twórczyni (wkrótce)"
+    },
+    "title": {
+      "en": "About Me",
+      "ru": "Обо мне",
+      "uk": "Про мене",
+      "pl": "O mnie"
+    }
+  },
+  "brand": {
+    "home": {
+      "en": "Belfegor — home",
+      "ru": "Belfegor — на главную",
+      "uk": "Belfegor — на головну",
+      "pl": "Belfegor — strona główna"
+    },
+    "subtitle": {
+      "en": "Handmade Jewelry",
+      "ru": "Украшения ручной работы",
+      "uk": "Прикраси ручної роботи",
+      "pl": "Biżuteria ręcznie robiona"
+    }
+  },
+  "categories": {
+    "label": {
+      "en": "Categories",
+      "ru": "Категории",
+      "uk": "Категорії",
+      "pl": "Kategorie"
+    }
+  },
+  "contact": {
+    "instagram": {
+      "en": "Orders & questions",
+      "ru": "Заказы и вопросы",
+      "uk": "Замовлення та питання",
+      "pl": "Zamówienia i pytania"
+    },
+    "intro": {
+      "en": "Questions about a piece, an order, or shipping? Write to us on any of these — we're happy to help.",
+      "ru": "Вопросы об украшении, заказе или доставке? Пишите нам в любой из этих сервисов — мы с радостью поможем.",
+      "uk": "Питання щодо прикраси, замовлення чи доставки? Пишіть нам у будь-який із цих сервісів — ми з радістю допоможемо.",
+      "pl": "Pytania o biżuterię, zamówienie lub wysyłkę? Napisz do nas w dowolnym z tych miejsc — chętnie pomożemy."
+    },
+    "location": {
+      "en": "Kraków, Poland",
+      "ru": "Краков, Польша",
+      "uk": "Краків, Польща",
+      "pl": "Kraków, Polska"
+    },
+    "telegram": {
+      "en": "Messages & questions",
+      "ru": "Сообщения и вопросы",
+      "uk": "Повідомлення та питання",
+      "pl": "Wiadomości i pytania"
+    },
+    "title": {
+      "en": "Contact",
+      "ru": "Контакты",
+      "uk": "Контакти",
+      "pl": "Kontakt"
+    },
+    "vinted": {
+      "en": "Our listings on Vinted",
+      "ru": "Наши объявления на Vinted",
+      "uk": "Наші оголошення на Vinted",
+      "pl": "Nasze ogłoszenia na Vinted"
+    }
+  },
+  "custom": {
+    "cta": {
+      "en": "Start a custom order",
+      "ru": "Начать индивидуальный заказ",
+      "uk": "Почати індивідуальне замовлення",
+      "pl": "Złóż zamówienie indywidualne"
+    },
+    "intro": {
+      "en": "Have an idea for a piece that doesn't exist yet? I make custom jewelry to order — a new design, a variation of an existing piece, or a matching set.",
+      "ru": "Есть идея украшения, которого ещё не существует? Я делаю украшения на заказ — новый дизайн, вариацию существующего изделия или комплект.",
+      "uk": "Маєте ідею прикраси, якої ще не існує? Я виготовляю прикраси на замовлення — новий дизайн, варіацію наявного виробу або комплект.",
+      "pl": "Masz pomysł na biżuterię, która jeszcze nie istnieje? Wykonuję biżuterię na zamówienie — nowy projekt, wariant istniejącego wzoru lub pasujący komplet."
+    },
+    "step1Text": {
+      "en": "Message us on Instagram or Telegram with a description, sketches, or reference photos.",
+      "ru": "Напишите нам в Instagram или Telegram: опишите идею, пришлите эскизы или фото-референсы.",
+      "uk": "Напишіть нам в Instagram або Telegram: опишіть ідею, надішліть ескізи чи фото-референси.",
+      "pl": "Napisz do nas na Instagramie lub Telegramie — opisz pomysł, prześlij szkice lub zdjęcia inspiracji."
+    },
+    "step1Title": {
+      "en": "Share your idea",
+      "ru": "Поделитесь идеей",
+      "uk": "Поділіться ідеєю",
+      "pl": "Podziel się pomysłem"
+    },
+    "step2Text": {
+      "en": "We discuss materials, size, price, and timing before any work starts.",
+      "ru": "Мы обсуждаем материалы, размер, цену и сроки до начала работы.",
+      "uk": "Ми обговорюємо матеріали, розмір, ціну та терміни до початку роботи.",
+      "pl": "Przed rozpoczęciem pracy omawiamy materiały, rozmiar, cenę i termin."
+    },
+    "step2Title": {
+      "en": "Agree on the details",
+      "ru": "Согласуем детали",
+      "uk": "Узгодимо деталі",
+      "pl": "Ustalamy szczegóły"
+    },
+    "step3Text": {
+      "en": "Your piece is made by hand, one link at a time.",
+      "ru": "Ваше украшение создаётся вручную, звено за звеном.",
+      "uk": "Вашу прикрасу створюють вручну, ланка за ланкою.",
+      "pl": "Twoja biżuteria powstaje ręcznie, ogniwo po ogniwie."
+    },
+    "step3Title": {
+      "en": "Handmade for you",
+      "ru": "Сделано вручную для вас",
+      "uk": "Зроблено вручну для вас",
+      "pl": "Ręcznie robione dla Ciebie"
+    },
+    "step4Text": {
+      "en": "Your order is packed and shipped from Poland.",
+      "ru": "Заказ упаковывается и отправляется из Польши.",
+      "uk": "Замовлення пакується та надсилається з Польщі.",
+      "pl": "Zamówienie jest pakowane i wysyłane z Polski."
+    },
+    "step4Title": {
+      "en": "Shipped with care",
+      "ru": "Отправка с заботой",
+      "uk": "Відправлення з турботою",
+      "pl": "Wysłane z troską"
+    },
+    "title": {
+      "en": "Custom Orders",
+      "ru": "Индивидуальные заказы",
+      "uk": "Індивідуальні замовлення",
+      "pl": "Zamówienia indywidualne"
+    }
+  },
+  "feat": {
+    "handmadeText": {
+      "en": "Every piece is made by hand with attention to detail.",
+      "ru": "Каждое изделие сделано вручную с вниманием к деталям.",
+      "uk": "Кожен виріб зроблено вручну з увагою до деталей.",
+      "pl": "Każdy element jest wykonany ręcznie z dbałością o szczegóły."
+    },
+    "handmadeTitle": {
+      "en": "Handmade",
+      "ru": "Ручная работа",
+      "uk": "Ручна робота",
+      "pl": "Ręczna robota"
+    },
+    "paymentsText": {
+      "en": "Safe and convenient payment methods.",
+      "ru": "Удобные и надёжные способы оплаты.",
+      "uk": "Зручні та надійні способи оплати.",
+      "pl": "Wygodne i bezpieczne metody płatności."
+    },
+    "paymentsTitle": {
+      "en": "Secure payments",
+      "ru": "Безопасная оплата",
+      "uk": "Безпечна оплата",
+      "pl": "Bezpieczne płatności"
+    },
+    "script": {
+      "en": "More than just jewelry...",
+      "ru": "Больше, чем просто украшения...",
+      "uk": "Більше, ніж просто прикраси...",
+      "pl": "Więcej niż biżuteria..."
+    },
+    "shippingText": {
+      "en": "From Poland, with care.",
+      "ru": "Из Польши, с заботой.",
+      "uk": "З Польщі, з турботою.",
+      "pl": "Z Polski, z troską."
+    },
+    "shippingTitle": {
+      "en": "Shipping across Europe",
+      "ru": "Доставка по Европе",
+      "uk": "Доставка по Європі",
+      "pl": "Wysyłka po całej Europie"
+    }
+  },
+  "features": {
+    "label": {
+      "en": "Why Belfegor",
+      "ru": "Почему Belfegor",
+      "uk": "Чому Belfegor",
+      "pl": "Dlaczego Belfegor"
+    }
+  },
+  "footer": {
+    "orderThrough": {
+      "en": "Order through:",
+      "ru": "Заказать через:",
+      "uk": "Замовити через:",
+      "pl": "Zamów przez:"
+    },
+    "questions": {
+      "en": "Questions?",
+      "ru": "Есть вопросы?",
+      "uk": "Є питання?",
+      "pl": "Masz pytania?"
+    },
+    "write": {
+      "en": "Feel free to write",
+      "ru": "Смело пишите",
+      "uk": "Сміливо пишіть",
+      "pl": "Śmiało pisz"
+    }
+  },
+  "hero": {
+    "city": {
+      "en": "Kraków",
+      "ru": "Краков",
+      "uk": "Краків",
+      "pl": "Kraków"
+    },
+    "cta": {
+      "en": "Shop now",
+      "ru": "В магазин",
+      "uk": "До магазину",
+      "pl": "Do sklepu"
+    },
+    "tag1": {
+      "en": "Unique",
+      "ru": "Уникальные",
+      "uk": "Унікальні",
+      "pl": "Unikatowe"
+    },
+    "tag2": {
+      "en": "Gothic",
+      "ru": "Готические",
+      "uk": "Готичні",
+      "pl": "Gotyckie"
+    },
+    "tag3": {
+      "en": "Dark",
+      "ru": "Тёмные",
+      "uk": "Темні",
+      "pl": "Mroczne"
+    },
+    "tag4": {
+      "en": "Handmade",
+      "ru": "Ручная работа",
+      "uk": "Ручна робота",
+      "pl": "Ręcznie robione"
+    },
+    "title": {
+      "en": "Handmade jewelry for those who feel too much",
+      "ru": "Украшения ручной работы для тех, кто чувствует слишком сильно",
+      "uk": "Прикраси ручної роботи для тих, хто відчуває надто сильно",
+      "pl": "Biżuteria ręcznie robiona dla tych, którzy czują za mocno"
+    }
+  },
+  "lang": {
+    "label": {
+      "en": "Language",
+      "ru": "Язык",
+      "uk": "Мова",
+      "pl": "Język"
+    }
+  },
+  "modal": {
+    "close": {
+      "en": "Close",
+      "ru": "Закрыть",
+      "uk": "Закрити",
+      "pl": "Zamknij"
+    },
+    "photo": {
+      "en": "Show photo {n}",
+      "ru": "Фото {n}",
+      "uk": "Фото {n}",
+      "pl": "Zdjęcie {n}"
+    }
+  },
+  "nav": {
+    "about": {
+      "en": "About",
+      "ru": "Обо мне",
+      "uk": "Про мене",
+      "pl": "O mnie"
+    },
+    "contact": {
+      "en": "Contact",
+      "ru": "Контакты",
+      "uk": "Контакти",
+      "pl": "Kontakt"
+    },
+    "custom": {
+      "en": "Custom Orders",
+      "ru": "Индивидуальные заказы",
+      "uk": "Індивідуальні замовлення",
+      "pl": "Zamówienia indywidualne"
+    },
+    "label": {
+      "en": "Main",
+      "ru": "Основное меню",
+      "uk": "Головне меню",
+      "pl": "Menu główne"
+    },
+    "shipping": {
+      "en": "Shipping",
+      "ru": "Доставка",
+      "uk": "Доставка",
+      "pl": "Wysyłka"
+    },
+    "shop": {
+      "en": "Shop",
+      "ru": "Магазин",
+      "uk": "Магазин",
+      "pl": "Sklep"
+    }
+  },
+  "product": {
+    "order": {
+      "en": "Order via Instagram",
+      "ru": "Заказать в Instagram",
+      "uk": "Замовити в Instagram",
+      "pl": "Zamów przez Instagram"
+    },
+    "soldOut": {
+      "en": "Sold Out",
+      "ru": "Продано",
+      "uk": "Продано",
+      "pl": "Wyprzedane"
+    },
+    "viewDetails": {
+      "en": "View details for {name}",
+      "ru": "Подробнее: {name}",
+      "uk": "Детальніше: {name}",
+      "pl": "Szczegóły: {name}"
+    },
+    "loadError": {
+      "en": "Products could not be loaded. Please refresh the page.",
+      "ru": "Не удалось загрузить товары. Обновите страницу.",
+      "uk": "Не вдалося завантажити товари. Оновіть сторінку.",
+      "pl": "Nie udało się załadować produktów. Odśwież stronę."
+    }
+  },
+  "shipping": {
+    "p1": {
+      "en": "Every piece is made to order and ships from [City], Poland via [Carrier — e.g. Poczta Polska / InPost]. Please allow [X] business days for your order to be made and packed after we confirm the details over Instagram DM.",
+      "ru": "Каждое изделие делается под заказ и отправляется из [City], Польша, через [Carrier — e.g. Poczta Polska / InPost]. На изготовление и упаковку заказа нужно [X] рабочих дней после того, как мы согласуем детали в Instagram DM.",
+      "uk": "Кожен виріб виготовляється на замовлення й надсилається з [City], Польща, через [Carrier — e.g. Poczta Polska / InPost]. На виготовлення й пакування замовлення потрібно [X] робочих днів після того, як ми узгодимо деталі в Instagram DM.",
+      "pl": "Każdy element jest wykonywany na zamówienie i wysyłany z [City] w Polsce przez [Carrier — e.g. Poczta Polska / InPost]. Na wykonanie i zapakowanie zamówienia potrzeba [X] dni roboczych od potwierdzenia szczegółów w wiadomości na Instagramie."
+    },
+    "p2": {
+      "en": "Domestic shipping within Poland usually takes [A-B] business days. International shipping typically takes [C-D] weeks, depending on destination and local customs processing. A tracking number is sent once your order ships.",
+      "ru": "Доставка по Польше обычно занимает [A-B] рабочих дней. Международная доставка — как правило, [C-D] недель, в зависимости от страны назначения и таможенного оформления. После отправки вы получите трек-номер.",
+      "uk": "Доставка по Польщі зазвичай триває [A-B] робочих днів. Міжнародна доставка — як правило, [C-D] тижнів, залежно від країни призначення та митного оформлення. Після відправлення ви отримаєте трек-номер.",
+      "pl": "Wysyłka na terenie Polski trwa zwykle [A-B] dni roboczych. Wysyłka zagraniczna trwa zazwyczaj [C-D] tygodni, w zależności od kraju docelowego i odprawy celnej. Po nadaniu paczki otrzymasz numer śledzenia."
+    },
+    "p3a": {
+      "en": "Not sure if we ship to your country, or have a question about cost? Message us on",
+      "ru": "Не уверены, доставляем ли мы в вашу страну, или есть вопрос о стоимости? Напишите нам в",
+      "uk": "Не впевнені, чи доставляємо ми у вашу країну, або маєте питання щодо вартості? Напишіть нам в",
+      "pl": "Nie wiesz, czy wysyłamy do Twojego kraju, albo masz pytanie o koszt? Napisz do nas na"
+    },
+    "p3b": {
+      "en": "before ordering and we'll be happy to help.",
+      "ru": "до оформления заказа — мы с радостью поможем.",
+      "uk": "до оформлення замовлення — ми з радістю допоможемо.",
+      "pl": "przed złożeniem zamówienia — chętnie pomożemy."
+    },
+    "title": {
+      "en": "Shipping",
+      "ru": "Доставка",
+      "uk": "Доставка",
+      "pl": "Wysyłka"
+    }
+  },
+  "shop": {
+    "availability": {
+      "en": "Availability",
+      "ru": "Наличие",
+      "uk": "Наявність",
+      "pl": "Dostępność"
+    },
+    "availabilityAll": {
+      "en": "All",
+      "ru": "Все",
+      "uk": "Усі",
+      "pl": "Wszystkie"
+    },
+    "availabilityInStock": {
+      "en": "In stock",
+      "ru": "В наличии",
+      "uk": "В наявності",
+      "pl": "Dostępne"
+    },
+    "availabilityOutOfStock": {
+      "en": "Sold out",
+      "ru": "Продано",
+      "uk": "Продано",
+      "pl": "Wyprzedane"
+    },
+    "empty": {
+      "en": "No products match your filters.",
+      "ru": "Нет товаров, подходящих под фильтры.",
+      "uk": "Немає товарів, що відповідають фільтрам.",
+      "pl": "Brak produktów spełniających kryteria."
+    },
+    "sort": {
+      "en": "Sort by",
+      "ru": "Сортировка",
+      "uk": "Сортування",
+      "pl": "Sortuj"
+    },
+    "title": {
+      "en": "All Items",
+      "ru": "Все изделия",
+      "uk": "Усі вироби",
+      "pl": "Wszystkie produkty"
+    }
+  },
+  "sort": {
+    "nameAsc": {
+      "en": "Name: A to Z",
+      "ru": "Название: А–Я",
+      "uk": "Назва: А–Я",
+      "pl": "Nazwa: A–Z"
+    },
+    "nameDesc": {
+      "en": "Name: Z to A",
+      "ru": "Название: Я–А",
+      "uk": "Назва: Я–А",
+      "pl": "Nazwa: Z–A"
+    },
+    "priceAsc": {
+      "en": "Price: low to high",
+      "ru": "Цена: по возрастанию",
+      "uk": "Ціна: за зростанням",
+      "pl": "Cena: od najniższej"
+    },
+    "priceDesc": {
+      "en": "Price: high to low",
+      "ru": "Цена: по убыванию",
+      "uk": "Ціна: за спаданням",
+      "pl": "Cena: od najwyższej"
+    },
+    "relevant": {
+      "en": "Most relevant",
+      "ru": "По умолчанию",
+      "uk": "За замовчуванням",
+      "pl": "Domyślnie"
+    }
+  },
+  "title": {
+    "about": {
+      "en": "Belfegor — About",
+      "ru": "Belfegor — Обо мне",
+      "uk": "Belfegor — Про мене",
+      "pl": "Belfegor — O mnie"
+    },
+    "contact": {
+      "en": "Belfegor — Contact",
+      "ru": "Belfegor — Контакты",
+      "uk": "Belfegor — Контакти",
+      "pl": "Belfegor — Kontakt"
+    },
+    "custom": {
+      "en": "Belfegor — Custom Orders",
+      "ru": "Belfegor — Индивидуальные заказы",
+      "uk": "Belfegor — Індивідуальні замовлення",
+      "pl": "Belfegor — Zamówienia indywidualne"
+    },
+    "shipping": {
+      "en": "Belfegor — Shipping",
+      "ru": "Belfegor — Доставка",
+      "uk": "Belfegor — Доставка",
+      "pl": "Belfegor — Wysyłka"
+    },
+    "shop": {
+      "en": "Belfegor — Handmade Jewelry",
+      "ru": "Belfegor — украшения ручной работы",
+      "uk": "Belfegor — прикраси ручної роботи",
+      "pl": "Belfegor — biżuteria ręcznie robiona"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "categories": [
+    {
+      "key": "Necklace",
+      "label": {
+        "en": "Necklaces",
+        "ru": "Ожерелья",
+        "uk": "Намиста",
+        "pl": "Naszyjniki"
+      }
+    },
+    {
+      "key": "Choker",
+      "label": {
+        "en": "Chokers",
+        "ru": "Чокеры",
+        "uk": "Чокери",
+        "pl": "Chokery"
+      }
+    },
+    {
+      "key": "Charm",
+      "label": {
+        "en": "Charms",
+        "ru": "Подвески",
+        "uk": "Підвіски",
+        "pl": "Zawieszki"
+      }
+    }
+  ]
+}

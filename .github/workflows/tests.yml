@@ -1,0 +1,45 @@
+# Runs the test suite on every push to master (including every save from the CMS at
+# /admin/) and on pull requests. A failure means the content or code is broken — GitHub
+# emails the repo owner, and the red ✗ shows next to the commit.
+#
+# Security (public repo):
+# - `permissions: contents: read` — the job's GITHUB_TOKEN can't push or change anything.
+# - Triggered by `push`/`pull_request` only, never `pull_request_target`, so code from a
+#   fork's pull request never runs with this repo's secrets or write access.
+# - Third-party actions are pinned to full commit SHAs (tags can be moved).
+# - No secrets are used.
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps chromium
+
+      # Visual screenshot baselines are OS-specific (generated on Windows) and change with
+      # every content edit, so they're only run locally — see README.md "Testing".
+      - run: npx playwright test --grep-invert "visual baseline"

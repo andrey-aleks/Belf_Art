@@ -7,7 +7,8 @@ Instagram.
 ## Structure
 
 Five pages, sharing the same header, features strip and footer markup (hand-duplicated —
-no templating):
+no templating). Their texts, products and photos are loaded from `content/*.json` (see
+"Editing content (CMS)"):
 
 - `index.html` — Shop (hero banner, category strip, product grid)
 - `about.html` — About Me
@@ -15,9 +16,11 @@ no templating):
 - `shipping.html` — Shipping info
 - `contact.html` — Contact (Instagram / Telegram / Vinted)
 - `css/style.css` — all styling
-- `js/data.js` — the product catalog (edit this to add/remove/change products)
-- `js/main.js` — renders the product grid from `data.js` (only loaded on `index.html`)
-- `js/i18n.js` — the EN/RU/UA/PL language switcher and translations (loaded on every page)
+- `content/` — all editable content (products, categories, page texts, page photos)
+- `admin/` — the browser-based content editor (Sveltia CMS)
+- `js/content.js` — loads `content/*.json`; sets the page photos
+- `js/main.js` — renders the product grid (only loaded on `index.html`)
+- `js/i18n.js` — the EN/RU/UA/PL language switcher; applies `content/texts.json`
 - `media/icons/` — line-art SVG icons (logo ornament, stars, feature and social icons)
 
 The design follows a reference mock-up: dark gothic theme, "Belfegor" blackletter logo
@@ -30,51 +33,99 @@ Also add the page to `PAGES` in `scripts/update-css-version.js`.
 
 ## Languages
 
-`js/i18n.js` switches between English, Russian, Ukrainian and Polish (header dropdown, or
-the RU / UA / PL / EN links in the Shop hero). The choice is remembered in
-`localStorage`; first-time visitors get their browser language if it's one of the four.
+The header dropdown (and the RU / UA / PL / EN links in the Shop hero) switch between
+English, Russian, Ukrainian and Polish. The choice is remembered in `localStorage`;
+first-time visitors get their browser language if it's one of the four. All texts come
+from `content/texts.json`, product names/descriptions and category labels from their own
+JSON files — see below. A missing translation falls back to English, but the tests
+require every language to be filled in. The RU/UA/PL texts were machine-written; have a
+native speaker proofread them.
 
-- English page text lives in the HTML. Tag an element with `data-i18n="some.key"` (or
-  `data-i18n-aria-label="some.key"` for an aria-label) and add `some.key` to the `ru`,
-  `uk` and `pl` dictionaries in `js/i18n.js`.
-- Strings rendered by JS (cards, modal, filters) need an `en` entry too.
-- Products are translated via an optional `translations` field in `js/data.js` (see below).
-- Category labels are `category.<Category>` keys (plural, e.g. "Necklaces").
+## Editing content (CMS)
 
-`tests/i18n.spec.js` fails if any key or product is missing a translation. The RU/UA/PL
-texts were machine-written; have a native speaker proofread them.
+Products, categories, every page text (in all four languages) and the page photos live
+in JSON files under `content/`, and a non-developer edits them in the browser through
+[Sveltia CMS](https://github.com/sveltia/sveltia-cms) at **`/admin/`** — no repo
+download needed. Each save is a commit to `master`; GitHub Pages redeploys in ~1–2 min.
+**The editor's guide is [EDITING.md](EDITING.md)** — send it to them.
 
-## Adding or editing products
+| File | Contents |
+|---|---|
+| `content/products.json` | `products[]`: `name`/`description` as `{en, ru, uk, pl}`, `price` (number, EUR), `category` (a key from categories.json), `soldOut`, `images[]` (first = grid photo) |
+| `content/categories.json` | `categories[]`: `key` + `label {en, ru, uk, pl}`; tile order on the Shop page |
+| `content/texts.json` | `{ group: { field: { en, ru, uk, pl } } }` — referenced from HTML as `data-i18n="group.field"` |
+| `content/site.json` | `heroImage`, `aboutPhoto` (empty = placeholder) |
+| `admin/config.yml` | the editor's forms; must mirror the JSON shapes (enforced by `tests/data.spec.js`) |
+| `admin/index.html` | loads the CMS from unpkg, pinned + Subresource Integrity |
 
-Open `js/data.js` and edit the `products` array. Each product needs:
+You can edit the JSON by hand too. Adding a new text: put `data-i18n="group.field"` on
+the element (keep English inside it as a pre-load fallback), add the entry to
+`content/texts.json`, and add a matching field to the `texts` file in
+`admin/config.yml` — the tests fail until all three agree.
 
-```js
-{
-  id: 7,
-  name: "Product Name",
-  price: "20 EUR",
-  image: "media/web/your-photo.jpg",       // grid thumbnail
-  images: ["media/web/your-photo.jpg"],    // gallery shown in the detail modal; add more
-                                            // entries for a multi-photo product and a
-                                            // thumbnail row appears automatically
-  description: "A short description of the piece.",
-  category: "Necklace",                    // gets a tile in the category strip automatically —
-                                            // reuse an existing category or introduce a new one
-                                            // (and add a `category.<Name>` label in js/i18n.js)
-  soldOut: false,                          // true shows a "SOLD OUT" badge and disables ordering
-  translations: {                          // optional; falls back to English
-    ru: { name: "...", description: "..." },
-    uk: { name: "...", description: "..." },
-    pl: { name: "...", description: "..." },
-  },
-}
+### Setting up an editor (one-time, for the repo owner)
+
+1. **Settings → Collaborators → Add people** → their GitHub username (role: Write).
+2. Send them [EDITING.md](EDITING.md). They create a *classic* token with the `repo`
+   scope: GitHub's fine-grained tokens can't be used by a collaborator on a repository
+   owned by another personal account
+   ([GitHub docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)).
+   A classic `repo` token reaches every repo the account can access, which is why the
+   guide recommends a dedicated GitHub account used only for this shop.
+3. To revoke access: remove them from Collaborators — their token then stops working
+   for this repo immediately.
+
+### Security model (the repo is public)
+
+- **No secrets anywhere in the repo.** Sign-in is by the editor's own token, pasted
+  into the CMS and kept in *their* browser's local storage. There's no OAuth app or
+  client secret (`auth_methods: [token]`). Tests fail if config.yml contains
+  token-/secret-looking values.
+- **`/admin/` is public but powerless**: without a token that has write access to this
+  repo, nobody can save. It's `noindex` for search engines.
+- **The CMS script is pinned** (`@sveltia/cms@<version>` + `integrity="sha384-…"`), so a
+  compromised or changed CDN file is refused by the browser instead of running on the
+  page that holds the token.
+- **Content is never rendered as HTML.** `js/main.js` escapes every value it puts into a
+  template (`escapeHtml`), and `js/i18n.js` only sets `textContent`. Tested with an
+  injection payload in `tests/i18n.spec.js`.
+- **Only local images**: tests reject image paths that aren't `media/…` files in the repo.
+- **Photos are cleaned on upload**: resized to ≤1600px, WebP, EXIF (incl. GPS location)
+  stripped — verified with a GPS-tagged test photo.
+- **Everything committed is public forever**, including history. EDITING.md warns the
+  editor and asks them to hide their email in commits.
+- **CI** (`.github/workflows/tests.yml`) runs with a read-only token, never on
+  `pull_request_target`, and uses actions pinned to commit SHAs.
+
+Known gaps / trade-offs:
+- GitHub emails a failed check to **whoever pushed** — i.e. the editor, not you. Check
+  the repo's commit list or Actions tab for red ✗ marks.
+- Pages deploys from the branch regardless of the checks, so a broken edit goes live
+  until fixed/reverted. Stricter option: switch **Settings → Pages → Source** to
+  "GitHub Actions" and deploy only after tests pass.
+- The CMS writes image paths with a leading slash (`/media/web/x.webp`), which on the
+  `…github.io/Belf_Art/` sub-path would point outside the site. `assetUrl()` in
+  `js/content.js` strips it; covered by tests.
+- The English inside the HTML is only a fallback; after the editor changes a text, the
+  HTML copy goes stale (visible for a split second before texts.json loads, and to
+  crawlers that don't run JS).
+
+### Updating the CMS
+
+Bump the version in `admin/index.html` and recompute the hash:
+
+```bash
+curl -sL https://unpkg.com/@sveltia/cms@<version>/dist/sveltia-cms.js | openssl dgst -sha384 -binary | openssl base64 -A
 ```
+
+Then open `/admin/` locally, choose **Work with Local Repository**, and check editing
+still works before committing.
 
 ## Shop filters and sorting
 
-Below the hero, a category strip has one tile per distinct `category` in `js/data.js`,
-using that category's first product photo as its picture, so adding a product with a new
-category needs no HTML changes. Clicking a tile shows only that category, and clicking it
+Below the hero, a category strip has one tile per category from
+`content/categories.json` that has at least one product (in that file's order), using the
+category's first product photo as its picture. Clicking a tile shows only that category, and clicking it
 again shows everything. Above the grid, an Availability dropdown (All / In stock / Sold
 out) and a Sort dropdown refine the list. Marking a product `soldOut: true` shows a
 "SOLD OUT" badge on its card, disables the modal's order control, and puts it under
@@ -95,7 +146,7 @@ Clicking a product card (or focusing it and pressing Enter/Space) opens a modal 
 larger photo(s), description, and price — see `#product-modal` in `index.html` and the
 `openModal`/`closeModal` functions in `js/main.js`. Closes via its close button, the
 backdrop (viewports ≥720px only — see below), or Escape. No extra setup needed: it's
-driven entirely by each product's `images`/`description` fields in `js/data.js`.
+driven entirely by each product's `images`/`description` fields in `content/products.json`.
 
 **The modal photo is sized in viewport units** (`min(800px, 60vw)`) specifically so it
 stays dramatically bigger than the grid card image on any screen size — a fixed pixel
@@ -115,21 +166,22 @@ fix).
 
 ## Editing the About page
 
-`about.html` (and the `about.bio` translations in `js/i18n.js`) has placeholder bio text (`[Your Name]`, `[X years]`, `[Your City]`) —
+The About bio (`about.bio` in `content/texts.json`, editable in the CMS) has placeholder text (`[Your Name]`, `[X years]`, `[Your City]`) —
 replace these with the real details. The `.about-photo` box is a styled placeholder; swap
 it for a real `<img>` (optimized the same way as product photos, see below) once a photo
 is ready.
 
 ## Editing the Shipping page
 
-`shipping.html` (and the `shipping.*` translations in `js/i18n.js`) has placeholder shipping specifics (`[City]`, `[Carrier]`, `[X]` business
+The Shipping texts (`shipping.*` in `content/texts.json`) have placeholder shipping specifics (`[City]`, `[Carrier]`, `[X]` business
 days, `[A-B]`/`[C-D]` timeframes) — replace these with the real details. "Poland" is
 already filled in as the ship-from country.
 
 ### Adding product photos
 
-Original, full-resolution photos live in `media/goods_icons/`. Before referencing a new
-photo from `js/data.js`, create a compressed web copy in `media/web/` (max 1000px on the
+Photos uploaded through the CMS are resized and converted automatically. For photos
+added by hand: originals live in `media/goods_icons/`; before referencing one from
+`content/products.json`, create a compressed web copy in `media/web/` (max 1000px on the
 long edge, JPEG quality ~78) so the page stays fast to load — a phone photo can easily be
 20-50x larger than needed for a product-grid thumbnail. Use `Pillow` for this, e.g.:
 
@@ -199,9 +251,11 @@ npx playwright install chromium   # first time only
 npm test
 ```
 
-- `tests/data.spec.js` — validates `js/data.js` (unique ids, well-formed price/fields,
-  non-empty description/category, `soldOut` is a boolean, every referenced image/gallery
-  image actually exists on disk, every product translation is non-empty) and checks all
+- `tests/data.spec.js` — validates `content/*.json` (every text/name/description filled
+  in all 4 languages, `{placeholders}` kept in translations, numeric prices, categories
+  exist, images are local `media/` files that exist, every `data-i18n` key and `t()` key
+  exists) and `admin/` (repo + token-only sign-in, no secrets, photo optimization on,
+  pinned CMS script with SRI, the editor forms mirror the JSON exactly), and checks all
   pages for leftover placeholder text
   (e.g. a forgotten `your_instagram`).
 - `tests/shop.spec.js` — loads the Shop page and checks: the grid renders exactly one
@@ -234,10 +288,17 @@ npm test
   page never scrolls horizontally, and each nav link navigates. Also checks the shared
   header/features/footer markup is identical across pages, every icon referenced in the
   CSS exists, and each page's own content.
-- `tests/i18n.spec.js` — every translation key used in the HTML/JS exists in RU/UA/PL,
-  every product and category is translated, switching language updates static text,
-  products, title and an open modal, switching back restores English, the choice
-  persists across pages, and filters still work afterwards.
+- `tests/i18n.spec.js` — switching language updates static text, products, categories,
+  title and an open modal; switching back restores English; the choice persists across
+  pages; filters keep working; a missing translation falls back to English. Also: HTML
+  typed into a product name or page text is displayed literally (no injection), a
+  leading-slash image path still loads, and a failed product load shows a message.
+- `tests/helpers.js` — loads `content/*.json` for the specs and waits for pages to finish
+  loading it (`data-texts-ready` / `data-shop-ready` on `<html>`). Tests read expected
+  values from the content files, so legitimate CMS edits don't break them.
+- **CI**: `.github/workflows/tests.yml` runs everything except the visual tests on every
+  push/PR. Visual baselines are Windows-specific and change with every content edit —
+  regenerate them locally (`npm run test:update-snapshots`) after pulling content changes.
 - `tests/visual.spec.js` — full-page screenshot comparison for all five pages against a
   committed baseline (`tests/visual.spec.js-snapshots/`), to catch unintended visual
   changes. Screenshots are OS-dependent (font rendering differs across platforms) — if you

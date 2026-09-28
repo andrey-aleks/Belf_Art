@@ -143,6 +143,12 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   can keep serving an old cached copy of the CSS indefinitely — this is a real bug we hit
   (nav/section/about/shipping styles silently not applying for a visitor with a warm
   cache) and the version hash is the fix.
+  - **Sticky footer**: `body` is a `min-height: 100vh` flex column and `.section` has
+    `flex: 1 0 auto; width: 100%` (the `width` is needed — a flex item with
+    `margin: 0 auto` would otherwise shrink to its content). Without this, short pages
+    left the footer floating mid-screen on tall viewports. Every page's `<main>` must
+    keep the `section` class; guarded by "footer sticks to the bottom" in
+    `tests/sections.spec.js`.
   - **Form controls are fully custom-drawn** (`appearance: none` on `.lang-select` /
     `.filter-select`, with an SVG chevron) — native control rendering varies a lot across
     browsers/OSes (an earlier version's native-looking checkboxes rendered as plain

@@ -24,7 +24,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Sticky footer: body is a full-height column and <main> absorbs the leftover space, so
+   on short pages (About, Shipping, Contact) the features strip + footer sit at the
+   bottom of the viewport instead of floating mid-screen right after the content. */
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   font-family: var(--font-body);
   color: var(--color-text);
@@ -538,6 +545,8 @@ h3 {
 /* ---------- Sections ---------- */
 
 .section {
+  flex: 1 0 auto;
+  width: 100%;
   max-width: 1300px;
   margin: 0 auto;
   padding: 0 var(--page-gutter) 64px;

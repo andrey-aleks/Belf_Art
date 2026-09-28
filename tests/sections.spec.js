@@ -63,6 +63,25 @@ for (const { path: pagePath, href: pageHref, label } of PAGES) {
       expect(overflow).toBeLessThanOrEqual(1);
     });
 
+    test("footer sticks to the bottom of the viewport even when content is short", async ({ page }) => {
+      // Regression guard: on short pages the footer used to sit right after the content,
+      // leaving a large empty band below it on tall screens.
+      const width = page.viewportSize().width;
+      await page.setViewportSize({ width, height: 2400 });
+
+      const { footerBottom, viewportHeight, scrollHeight } = await page.evaluate(() => ({
+        footerBottom: document.querySelector(".site-footer").getBoundingClientRect().bottom,
+        viewportHeight: window.innerHeight,
+        scrollHeight: document.documentElement.scrollHeight,
+      }));
+
+      if (scrollHeight <= viewportHeight) {
+        expect(Math.abs(footerBottom - viewportHeight), "footer should end at the viewport bottom").toBeLessThanOrEqual(1);
+      } else {
+        expect(Math.abs(footerBottom - scrollHeight), "footer should end at the page bottom").toBeLessThanOrEqual(1);
+      }
+    });
+
     for (const target of PAGES) {
       if (target.href === pageHref) continue;
 

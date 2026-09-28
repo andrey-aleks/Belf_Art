@@ -34,13 +34,13 @@ test.describe("language switching", () => {
     await expect(page.locator(".product-name").first()).toHaveText(products[0].name.en);
   });
 
-  test("the hero language buttons switch language too", async ({ page }) => {
-    await gotoAndWait(page, "/");
-    await page.locator('.lang-option[data-lang="uk"]').click();
-
-    await expect(page.locator("#lang-select")).toHaveValue("uk");
-    await expect(page.locator('.lang-option[data-lang="uk"]')).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator(".hero-cta")).toHaveText(text("hero.cta", "uk"));
+  test("the header dropdown is the only language switcher", async ({ page }) => {
+    for (const url of ["/index.html", "/about.html"]) {
+      await gotoAndWait(page, url);
+      await expect(page.locator(".lang-select")).toHaveCount(1);
+      await expect(page.locator(".site-header .lang-select")).toHaveCount(1);
+      await expect(page.locator(".lang-option, .hero-langs")).toHaveCount(0);
+    }
   });
 
   test("the chosen language is remembered across pages", async ({ page }) => {

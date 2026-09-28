@@ -41,7 +41,12 @@ for (const { path: pagePath, href: pageHref, label } of PAGES) {
     test("header shows the Belfegor logo linking home", async ({ page }) => {
       const logo = page.locator(".site-header .site-logo");
       await expect(logo).toHaveAttribute("href", "index.html");
-      await expect(logo.locator(".site-title")).toHaveText("Belfegor");
+      await expect(logo).toHaveAccessibleName(/Belfegor/);
+      const img = logo.locator(".site-logo-image");
+      await expect(img).toHaveAttribute("src", "media/brand/logo.webp");
+      expect(await img.evaluate((el) => el.decode().then(() => el.naturalWidth > 0)), "logo image loads").toBe(true);
+      const height = await img.evaluate((el) => el.getBoundingClientRect().height);
+      expect(height, "logo should be clearly visible").toBeGreaterThanOrEqual(80);
     });
 
     test("footer has working Instagram, Telegram and Vinted links", async ({ page }) => {
@@ -198,6 +203,22 @@ test("About page keeps the placeholder when no photo is set", async ({ page }) =
   );
   await gotoAndWait(page, "/about.html");
   await expect(page.locator(".about-photo .about-photo-image")).toHaveCount(0);
+});
+
+test("the header logo has a transparent background (no black box on the textured page)", async ({ page }) => {
+  await gotoAndWait(page, "/index.html");
+  const alphas = await page.locator(".site-logo-image").evaluate(async (img) => {
+    await img.decode();
+    const canvas = document.createElement("canvas");
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    const w = canvas.width - 1;
+    const h = canvas.height - 1;
+    return [[0, 0], [w, 0], [0, h], [w, h]].map(([x, y]) => ctx.getImageData(x, y, 1, 1).data[3]);
+  });
+  expect(alphas).toEqual([0, 0, 0, 0]);
 });
 
 test("every icon file referenced by the stylesheet exists", () => {

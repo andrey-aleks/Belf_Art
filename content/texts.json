@@ -45,6 +45,12 @@
       "ru": "Категории",
       "uk": "Категорії",
       "pl": "Kategorie"
+    },
+    "all": {
+      "en": "All",
+      "ru": "Все",
+      "uk": "Усі",
+      "pl": "Wszystkie"
     }
   },
   "contact": {

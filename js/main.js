@@ -95,8 +95,9 @@ function categoryLabel(key) {
 
 // One tile per category that has at least one product, in the order of
 // content/categories.json (categories only referenced by products come last), using the
-// category's first product photo as its picture. Clicking a tile shows only that
-// category; clicking the active tile again shows everything.
+// category's first product photo as its picture. An "All" tile comes first (pressed when
+// no category is selected) so visitors can always get back to the full list; clicking
+// the active category tile again also shows everything.
 let activeCategory = null;
 
 function renderCategoryFilters(items) {
@@ -106,23 +107,32 @@ function renderCategoryFilters(items) {
   const used = [...new Set(items.map((p) => p.category))];
   const ordered = [...categories.map((c) => c.key).filter((key) => used.includes(key)), ...used.filter((key) => !categories.some((c) => c.key === key))];
 
-  container.innerHTML = ordered
-    .map((key) => {
-      const cover = items.find((p) => p.category === key);
-      return `
-    <button type="button" class="category-tile" data-category="${escapeHtml(key)}" aria-pressed="${key === activeCategory}">
-      <img class="category-image" src="${escapeHtml(productImages(cover)[0])}" alt="" loading="lazy" />
-      <span class="category-label">${escapeHtml(categoryLabel(key))}</span>
+  const allTile = `
+    <button type="button" class="category-tile category-tile-all" data-category="" aria-pressed="${activeCategory === null}">
+      <span class="category-all-icon" aria-hidden="true"><span class="icon icon-star-long"></span></span>
+      <span class="category-label">${escapeHtml(t("categories.all"))}</span>
     </button>
   `;
-    })
-    .join("");
+
+  container.innerHTML =
+    allTile +
+    ordered
+      .map((key) => {
+        const cover = items.find((p) => p.category === key);
+        return `
+      <button type="button" class="category-tile" data-category="${escapeHtml(key)}" aria-pressed="${key === activeCategory}">
+        <img class="category-image" src="${escapeHtml(productImages(cover)[0])}" alt="" loading="lazy" />
+        <span class="category-label">${escapeHtml(categoryLabel(key))}</span>
+      </button>
+    `;
+      })
+      .join("");
 }
 
 function setActiveCategory(category) {
-  activeCategory = activeCategory === category ? null : category;
+  activeCategory = !category || activeCategory === category ? null : category;
   document.querySelectorAll(".category-tile").forEach((tile) => {
-    tile.setAttribute("aria-pressed", String(tile.dataset.category === activeCategory));
+    tile.setAttribute("aria-pressed", String(tile.dataset.category === (activeCategory ?? "")));
   });
   applyFiltersAndSort();
 }

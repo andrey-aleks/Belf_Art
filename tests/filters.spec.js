@@ -1,5 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const { products, categories, gotoAndWait } = require("./helpers");
+const { products, categories, texts, gotoAndWait } = require("./helpers");
 
 test.beforeEach(async ({ page }) => {
   await gotoAndWait(page, "/");
@@ -9,21 +9,59 @@ test("all products are shown by default", async ({ page }) => {
   await expect(page.locator(".product-card")).toHaveCount(products.length);
 });
 
+const CATEGORY_TILES = '.category-tile:not(.category-tile-all)';
+
 test("a category tile exists for every distinct category in the data, none active by default", async ({ page }) => {
   const categories = [...new Set(products.map((p) => p.category))];
-  await expect(page.locator(".category-tile")).toHaveCount(categories.length);
+  await expect(page.locator(CATEGORY_TILES)).toHaveCount(categories.length);
 
   for (const category of categories) {
     await expect(page.locator(`.category-tile[data-category="${category}"]`)).toHaveAttribute("aria-pressed", "false");
   }
 });
 
+test("an \"All\" tile comes first and is selected by default", async ({ page }) => {
+  const all = page.locator(".category-tile").first();
+  await expect(all).toHaveClass(/category-tile-all/);
+  await expect(all).toHaveAttribute("aria-pressed", "true");
+  await expect(all.locator(".category-label")).toHaveText(texts.categories.all.en);
+  await expect(page.locator('.category-tile[aria-pressed="true"]')).toHaveCount(1);
+});
+
+test("clicking \"All\" after picking a category shows every product again", async ({ page }) => {
+  // Regression guard: once a category was picked there was no visible way back to the
+  // full list (only re-clicking the same tile, which nobody discovered) short of reloading.
+  const all = page.locator(".category-tile-all");
+  const tile = page.locator(`.category-tile[data-category="${products[0].category}"]`);
+
+  await tile.click();
+  await expect(all).toHaveAttribute("aria-pressed", "false");
+  await expect(page.locator(".product-card")).toHaveCount(products.filter((p) => p.category === products[0].category).length);
+
+  await all.click();
+  await expect(all).toHaveAttribute("aria-pressed", "true");
+  await expect(tile).toHaveAttribute("aria-pressed", "false");
+  await expect(page.locator(".product-card")).toHaveCount(products.length);
+});
+
+test("clicking \"All\" keeps the availability filter", async ({ page }) => {
+  await page.selectOption("#filter-availability", "in-stock");
+  await page.locator(`.category-tile[data-category="${products[0].category}"]`).click();
+  await page.locator(".category-tile-all").click();
+  await expect(page.locator(".product-card")).toHaveCount(products.filter((p) => !p.soldOut).length);
+});
+
+test("the \"All\" tile is translated", async ({ page }) => {
+  await page.selectOption("#lang-select", "pl");
+  await expect(page.locator(".category-tile-all .category-label")).toHaveText(texts.categories.all.pl);
+});
+
 test("category tiles follow the order of content/categories.json and show its labels", async ({ page }) => {
   const used = new Set(products.map((p) => p.category));
   const expected = categories.filter((c) => used.has(c.key));
-  await expect(page.locator(".category-tile")).toHaveCount(expected.length);
+  await expect(page.locator(CATEGORY_TILES)).toHaveCount(expected.length);
   for (let i = 0; i < expected.length; i++) {
-    const tile = page.locator(".category-tile").nth(i);
+    const tile = page.locator(CATEGORY_TILES).nth(i);
     await expect(tile).toHaveAttribute("data-category", expected[i].key);
     await expect(tile.locator(".category-label")).toHaveText(expected[i].label.en);
   }
@@ -53,7 +91,7 @@ test("clicking a category tile shows only that category's products", async ({ pa
   await expect(tile).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator(".product-card")).toHaveCount(expected.length);
   for (const p of products.filter((p) => p.category !== firstCategory)) {
-    await expect(page.locator(".product-card", { hasText: p.name })).toHaveCount(0);
+    await expect(page.locator(".product-card", { hasText: p.name.en })).toHaveCount(0);
   }
 });
 
@@ -76,6 +114,7 @@ test("clicking the active tile again restores all products", async ({ page }) =>
 
   await tile.click();
   await expect(tile).toHaveAttribute("aria-pressed", "false");
+  await expect(page.locator(".category-tile-all")).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator(".product-card")).toHaveCount(products.length);
 });
 

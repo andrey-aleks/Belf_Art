@@ -76,7 +76,6 @@ h3 {
 
 .icon-star { --icon: url("../media/icons/star.svg"); }
 .icon-star-long { --icon: url("../media/icons/star-long.svg"); }
-.logo-ornament { --icon: url("../media/icons/logo-ornament.svg"); }
 .icon-skull { --icon: url("../media/icons/skull.svg"); }
 .icon-moon { --icon: url("../media/icons/moon.svg"); }
 .icon-box { --icon: url("../media/icons/box.svg"); }
@@ -151,10 +150,14 @@ h3 {
   color: var(--color-silver-hover);
 }
 
-.logo-ornament {
-  width: 120px;
-  height: 48px;
-  margin-bottom: -6px;
+/* media/brand/logo.webp: emblem + "Belfegor" wordmark with a transparent background,
+   exported at 3x the displayed height for sharp rendering on high-DPI screens. The
+   tagline under it is HTML text (.site-subtitle) so it stays readable and translated. */
+.site-logo-image {
+  display: block;
+  width: auto;
+  height: 132px;
+  filter: drop-shadow(0 0 14px rgba(201, 199, 206, 0.12));
 }
 
 .site-title {
@@ -222,12 +225,16 @@ h3 {
   .site-logo {
     grid-column: 1;
     grid-row: 1;
-    align-items: flex-start;
+    justify-self: start;
   }
 
-  .logo-ornament {
-    width: 88px;
-    height: 34px;
+  .site-logo-image {
+    height: 88px;
+  }
+
+  .site-logo .site-subtitle {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
   }
 
   .site-title {
@@ -384,27 +391,6 @@ h3 {
   font-size: 1.1rem;
 }
 
-.hero-langs {
-  display: flex;
-  gap: 4px;
-  color: var(--color-muted);
-  font-size: 0.9rem;
-}
-
-.lang-option {
-  background: none;
-  border: 0;
-  padding: 0 2px;
-  color: var(--color-silver);
-  font: inherit;
-  cursor: pointer;
-}
-
-.lang-option:hover,
-.lang-option[aria-pressed="true"] {
-  color: var(--color-blood-hover);
-}
-
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
@@ -488,6 +474,25 @@ h3 {
   transition: transform 0.25s ease;
 }
 
+/* The "All" tile: a star in the same box a category photo occupies. */
+.category-all-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 90px;
+}
+
+.category-all-icon .icon {
+  width: 30px;
+  height: 60px;
+  transition: transform 0.25s ease;
+}
+
+.category-tile:hover .category-all-icon .icon {
+  transform: scale(1.08);
+}
+
 .category-label {
   display: inline-flex;
   align-items: center;
@@ -528,6 +533,16 @@ h3 {
   .category-image {
     width: 76px;
     height: 58px;
+  }
+
+  .category-all-icon {
+    width: 76px;
+    height: 58px;
+  }
+
+  .category-all-icon .icon {
+    width: 20px;
+    height: 40px;
   }
 
   .category-label {
@@ -595,6 +610,14 @@ h3 {
 
 .shop-toolbar .section-title::before {
   display: none;
+}
+
+/* On phones the side ornaments squeezed titles like "About me" onto two lines. */
+@media (max-width: 600px) {
+  .section-title::before,
+  .section > .section-title .title-ornament {
+    display: none;
+  }
 }
 
 .text-content {

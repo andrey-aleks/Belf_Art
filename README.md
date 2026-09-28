@@ -33,7 +33,7 @@ Also add the page to `PAGES` in `scripts/update-css-version.js`.
 
 ## Languages
 
-The header dropdown (and the RU / UA / PL / EN links in the Shop hero) switch between
+The language dropdown in the header switches between
 English, Russian, Ukrainian and Polish. The choice is remembered in `localStorage`;
 first-time visitors get their browser language if it's one of the four. All texts come
 from `content/texts.json`, product names/descriptions and category labels from their own
@@ -125,8 +125,8 @@ still works before committing.
 
 Below the hero, a category strip has one tile per category from
 `content/categories.json` that has at least one product (in that file's order), using the
-category's first product photo as its picture. Clicking a tile shows only that category, and clicking it
-again shows everything. Above the grid, an Availability dropdown (All / In stock / Sold
+category's first product photo as its picture. Clicking a tile shows only that category; the
+**All** tile at the start of the strip (selected by default) shows everything again. Above the grid, an Availability dropdown (All / In stock / Sold
 out) and a Sort dropdown refine the list. Marking a product `soldOut: true` shows a
 "SOLD OUT" badge on its card, disables the modal's order control, and puts it under
 "Sold out".
@@ -277,7 +277,7 @@ npm test
   thumbnails that switch the main photo.
 - `tests/filters.spec.js` — the category strip and Availability/Sort dropdowns: a tile
   exists for every distinct category (with a loading image), clicking a tile filters to
-  that category and clicking it again restores everything, the availability dropdown
+  that category, the leading "All" tile (selected by default) restores everything, the availability dropdown
   hides the right products, each sort option orders cards correctly (price asc/desc, name A-Z),
   "Most relevant" restores the original catalog order, filtering out everything shows an
   empty-state message, and a sold-out product shows its badge on the card and a disabled

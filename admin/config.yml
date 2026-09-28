@@ -357,6 +357,14 @@ collections:
             widget: object
             collapsed: true
             fields:
+              - name: all
+                label: "“All” tile (shows every product)"
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: string }
+                  - { name: ru, label: Russian, widget: string }
+                  - { name: uk, label: Ukrainian, widget: string }
+                  - { name: pl, label: Polish, widget: string }
               - name: label
                 label: "Label"
                 widget: object

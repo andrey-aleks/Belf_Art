@@ -12,7 +12,7 @@ test("page has the expected title", async ({ page }) => {
 });
 
 test("header shows the shop name and the footer has a working Instagram link", async ({ page }) => {
-  await expect(page.locator(".site-header .site-title")).toHaveText(/Belfegor/i);
+  await expect(page.locator(".site-header .site-logo")).toHaveAccessibleName(/Belfegor/i);
   await expect(page.locator(".site-footer .footer-link").first()).toHaveAttribute("href", INSTAGRAM_PATTERN);
 });
 

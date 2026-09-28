@@ -39,8 +39,12 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
 
 ## Architecture
 
-- **Design** follows a reference mock-up the user supplied (Belfegor brand: blackletter
-  "Belfegor" logo with antler/star ornament, centered header, hero banner, category strip,
+- **Design** follows a reference mock-up the user supplied (Belfegor brand: centered
+  header logo = `media/brand/logo.webp`, the user's emblem + wordmark artwork
+  [`media/brand/logo-source.png`] cropped above its tagline, black background converted
+  to transparency, exported at 3x display height; the "Handmade Jewelry" tagline under
+  it stays HTML text so it's readable and translated. The footer still uses the text
+  wordmark (`.site-title`), hero banner, category strip,
   framed cards with star accents, features strip, "Order through" footer). Keep new UI in
   that style: silver line-art SVG icons from `media/icons/`, used as CSS masks via
   `.icon` + `--icon` so they take `currentColor` (don't add per-color copies of icons).
@@ -50,7 +54,7 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   `aria-current`). Footer links: Instagram, Telegram (`https://t.me/be11fegor` — double
   "1", as given by the user), Vinted.
   - `index.html` — Shop. Hero banner (headline, Shop Now → `#shop`, a product photo
-    standing in for a future model shot, Kraków + language links), `#category-filters`
+    standing in for a future model shot, Kraków side column), `#category-filters`
     category strip, toolbar with `#filter-availability`/`#sort-select`, and an empty
     `#product-grid`. Loads `js/content.js`, `js/i18n.js`, then `js/main.js` (the only
     page that renders the grid). Its `<main>` carries an extra
@@ -100,8 +104,7 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
     `https://unpkg.com/@sveltia/cms@<version>/schema/sveltia-cms.json` — validate config
     changes against it (e.g. with ajv) rather than guessing keys; an early draft used
     `media_libraries.default` with options that belong under `media_libraries.all`.
-- `js/i18n.js` — EN/RU/UA/PL switching (`.lang-select` in the header, `.lang-option`
-  buttons in the hero; persisted in `localStorage` with try/catch). Texts come from
+- `js/i18n.js` — EN/RU/UA/PL switching (only the `.lang-select` dropdown in the header — the user had the extra RU/UA/PL/EN links in the Shop hero removed; persisted in `localStorage` with try/catch). Texts come from
   `content/texts.json`; HTML elements carry `data-i18n` / `data-i18n-aria-label`
   (`group.field`) with English inside as a pre-load fallback. `t(key, params)` for JS
   strings (with small `FALLBACK_TEXTS` if texts.json fails), `localize({en,…})` and
@@ -154,7 +157,9 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
     adapted — no cart/search/price-slider since we have no checkout and 5 products):
     `renderCategoryFilters(products)` builds the category-strip tiles (`.category-tile`,
     `aria-pressed`) for categories that have products, in `categories.json` order; clicking a tile makes it the single active
-    category, clicking it again clears it. `applyFiltersAndSort()` reads the active
+    category; the leading `.category-tile-all` tile (`data-category=""`, label
+    `categories.all` in texts.json) clears it — added because users had no visible way
+    back to all items. Clicking the active tile again also clears it. `applyFiltersAndSort()` reads the active
     category plus the `#filter-availability` and `#sort-select` dropdowns, filters+sorts
     a copy of `products`, and calls `renderProducts`. An empty result renders `.filter-empty` instead of a blank
     grid. A product with `soldOut: true` renders a `.sold-out-badge` over its card image

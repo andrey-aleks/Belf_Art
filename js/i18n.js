@@ -21,6 +21,7 @@ const FALLBACK_TEXTS = {
   "product.loadError": "Products could not be loaded. Please refresh the page.",
   "modal.photo": "Show photo {n}",
   "shop.empty": "No products match your filters.",
+  "categories.all": "All",
 };
 
 let currentLanguage = DEFAULT_LANGUAGE;
@@ -109,9 +110,6 @@ function applyTranslations(root = document) {
   document.querySelectorAll(".lang-select").forEach((select) => {
     select.value = currentLanguage;
   });
-  document.querySelectorAll(".lang-option").forEach((button) => {
-    button.setAttribute("aria-pressed", String(button.dataset.lang === currentLanguage));
-  });
 }
 
 function setLanguage(lang) {
@@ -134,10 +132,6 @@ let textsReady = Promise.resolve();
 function initI18n() {
   document.querySelectorAll(".lang-select").forEach((select) => {
     select.addEventListener("change", () => setLanguage(select.value));
-  });
-  document.addEventListener("click", (event) => {
-    const button = event.target.closest(".lang-option");
-    if (button) setLanguage(button.dataset.lang);
   });
 
   currentLanguage = detectLanguage();

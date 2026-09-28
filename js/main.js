@@ -4,22 +4,26 @@ function renderProducts(items) {
   const grid = document.getElementById("product-grid");
 
   if (items.length === 0) {
-    grid.innerHTML = `<p class="filter-empty">No products match your filters.</p>`;
+    grid.innerHTML = `<p class="filter-empty">${t("shop.empty")}</p>`;
     return;
   }
 
   grid.innerHTML = items
-    .map((product) => {
-      const badge = product.soldOut ? `<span class="sold-out-badge">Sold Out</span>` : "";
+    .map((item) => {
+      const product = localizedProduct(item);
+      const badge = product.soldOut ? `<span class="sold-out-badge">${t("product.soldOut")}</span>` : "";
 
       return `
-    <article class="product-card" data-product-id="${product.id}" tabindex="0" aria-haspopup="dialog" aria-label="View details for ${product.name}">
+    <article class="product-card" data-product-id="${product.id}" tabindex="0" aria-haspopup="dialog" aria-label="${t("product.viewDetails", { name: product.name })}">
       <div class="product-image-wrap">
         <img class="product-image" src="${product.image}" alt="${product.name}" loading="lazy" />
         ${badge}
       </div>
-      <h2 class="product-name">${product.name}</h2>
-      <p class="product-price">${product.price}</p>
+      <div class="product-info">
+        <h3 class="product-name">${product.name}</h3>
+        <p class="product-price">${product.price}</p>
+        <span class="icon icon-star product-star" aria-hidden="true"></span>
+      </div>
     </article>
   `;
     })
@@ -29,6 +33,7 @@ function renderProducts(items) {
 function sortProducts(items, sortValue) {
   const sorted = [...items];
   const priceOf = (p) => parseFloat(p.price);
+  const nameOf = (p) => localizedProduct(p).name;
 
   switch (sortValue) {
     case "price-asc":
@@ -38,10 +43,10 @@ function sortProducts(items, sortValue) {
       sorted.sort((a, b) => priceOf(b) - priceOf(a));
       break;
     case "name-asc":
-      sorted.sort((a, b) => a.name.localeCompare(b.name));
+      sorted.sort((a, b) => nameOf(a).localeCompare(nameOf(b), getLanguage()));
       break;
     case "name-desc":
-      sorted.sort((a, b) => b.name.localeCompare(a.name));
+      sorted.sort((a, b) => nameOf(b).localeCompare(nameOf(a), getLanguage()));
       break;
     default:
       break;
@@ -50,11 +55,11 @@ function sortProducts(items, sortValue) {
   return sorted;
 }
 
-function getCheckedValues(selector) {
-  return Array.from(document.querySelectorAll(selector))
-    .filter((el) => el.checked)
-    .map((el) => el.value);
-}
+// The category strip is built from whatever distinct `category` values exist in the
+// data, using the first product of each category as the tile's picture — so it can't
+// drift out of sync with data.js. Clicking a tile shows only that category; clicking the
+// active tile again shows everything.
+let activeCategory = null;
 
 function renderCategoryFilters(items) {
   const container = document.getElementById("category-filters");
@@ -62,26 +67,34 @@ function renderCategoryFilters(items) {
 
   const categories = [...new Set(items.map((p) => p.category))];
   container.innerHTML = categories
-    .map(
-      (category) => `
-    <label>
-      <input type="checkbox" class="filter-category" value="${category}" checked />
-      ${category}
-    </label>
-  `
-    )
+    .map((category) => {
+      const cover = items.find((p) => p.category === category);
+      return `
+    <button type="button" class="category-tile" data-category="${category}" aria-pressed="${category === activeCategory}">
+      <img class="category-image" src="${cover.image}" alt="" loading="lazy" />
+      <span class="category-label">${categoryLabel(category)}</span>
+    </button>
+  `;
+    })
     .join("");
 }
 
+function setActiveCategory(category) {
+  activeCategory = activeCategory === category ? null : category;
+  document.querySelectorAll(".category-tile").forEach((tile) => {
+    tile.setAttribute("aria-pressed", String(tile.dataset.category === activeCategory));
+  });
+  applyFiltersAndSort();
+}
+
 function applyFiltersAndSort() {
-  const availability = getCheckedValues(".filter-availability");
-  const categories = getCheckedValues(".filter-category");
-  const sortValue = document.querySelector(".filter-sort:checked")?.value || "relevant";
+  const availability = document.getElementById("filter-availability").value;
+  const sortValue = document.getElementById("sort-select").value;
 
   const filtered = products.filter((p) => {
     const availabilityKey = p.soldOut ? "out-of-stock" : "in-stock";
-    if (!availability.includes(availabilityKey)) return false;
-    if (!categories.includes(p.category)) return false;
+    if (availability !== "all" && availability !== availabilityKey) return false;
+    if (activeCategory && p.category !== activeCategory) return false;
     return true;
   });
 
@@ -91,7 +104,12 @@ function applyFiltersAndSort() {
 renderCategoryFilters(products);
 applyFiltersAndSort();
 
-document.querySelectorAll(".filter-availability, .filter-category, .filter-sort").forEach((input) => {
+document.getElementById("category-filters").addEventListener("click", (event) => {
+  const tile = event.target.closest(".category-tile");
+  if (tile) setActiveCategory(tile.dataset.category);
+});
+
+document.querySelectorAll("#filter-availability, #sort-select").forEach((input) => {
   input.addEventListener("change", applyFiltersAndSort);
 });
 
@@ -105,13 +123,15 @@ const modalOrder = modal.querySelector(".product-modal-order");
 const modalClose = modal.querySelector(".product-modal-close");
 
 let lastFocusedElement = null;
+let modalProduct = null;
 
 function setModalImage(src) {
   modalImage.src = src;
   modalImage.alt = modalTitle.textContent;
 }
 
-function openModal(product) {
+function fillModal(item) {
+  const product = localizedProduct(item);
   const images = product.images && product.images.length ? product.images : [product.image];
 
   modalTitle.textContent = product.name;
@@ -120,12 +140,12 @@ function openModal(product) {
   setModalImage(images[0]);
 
   if (product.soldOut) {
-    modalOrder.textContent = "Sold Out";
+    modalOrder.textContent = t("product.soldOut");
     modalOrder.removeAttribute("href");
     modalOrder.setAttribute("aria-disabled", "true");
     modalOrder.classList.add("is-disabled");
   } else {
-    modalOrder.textContent = "Order via Instagram";
+    modalOrder.textContent = t("product.order");
     modalOrder.href = INSTAGRAM_URL;
     modalOrder.removeAttribute("aria-disabled");
     modalOrder.classList.remove("is-disabled");
@@ -136,13 +156,18 @@ function openModal(product) {
       ? images
           .map(
             (src, i) => `
-        <button type="button" class="product-modal-thumb" data-src="${src}" aria-label="Show photo ${i + 1}">
+        <button type="button" class="product-modal-thumb" data-src="${src}" aria-label="${t("modal.photo", { n: i + 1 })}">
           <img src="${src}" alt="" />
         </button>
       `
           )
           .join("")
       : "";
+}
+
+function openModal(product) {
+  modalProduct = product;
+  fillModal(product);
 
   lastFocusedElement = document.activeElement;
   modal.hidden = false;
@@ -152,6 +177,7 @@ function openModal(product) {
 
 function closeModal() {
   modal.hidden = true;
+  modalProduct = null;
   document.body.classList.remove("modal-open");
   if (lastFocusedElement) lastFocusedElement.focus();
 }
@@ -189,4 +215,10 @@ modalThumbs.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !modal.hidden) closeModal();
+});
+
+document.addEventListener("languagechange", () => {
+  renderCategoryFilters(products);
+  applyFiltersAndSort();
+  if (modalProduct) fillModal(modalProduct);
 });

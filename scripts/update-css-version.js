@@ -4,7 +4,7 @@ const crypto = require("crypto");
 
 const ROOT = path.join(__dirname, "..");
 const CSS_PATH = path.join(ROOT, "css", "style.css");
-const PAGES = ["index.html", "about.html", "shipping.html"];
+const PAGES = ["index.html", "about.html", "custom-orders.html", "shipping.html", "contact.html"];
 const LINK_PATTERN = /href="css\/style\.css(?:\?v=[a-f0-9]+)?"/;
 
 function cssVersion() {

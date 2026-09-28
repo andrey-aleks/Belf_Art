@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="title.shipping">Belfegor — Shipping</title>
+  <title data-i18n="title.custom">Belfegor — Custom Orders</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -17,8 +17,8 @@
     <nav class="site-nav" aria-label="Main" data-i18n-aria-label="nav.label">
       <a href="index.html" data-i18n="nav.shop">Shop</a>
       <a href="about.html" data-i18n="nav.about">About</a>
-      <a href="custom-orders.html" data-i18n="nav.custom">Custom Orders</a>
-      <a href="shipping.html" aria-current="page" data-i18n="nav.shipping">Shipping</a>
+      <a href="custom-orders.html" aria-current="page" data-i18n="nav.custom">Custom Orders</a>
+      <a href="shipping.html" data-i18n="nav.shipping">Shipping</a>
       <a href="contact.html" data-i18n="nav.contact">Contact</a>
     </nav>
     <a class="site-logo" href="index.html" aria-label="Belfegor — home" data-i18n-aria-label="brand.home">
@@ -38,20 +38,37 @@
     </div>
   </header>
 
-  <main class="section section-shipping">
+  <main class="section section-custom">
     <h1 class="section-title">
-      <span data-i18n="shipping.title">Shipping</span>
+      <span data-i18n="custom.title">Custom Orders</span>
       <span class="title-ornament" aria-hidden="true"></span>
     </h1>
-    <div class="text-content shipping-content">
-      <p data-i18n="shipping.p1">Every piece is made to order and ships from [City], Poland via [Carrier — e.g. Poczta Polska / InPost]. Please allow [X] business days for your order to be made and packed after we confirm the details over Instagram DM.</p>
-      <p data-i18n="shipping.p2">Domestic shipping within Poland usually takes [A-B] business days. International shipping typically takes [C-D] weeks, depending on destination and local customs processing. A tracking number is sent once your order ships.</p>
-      <p>
-        <span data-i18n="shipping.p3a">Not sure if we ship to your country, or have a question about cost? Message us on</span>
-        <a href="https://www.instagram.com/be1fegor_jewelry/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <span data-i18n="shipping.p3b">before ordering and we'll be happy to help.</span>
-      </p>
-    </div>
+    <p class="text-content custom-intro" data-i18n="custom.intro">Have an idea for a piece that doesn't exist yet? I make custom jewelry to order — a new design, a variation of an existing piece, or a matching set.</p>
+    <ol class="custom-steps">
+      <li class="custom-step">
+        <span class="custom-step-number" aria-hidden="true">I</span>
+        <h2 class="custom-step-title" data-i18n="custom.step1.title">Share your idea</h2>
+        <p class="custom-step-text" data-i18n="custom.step1.text">Message us on Instagram or Telegram with a description, sketches, or reference photos.</p>
+      </li>
+      <li class="custom-step">
+        <span class="custom-step-number" aria-hidden="true">II</span>
+        <h2 class="custom-step-title" data-i18n="custom.step2.title">Agree on the details</h2>
+        <p class="custom-step-text" data-i18n="custom.step2.text">We discuss materials, size, price, and timing before any work starts.</p>
+      </li>
+      <li class="custom-step">
+        <span class="custom-step-number" aria-hidden="true">III</span>
+        <h2 class="custom-step-title" data-i18n="custom.step3.title">Handmade for you</h2>
+        <p class="custom-step-text" data-i18n="custom.step3.text">Your piece is made by hand, one link at a time.</p>
+      </li>
+      <li class="custom-step">
+        <span class="custom-step-number" aria-hidden="true">IV</span>
+        <h2 class="custom-step-title" data-i18n="custom.step4.title">Shipped with care</h2>
+        <p class="custom-step-text" data-i18n="custom.step4.text">Your order is packed and shipped from Poland.</p>
+      </li>
+    </ol>
+    <p class="custom-cta-wrap">
+      <a class="hero-cta" href="https://www.instagram.com/be1fegor_jewelry/" target="_blank" rel="noopener noreferrer"><span data-i18n="custom.cta">Start a custom order</span></a>
+    </p>
   </main>
 
   <section class="features" aria-label="Why Belfegor" data-i18n-aria-label="features.label">

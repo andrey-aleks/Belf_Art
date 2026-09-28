@@ -26,6 +26,13 @@ test.describe("product data integrity", () => {
       expect(Array.isArray(p.images) && p.images.length > 0, `images of "${p.name}"`).toBe(true);
       expect(p.category && p.category.trim().length > 0, `category of "${p.name}"`).toBe(true);
       expect(typeof p.soldOut, `soldOut of "${p.name}"`).toBe("boolean");
+      if (p.translations !== undefined) {
+        for (const [lang, tr] of Object.entries(p.translations)) {
+          expect(["ru", "uk", "pl"], `translation language of "${p.name}"`).toContain(lang);
+          expect(tr.name && tr.name.trim().length > 0, `${lang} name of "${p.name}"`).toBe(true);
+          expect(tr.description && tr.description.trim().length > 0, `${lang} description of "${p.name}"`).toBe(true);
+        }
+      }
     }
   });
 
@@ -43,7 +50,7 @@ test.describe("product data integrity", () => {
 });
 
 test.describe("no leftover placeholders", () => {
-  const files = ["index.html", "about.html", "shipping.html", "js/main.js", "js/data.js"];
+  const files = [...HTML_PAGES, "js/main.js", "js/data.js", "js/i18n.js"];
 
   for (const file of files) {
     test(`${file} does not contain a placeholder Instagram handle`, () => {
@@ -64,10 +71,13 @@ test.describe("visited-link color safety", () => {
   // New custom-colored <a> classes must be added to this list AND given a matching
   // `:visited` rule in css/style.css.
   const linkSelectorsNeedingVisitedOverride = [
-    ".instagram-link",
     ".order-button",
     ".site-nav a",
-    ".site-footer a",
+    ".site-logo",
+    ".hero-cta",
+    ".footer-link",
+    ".footer-questions",
+    ".contact-link",
     ".shipping-content a",
   ];
 

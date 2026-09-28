@@ -37,27 +37,51 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
 
 ## Architecture
 
-- Three separate pages, each with its own copy of the header/nav/footer markup (no
-  templating — plain static HTML, so shared chrome is hand-duplicated across files):
-  - `index.html` — Shop. Header (shop name, Instagram link, nav), an empty
-    `#product-grid` container. Loads `js/data.js` then `js/main.js` (the only page that
-    does — it's the only one that renders the grid). Its `<main>` carries an extra
+- **Design** follows a reference mock-up the user supplied (Belfegor brand: blackletter
+  "Belfegor" logo with antler/star ornament, centered header, hero banner, category strip,
+  framed cards with star accents, features strip, "Order through" footer). Keep new UI in
+  that style: silver line-art SVG icons from `media/icons/`, used as CSS masks via
+  `.icon` + `--icon` so they take `currentColor` (don't add per-color copies of icons).
+- Five separate pages, each with its own copy of the header, `.features` strip and footer
+  markup (no templating — plain static HTML, so shared chrome is hand-duplicated across
+  files; `tests/sections.spec.js` asserts the copies are identical apart from
+  `aria-current`). Footer links: Instagram, Telegram (`https://t.me/be11fegor` — double
+  "1", as given by the user), Vinted.
+  - `index.html` — Shop. Hero banner (headline, Shop Now → `#shop`, a product photo
+    standing in for a future model shot, Kraków + language links), `#category-filters`
+    category strip, toolbar with `#filter-availability`/`#sort-select`, and an empty
+    `#product-grid`. Loads `js/data.js`, `js/i18n.js`, then `js/main.js` (the only page
+    that renders the grid). Its `<main>` carries an extra
     `section-shop` class so `.section-shop { max-width: none; }` can override the
     otherwise-shared `.section { max-width: 1300px; }` — the Shop page fills available
     width (matching the reference site) while About/Shipping stay narrower for
     readable text. Regression-guarded in `tests/shop.spec.js`.
   - `about.html` — About. Photo placeholder + bio text with bracketed placeholders like
     `[Your Name]` still to fill in.
+  - `custom-orders.html` — Custom Orders: four process steps + Instagram CTA.
   - `shipping.html` — Shipping. Describes how orders ship (from Poland); bracketed
     placeholders like `[Carrier]`, `[A-B]` (business days) still to fill in.
+  - `contact.html` — Contact: Instagram/Telegram/Vinted cards, location.
+  - Every page loads `js/i18n.js`. When adding a page, also add it to `PAGES` in
+    `scripts/update-css-version.js` (drives CSS versioning and several tests).
   - The nav on each page marks its own link with `aria-current="page"` by hand (styled via
     `.site-nav a[aria-current="page"]`) — when adding a page, replicate this pattern.
+- `js/i18n.js` — EN/RU/UA/PL switching (`.lang-select` in the header, `.lang-option`
+  buttons in the hero; persisted in `localStorage` with try/catch). English text lives
+  in the HTML (`data-i18n` / `data-i18n-aria-label` attributes), captured from the DOM on
+  first translation, so dictionaries only need `ru`/`uk`/`pl` for HTML keys; strings JS
+  renders itself need an `en` entry too (`t(key, params)`). `localizedProduct(p)` applies
+  a product's optional `translations`. Fires a `languagechange` event that `main.js`
+  uses to re-render the grid, category strip and an open modal. `tests/i18n.spec.js`
+  fails on any missing key/translation.
 - `js/data.js` — the product catalog as a plain `products` array (id, name, price,
   `image` [grid thumbnail], `images` [gallery array for the modal — currently one entry
   per product, but the modal supports more], `description`, `category` [drives the Shop
-  page's category filter — a checkbox is generated per distinct value found in the data,
-  so adding a new category needs no HTML changes], `soldOut` [boolean — drives the
-  "Availability" filter, the SOLD OUT badge, and disabling the order control]). This is
+  page's category strip — a tile is generated per distinct value found in the data, so
+  adding a new category needs no HTML changes, only a `category.<Name>` label in
+  `js/i18n.js`], `soldOut` [boolean — drives the "Availability" filter, the SOLD OUT
+  badge, and disabling the order control], optional `translations` {ru|uk|pl: {name,
+  description}}). This is
   the only file that needs editing to add/remove/change products.
 - `media/goods_icons/` — original, full-resolution product photos (not referenced directly
   by the site). `media/web/` — compressed/resized copies (max 1000px, JPEG q78) that
@@ -67,7 +91,7 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
 - `js/main.js` — reads `products` and renders one `.product-card` per item into
   `#product-grid` via the global `renderProducts(items)` — a card is just an image, name,
   and price (plus a `.sold-out-badge` when relevant); there is no order button on the
-  grid itself. Also defines `INSTAGRAM_URL`, used by the modal's Order link. Clicking a
+  grid itself (just a decorative `.product-star`). Also defines `INSTAGRAM_URL`, used by the modal's Order link. Clicking a
   card (or focusing it and pressing Enter/Space) opens the `#product-modal` dialog
   (markup lives in `index.html`, hidden by default) via the global
   `openModal(product)`/`closeModal()` functions, showing the product's gallery image(s)
@@ -85,8 +109,8 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
     significantly larger...") asserts this directly: >1.4x the card width on viewports
     ≥600px, at least equal on narrower ones (where the card is already near full-width,
     so "much bigger" isn't geometrically possible).
-  - **Any element with `filter` (both `.product-image` and `.product-modal-image` have
-    one) creates a CSS stacking context that can paint above a sibling
+  - **Any element with `filter` (`.product-image`/`.product-modal-image` used to have
+    one; `.category-image` does now) creates a CSS stacking context that can paint above a sibling
     `position: absolute; z-index: auto` element**, even though plain positioning rules
     say it shouldn't — confirmed by reproducing it (the modal close button became
     unclickable, sitting under the image, only on narrow/fullscreen viewports where they
@@ -99,12 +123,12 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   - **Shop filters/sort** (UI/UX pattern taken from
     [boldestudios.com/collections/the-shop](https://www.boldestudios.com/collections/the-shop),
     adapted — no cart/search/price-slider since we have no checkout and 5 products):
-    `renderCategoryFilters(products)` builds the Category checkbox list from whatever
-    distinct `category` values exist in the data (so it can't drift out of sync with
-    `data.js`); `applyFiltersAndSort()` reads the checked Availability/Category
-    checkboxes and the selected Sort radio, filters+sorts a copy of `products`, and calls
-    `renderProducts`. Every filter/sort input has a `change` listener wired to
-    `applyFiltersAndSort`. An empty result renders `.filter-empty` instead of a blank
+    `renderCategoryFilters(products)` builds the category-strip tiles (`.category-tile`,
+    `aria-pressed`) from whatever distinct `category` values exist in the data (so it
+    can't drift out of sync with `data.js`); clicking a tile makes it the single active
+    category, clicking it again clears it. `applyFiltersAndSort()` reads the active
+    category plus the `#filter-availability` and `#sort-select` dropdowns, filters+sorts
+    a copy of `products`, and calls `renderProducts`. An empty result renders `.filter-empty` instead of a blank
     grid. A product with `soldOut: true` renders a `.sold-out-badge` over its card image
     (no button-level sold-out state on the card, since cards have no button); the
     modal's order control still shows a disabled `<span class="order-button is-disabled">`
@@ -119,12 +143,11 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   can keep serving an old cached copy of the CSS indefinitely — this is a real bug we hit
   (nav/section/about/shipping styles silently not applying for a visitor with a warm
   cache) and the version hash is the fix.
-  - **Filter checkboxes/radios are fully custom-drawn** (`appearance: none` +
-    `::after` fill), not native inputs with just `accent-color` — native checkbox/radio
-    rendering (size, shape, whether `accent-color` is even honored) varies a lot across
-    browsers/OSes, so relying on it looked fine in this tool's Chromium preview but
-    rendered as plain oversized native checkboxes for a real user. Never rely on
-    `accent-color` alone for a themed look here.
+  - **Form controls are fully custom-drawn** (`appearance: none` on `.lang-select` /
+    `.filter-select`, with an SVG chevron) — native control rendering varies a lot across
+    browsers/OSes (an earlier version's native-looking checkboxes rendered as plain
+    oversized boxes for a real user while looking fine in this tool's Chromium preview).
+    Never rely on `accent-color` or native styling alone for a themed look here.
   - **Every custom-colored `<a>` class must also style `:visited`** (e.g.
     `.order-button, .order-button:visited { color: ...; }`), because the browser's own
     `a:visited { color: purple; }` UA rule beats a plain class selector on specificity
@@ -138,10 +161,11 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
     "visited-link color safety" group in `tests/data.spec.js`, which checks the CSS
     *source* for the required override — add any new link class to that test's list.
 - `tests/` — Playwright test suite (`data.spec.js` data integrity, `shop.spec.js`
-  Shop-page functional/layout checks, `sections.spec.js` nav + About/Shipping page checks
-  across all three pages, `product-modal.spec.js` the click-to-view-details modal,
-  `filters.spec.js` the Category/Availability filters, Sort control, and sold-out
-  rendering, `visual.spec.js` screenshot regression for all three pages). See README.md
+  Shop-page functional/layout checks incl. hero, `sections.spec.js` nav/footer/shared-chrome
+  checks across all five pages + each page's content, `product-modal.spec.js` the
+  click-to-view-details modal, `filters.spec.js` the category strip, Availability/Sort
+  dropdowns, and sold-out rendering, `i18n.spec.js` translations and language switching,
+  `visual.spec.js` screenshot regression for all five pages). See README.md
   for how to run them. `tests/visual.spec.js-snapshots/` holds the committed baseline
   images — regenerate with `npm run test:update-snapshots` after any intentional
   layout/content change.

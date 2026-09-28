@@ -8,12 +8,29 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("page has the expected title", async ({ page }) => {
-  await expect(page).toHaveTitle(/Belf Art/i);
+  await expect(page).toHaveTitle(/Belfegor/i);
 });
 
-test("header shows the shop name and a working Instagram link", async ({ page }) => {
-  await expect(page.locator(".site-title")).toHaveText(/Belf Art/i);
-  await expect(page.locator(".instagram-link")).toHaveAttribute("href", INSTAGRAM_PATTERN);
+test("header shows the shop name and the footer has a working Instagram link", async ({ page }) => {
+  await expect(page.locator(".site-header .site-title")).toHaveText(/Belfegor/i);
+  await expect(page.locator(".site-footer .footer-link").first()).toHaveAttribute("href", INSTAGRAM_PATTERN);
+});
+
+test("hero shows the headline and a Shop Now link that jumps to the product grid", async ({ page }) => {
+  await expect(page.locator(".hero-title")).toHaveText(/handmade jewelry/i);
+  await expect(page.locator(".hero .hero-cta")).toHaveAttribute("href", "#shop");
+  await expect(page.locator("#shop #product-grid")).toHaveCount(1);
+});
+
+test("hero image is not broken", async ({ page }) => {
+  const ok = await page
+    .locator(".hero-image")
+    .evaluate((img) => img.decode().then(() => img.naturalWidth > 0).catch(() => false));
+  expect(ok).toBe(true);
+});
+
+test("every card has a star accent next to the price", async ({ page }) => {
+  await expect(page.locator(".product-card .product-star")).toHaveCount(products.length);
 });
 
 test("renders exactly one card per product", async ({ page }) => {

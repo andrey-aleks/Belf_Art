@@ -9,54 +9,76 @@ test("all products are shown by default", async ({ page }) => {
   await expect(page.locator(".product-card")).toHaveCount(products.length);
 });
 
-test("a category checkbox exists for every distinct category in the data, all checked", async ({ page }) => {
+test("a category tile exists for every distinct category in the data, none active by default", async ({ page }) => {
   const categories = [...new Set(products.map((p) => p.category))];
-  const checkboxes = page.locator(".filter-category");
-  await expect(checkboxes).toHaveCount(categories.length);
+  await expect(page.locator(".category-tile")).toHaveCount(categories.length);
 
   for (const category of categories) {
-    const checkbox = page.locator(`.filter-category[value="${category}"]`);
-    await expect(checkbox).toBeChecked();
+    await expect(page.locator(`.category-tile[data-category="${category}"]`)).toHaveAttribute("aria-pressed", "false");
   }
 });
 
-test("unchecking a category hides only that category's products", async ({ page }) => {
+test("every category tile image loads", async ({ page }) => {
+  const broken = await page
+    .locator(".category-image")
+    .evaluateAll((imgs) => Promise.all(imgs.map((img) => img.decode().then(() => null).catch(() => img.src))));
+  expect(broken.filter(Boolean)).toEqual([]);
+});
+
+test("clicking a category tile shows only that category's products", async ({ page }) => {
   const firstCategory = products[0].category;
-  const expectedRemaining = products.filter((p) => p.category !== firstCategory).length;
+  const expected = products.filter((p) => p.category === firstCategory);
 
-  await page.locator(`.filter-category[value="${firstCategory}"]`).uncheck();
+  const tile = page.locator(`.category-tile[data-category="${firstCategory}"]`);
+  await tile.click();
 
-  await expect(page.locator(".product-card")).toHaveCount(expectedRemaining);
-  for (const p of products.filter((p) => p.category === firstCategory)) {
+  await expect(tile).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator(".product-card")).toHaveCount(expected.length);
+  for (const p of products.filter((p) => p.category !== firstCategory)) {
     await expect(page.locator(".product-card", { hasText: p.name })).toHaveCount(0);
   }
 });
 
-test("unchecking In stock hides all in-stock products when none are sold out", async ({ page }) => {
-  test.skip(
-    products.every((p) => p.soldOut),
-    "requires at least one in-stock product in the current catalog"
-  );
+test("clicking another tile switches the category", async ({ page }) => {
+  const categories = [...new Set(products.map((p) => p.category))];
+  test.skip(categories.length < 2, "requires at least two categories");
 
-  await page.locator('.filter-availability[value="in-stock"]').uncheck();
+  await page.locator(`.category-tile[data-category="${categories[0]}"]`).click();
+  await page.locator(`.category-tile[data-category="${categories[1]}"]`).click();
 
-  const expectedRemaining = products.filter((p) => p.soldOut).length;
-  await expect(page.locator(".product-card")).toHaveCount(expectedRemaining);
+  await expect(page.locator('.category-tile[aria-pressed="true"]')).toHaveCount(1);
+  await expect(page.locator(".product-card")).toHaveCount(products.filter((p) => p.category === categories[1]).length);
 });
 
-test("re-checking a filter restores the hidden products", async ({ page }) => {
-  const firstCategory = products[0].category;
-  const checkbox = page.locator(`.filter-category[value="${firstCategory}"]`);
+test("clicking the active tile again restores all products", async ({ page }) => {
+  const tile = page.locator(`.category-tile[data-category="${products[0].category}"]`);
 
-  await checkbox.uncheck();
+  await tile.click();
   await expect(page.locator(".product-card")).not.toHaveCount(products.length);
 
-  await checkbox.check();
+  await tile.click();
+  await expect(tile).toHaveAttribute("aria-pressed", "false");
+  await expect(page.locator(".product-card")).toHaveCount(products.length);
+});
+
+test("availability filter: In stock hides sold-out products, Sold out hides in-stock ones", async ({ page }) => {
+  await page.selectOption("#filter-availability", "in-stock");
+  await expect(page.locator(".product-card")).toHaveCount(products.filter((p) => !p.soldOut).length);
+
+  await page.selectOption("#filter-availability", "out-of-stock");
+  const soldOutCount = products.filter((p) => p.soldOut).length;
+  if (soldOutCount === 0) {
+    await expect(page.locator(".filter-empty")).toBeVisible();
+  } else {
+    await expect(page.locator(".product-card")).toHaveCount(soldOutCount);
+  }
+
+  await page.selectOption("#filter-availability", "all");
   await expect(page.locator(".product-card")).toHaveCount(products.length);
 });
 
 test("sorting by price low to high orders cards by ascending price", async ({ page }) => {
-  await page.locator('.filter-sort[value="price-asc"]').check();
+  await page.selectOption("#sort-select", "price-asc");
 
   const prices = await page.locator(".product-price").allTextContents();
   const numeric = prices.map((p) => parseFloat(p));
@@ -65,7 +87,7 @@ test("sorting by price low to high orders cards by ascending price", async ({ pa
 });
 
 test("sorting by price high to low orders cards by descending price", async ({ page }) => {
-  await page.locator('.filter-sort[value="price-desc"]').check();
+  await page.selectOption("#sort-select", "price-desc");
 
   const prices = await page.locator(".product-price").allTextContents();
   const numeric = prices.map((p) => parseFloat(p));
@@ -74,7 +96,7 @@ test("sorting by price high to low orders cards by descending price", async ({ p
 });
 
 test("sorting by name A-Z orders cards alphabetically", async ({ page }) => {
-  await page.locator('.filter-sort[value="name-asc"]').check();
+  await page.selectOption("#sort-select", "name-asc");
 
   const names = await page.locator(".product-name").allTextContents();
   const trimmed = names.map((n) => n.trim());
@@ -83,17 +105,15 @@ test("sorting by name A-Z orders cards alphabetically", async ({ page }) => {
 });
 
 test("choosing Most relevant restores the original catalog order", async ({ page }) => {
-  await page.locator('.filter-sort[value="name-asc"]').check();
-  await page.locator('.filter-sort[value="relevant"]').check();
+  await page.selectOption("#sort-select", "name-asc");
+  await page.selectOption("#sort-select", "relevant");
 
   const names = await page.locator(".product-name").allTextContents();
   expect(names.map((n) => n.trim())).toEqual(products.map((p) => p.name));
 });
 
-test("filtering out every category shows an empty-state message", async ({ page }) => {
-  for (const checkbox of await page.locator(".filter-category").all()) {
-    await checkbox.uncheck();
-  }
+test("a filter combination with no matches shows an empty-state message", async ({ page }) => {
+  await page.evaluate(() => window.renderProducts([]));
 
   await expect(page.locator(".product-card")).toHaveCount(0);
   await expect(page.locator(".filter-empty")).toBeVisible();

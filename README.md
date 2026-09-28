@@ -1,4 +1,4 @@
-# Belf Art
+# Belfegor — Handmade Jewelry
 
 A simple static website for a handmade-goods shop. No backend, no build step, no payment
 processing — customers browse a grid of products and order by messaging the shop on
@@ -6,18 +6,43 @@ Instagram.
 
 ## Structure
 
-Three pages, sharing the same header/nav/footer markup (hand-duplicated — no templating):
+Five pages, sharing the same header, features strip and footer markup (hand-duplicated —
+no templating):
 
-- `index.html` — Shop (the product grid)
+- `index.html` — Shop (hero banner, category strip, product grid)
 - `about.html` — About Me
+- `custom-orders.html` — Custom Orders (how commissions work)
 - `shipping.html` — Shipping info
+- `contact.html` — Contact (Instagram / Telegram / Vinted)
 - `css/style.css` — all styling
 - `js/data.js` — the product catalog (edit this to add/remove/change products)
 - `js/main.js` — renders the product grid from `data.js` (only loaded on `index.html`)
+- `js/i18n.js` — the EN/RU/UA/PL language switcher and translations (loaded on every page)
+- `media/icons/` — line-art SVG icons (logo ornament, stars, feature and social icons)
 
-Adding a new page: copy an existing page's header/nav/footer, update each page's nav to
-mark the new link with `aria-current="page"` on the right page, and add the link to the
-other two pages' nav too.
+The design follows a reference mock-up: dark gothic theme, "Belfegor" blackletter logo
+with an antler/star ornament, silver line-art icons, blood-red accents.
+
+Adding a new page: copy an existing page's header, features strip and footer, mark the
+new link with `aria-current="page"` on its own page, and add the link to every other
+page's nav too. `tests/sections.spec.js` fails if the shared markup differs between pages.
+Also add the page to `PAGES` in `scripts/update-css-version.js`.
+
+## Languages
+
+`js/i18n.js` switches between English, Russian, Ukrainian and Polish (header dropdown, or
+the RU / UA / PL / EN links in the Shop hero). The choice is remembered in
+`localStorage`; first-time visitors get their browser language if it's one of the four.
+
+- English page text lives in the HTML. Tag an element with `data-i18n="some.key"` (or
+  `data-i18n-aria-label="some.key"` for an aria-label) and add `some.key` to the `ru`,
+  `uk` and `pl` dictionaries in `js/i18n.js`.
+- Strings rendered by JS (cards, modal, filters) need an `en` entry too.
+- Products are translated via an optional `translations` field in `js/data.js` (see below).
+- Category labels are `category.<Category>` keys (plural, e.g. "Necklaces").
+
+`tests/i18n.spec.js` fails if any key or product is missing a translation. The RU/UA/PL
+texts were machine-written; have a native speaker proofread them.
 
 ## Adding or editing products
 
@@ -33,30 +58,33 @@ Open `js/data.js` and edit the `products` array. Each product needs:
                                             // entries for a multi-photo product and a
                                             // thumbnail row appears automatically
   description: "A short description of the piece.",
-  category: "Necklace",                    // shows up as a filter checkbox automatically —
+  category: "Necklace",                    // gets a tile in the category strip automatically —
                                             // reuse an existing category or introduce a new one
+                                            // (and add a `category.<Name>` label in js/i18n.js)
   soldOut: false,                          // true shows a "SOLD OUT" badge and disables ordering
+  translations: {                          // optional; falls back to English
+    ru: { name: "...", description: "..." },
+    uk: { name: "...", description: "..." },
+    pl: { name: "...", description: "..." },
+  },
 }
 ```
 
-Also update the `INSTAGRAM_URL` constant in `js/main.js` and the Instagram links in
-`index.html` with the real Instagram profile URL.
-
 ## Shop filters and sorting
 
-The Shop page has a filter/sort sidebar (Availability, Category, Sort by), styled after
-[boldestudios.com/collections/the-shop](https://www.boldestudios.com/collections/the-shop)
-but scaled down for a 5-product, no-cart catalog (no search, cart, or price slider). The
-Category checkboxes are generated from whatever `category` values exist in `js/data.js`
-— adding a product with a new category needs no HTML changes. Marking a product
-`soldOut: true` shows a "SOLD OUT" badge on its card, disables its order control (and the
-modal's), and moves it under the "Out of stock" availability filter.
+Below the hero, a category strip has one tile per distinct `category` in `js/data.js`,
+using that category's first product photo as its picture, so adding a product with a new
+category needs no HTML changes. Clicking a tile shows only that category, and clicking it
+again shows everything. Above the grid, an Availability dropdown (All / In stock / Sold
+out) and a Sort dropdown refine the list. Marking a product `soldOut: true` shows a
+"SOLD OUT" badge on its card, disables the modal's order control, and puts it under
+"Sold out".
 
 ## Shop layout width
 
 Every page shares `.section { max-width: 1300px; }`, which keeps About/Shipping's text
 readable. The Shop page's `<main>` additionally has a `section-shop` class so
-`.section-shop { max-width: none; }` overrides that cap — the filter sidebar and product
+`.section-shop { max-width: none; }` overrides that cap — the toolbar and product
 grid expand to fill available width on wide screens (matching the reference site) instead
 of leaving large empty margins either side, and the grid's `repeat(auto-fill, minmax(...))`
 naturally adds more columns as space allows.
@@ -79,22 +107,22 @@ Fullscreen means there's no visible backdrop to tap there — closing works via 
 or Escape only, the standard pattern for fullscreen mobile sheets.
 
 If you add a control that overlays `.product-image` or `.product-modal-image`, give it
-an explicit `z-index`: both images have a `filter` (for the grayscale/contrast look),
-which creates a CSS stacking context that can paint above a plain
+an explicit `z-index`: images have had a `filter` (and may again), which creates a CSS
+stacking context that can paint above a plain
 `position: absolute; z-index: auto` sibling — this actually broke the close button on
 mobile once (see `.product-modal-close` and `.sold-out-badge` in `css/style.css` for the
 fix).
 
 ## Editing the About page
 
-`about.html` has placeholder bio text (`[Your Name]`, `[X years]`, `[Your City]`) —
+`about.html` (and the `about.bio` translations in `js/i18n.js`) has placeholder bio text (`[Your Name]`, `[X years]`, `[Your City]`) —
 replace these with the real details. The `.about-photo` box is a styled placeholder; swap
 it for a real `<img>` (optimized the same way as product photos, see below) once a photo
 is ready.
 
 ## Editing the Shipping page
 
-`shipping.html` has placeholder shipping specifics (`[City]`, `[Carrier]`, `[X]` business
+`shipping.html` (and the `shipping.*` translations in `js/i18n.js`) has placeholder shipping specifics (`[City]`, `[Carrier]`, `[X]` business
 days, `[A-B]`/`[C-D]` timeframes) — replace these with the real details. "Poland" is
 already filled in as the ship-from country.
 
@@ -173,7 +201,8 @@ npm test
 
 - `tests/data.spec.js` — validates `js/data.js` (unique ids, well-formed price/fields,
   non-empty description/category, `soldOut` is a boolean, every referenced image/gallery
-  image actually exists on disk) and checks all three pages for leftover placeholder text
+  image actually exists on disk, every product translation is non-empty) and checks all
+  pages for leftover placeholder text
   (e.g. a forgotten `your_instagram`).
 - `tests/shop.spec.js` — loads the Shop page and checks: the grid renders exactly one
   card per product, every card has an image/name/price and no order button (ordering only
@@ -192,19 +221,24 @@ npm test
   (Enter on a focused card), clicking the modal's own Order button does not close the
   modal, single-image products show no thumbnail row, and multi-image products show
   thumbnails that switch the main photo.
-- `tests/filters.spec.js` — the Shop filter/sort sidebar: a checkbox exists for every
-  distinct category in the data (all checked by default), unchecking a category or the
-  "In stock" availability option hides exactly the right products and re-checking
-  restores them, each sort option orders cards correctly (price asc/desc, name A-Z),
+- `tests/filters.spec.js` — the category strip and Availability/Sort dropdowns: a tile
+  exists for every distinct category (with a loading image), clicking a tile filters to
+  that category and clicking it again restores everything, the availability dropdown
+  hides the right products, each sort option orders cards correctly (price asc/desc, name A-Z),
   "Most relevant" restores the original catalog order, filtering out everything shows an
   empty-state message, and a sold-out product shows its badge on the card and a disabled
   order control in the modal, while an in-stock product shows neither.
-- `tests/sections.spec.js` — for each of the 3 pages: checks the nav has all 3 links in
-  the right order, exactly the current page is marked `aria-current="page"`, the header
-  Instagram link works, and clicking each other nav link actually navigates to that page.
-  Also checks About's heading/photo placeholder/non-empty bio, and Shipping's heading,
-  mention of Poland, and working Instagram link.
-- `tests/visual.spec.js` — full-page screenshot comparison for all three pages against a
+- `tests/sections.spec.js` — for each of the 5 pages: checks the nav has all 5 links in
+  order, exactly the current page is marked `aria-current="page"`, the logo links home,
+  the footer Instagram/Telegram/Vinted links work, the features strip is present, the
+  page never scrolls horizontally, and each nav link navigates. Also checks the shared
+  header/features/footer markup is identical across pages, every icon referenced in the
+  CSS exists, and each page's own content.
+- `tests/i18n.spec.js` — every translation key used in the HTML/JS exists in RU/UA/PL,
+  every product and category is translated, switching language updates static text,
+  products, title and an open modal, switching back restores English, the choice
+  persists across pages, and filters still work afterwards.
+- `tests/visual.spec.js` — full-page screenshot comparison for all five pages against a
   committed baseline (`tests/visual.spec.js-snapshots/`), to catch unintended visual
   changes. Screenshots are OS-dependent (font rendering differs across platforms) — if you
   run this on a different OS than the baseline was generated on, regenerate it there with

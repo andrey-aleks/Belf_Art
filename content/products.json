@@ -99,6 +99,26 @@
       "images": [
         "media/web/IMG_20260908_120916-01.jpg"
       ]
+    },
+    {
+      "name": {
+        "en": "N",
+        "ru": "Н",
+        "uk": "Н",
+        "pl": "N"
+      },
+      "description": {
+        "en": "Nnn",
+        "ru": "Нн",
+        "uk": "Нн",
+        "pl": "Nn"
+      },
+      "price": 100,
+      "category": "Necklace",
+      "soldOut": false,
+      "images": [
+        "/media/web/img_20261005_151450_652-01.webp"
+      ]
     }
   ]
 }

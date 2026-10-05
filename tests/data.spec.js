@@ -2,7 +2,7 @@ const { test, expect } = require("@playwright/test");
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
-const { cssVersion, PAGES: HTML_PAGES } = require("../scripts/update-css-version.js");
+const { assetVersion, ASSETS, PAGES: HTML_PAGES } = require("../scripts/update-asset-versions.js");
 const { mergeLocales } = require("../js/content.js");
 const { ROOT, LANGS, products, categories, texts, rawTexts, rawProducts, rawCategories, site, assetPath } = require("./helpers");
 
@@ -280,23 +280,34 @@ test.describe("visited-link color safety", () => {
   }
 });
 
-test.describe("css cache-busting", () => {
-  // Guards against the exact bug we hit: css/style.css was edited many times while every
-  // page kept requesting the same bare URL, so browsers kept serving an old cached copy
-  // missing the newer rules (nav, section titles, about/shipping content). The version
-  // query string must be derived from the CSS file's own content hash (via
-  // `npm run css:version`) and be present, identical, on every page.
-  const expectedVersion = cssVersion();
-
+test.describe("asset cache-busting", () => {
+  // Guards against two real bugs: (1) css/style.css was edited many times while every
+  // page kept requesting the same bare URL, so browsers kept serving an old cached copy;
+  // (2) Cloudflare (in front of belfegor.shop) kept serving the old js/main.js after a
+  // deploy while products.json (not cached) was already in the new format, so the shop
+  // rendered empty. Every local stylesheet/script must carry ?v=<content hash> (via
+  // `npm run assets:version`), so any change gets a new URL that no cache has seen.
   for (const file of HTML_PAGES) {
-    test(`${file} requests css/style.css with the current content-hash version`, () => {
-      const content = fs.readFileSync(path.join(ROOT, file), "utf8");
-      expect(
-        content,
-        `${file} is missing "css/style.css?v=${expectedVersion}" — run "npm run css:version" after editing css/style.css`
-      ).toContain(`href="css/style.css?v=${expectedVersion}"`);
+    const html = fs.readFileSync(path.join(ROOT, file), "utf8");
+    const localRefs = [...html.matchAll(/<(?:script\b[^>]*\bsrc|link\b[^>]*\bhref)="([^"]+)"/g)]
+      .map((m) => m[1])
+      .filter((url) => !/^(?:https?:)?\/\//.test(url) && /\.(?:js|css)(?:\?|$)/.test(url));
+
+    test(`${file} loads every local CSS/JS file with its current content-hash version`, () => {
+      expect(localRefs.length).toBeGreaterThan(0);
+      for (const url of localRefs) {
+        const [asset] = url.split("?");
+        expect(ASSETS, `${file}: ${asset} must be listed in ASSETS in scripts/update-asset-versions.js`).toContain(asset);
+        expect(url, `${file}: run "npm run assets:version" after editing ${asset}`).toBe(`${asset}?v=${assetVersion(asset)}`);
+      }
     });
   }
+
+  test("every page loads the stylesheet", () => {
+    for (const file of HTML_PAGES) {
+      expect(fs.readFileSync(path.join(ROOT, file), "utf8")).toContain(`href="css/style.css?v=${assetVersion("css/style.css")}"`);
+    }
+  });
 });
 
 test.describe("merging per-language content (js/content.js mergeLocales)", () => {

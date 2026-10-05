@@ -72,7 +72,7 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
     [32x32], both scaled from the user's silver blackletter "B" artwork, 150x150
     source). There's no larger source, so no apple-touch-icon (180px would be upscaled).
   - Every page loads `js/content.js` then `js/i18n.js`. When adding a page, also add it to `PAGES` in
-    `scripts/update-css-version.js` (drives CSS versioning and several tests).
+    `scripts/update-asset-versions.js` (drives CSS/JS versioning and several tests).
   - The nav on each page marks its own link with `aria-current="page"` by hand (styled via
     `.site-nav a[aria-current="page"]`) — when adding a page, replicate this pattern.
 - **Content & CMS** — all editable content is JSON in `content/` (`products.json`,
@@ -180,9 +180,14 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   subtle grain texture, cool silver text/borders, blood-red accent — colors picked to
   match the jewelry photos themselves) and a responsive CSS grid
   (`repeat(auto-fill, minmax(...))`) for the product cards. Every page links it as
-  `css/style.css?v=<hash>` — **after editing this file, run `npm run css:version`**
-  (`scripts/update-css-version.js`) to update that hash on all pages, or `npm test` will
-  fail (`tests/data.spec.js` "css cache-busting" group). Without a changing URL, browsers
+  `css/style.css?v=<hash>` — **after editing this file or any `js/*.js`, run
+  `npm run assets:version`** (`scripts/update-asset-versions.js`; `css:version` is an
+  alias) to update the hashes on all pages, or `npm test` will fail (`tests/data.spec.js`
+  "asset cache-busting" group). JS needs it too: belfegor.shop is behind Cloudflare,
+  which caches `.js`/`.css` (not `.html`/`.json`) — after the per-language content change
+  it kept serving the old `main.js` with the new `products.json`, and the live shop
+  rendered empty until the JS got versioned URLs. New local scripts must be added to
+  `ASSETS` in that script (the test fails otherwise). Without a changing URL, browsers
   can keep serving an old cached copy of the CSS indefinitely — this is a real bug we hit
   (nav/section/about/shipping styles silently not applying for a visitor with a warm
   cache) and the version hash is the fix.

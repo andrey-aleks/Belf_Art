@@ -29,7 +29,7 @@ with an antler/star ornament, silver line-art icons, blood-red accents.
 Adding a new page: copy an existing page's header, features strip and footer, mark the
 new link with `aria-current="page"` on its own page, and add the link to every other
 page's nav too. `tests/sections.spec.js` fails if the shared markup differs between pages.
-Also add the page to `PAGES` in `scripts/update-css-version.js`.
+Also add the page to `PAGES` in `scripts/update-asset-versions.js`.
 
 ## Languages
 
@@ -213,16 +213,20 @@ python -m http.server 5500
 
 Then open `http://localhost:5500`.
 
-## Editing CSS
+## Editing CSS and JS
 
-After editing `css/style.css`, run:
+After editing `css/style.css` or any file in `js/`, run:
 
 ```bash
-npm run css:version
+npm run assets:version
 ```
 
-This stamps a content-hash query string (`css/style.css?v=<hash>`) onto the stylesheet
-link in every page. Without it, a visitor's (or your own) browser can keep serving an old
+This stamps a content-hash query string (`css/style.css?v=<hash>`, `js/main.js?v=<hash>`)
+onto the stylesheet and script tags in every page. The JS needs it as much as the CSS:
+belfegor.shop is behind Cloudflare, which caches `.js`/`.css` files but not HTML/JSON, so
+after a deploy it served the old `main.js` together with new-format content and the shop
+showed no products. A new local script must also be added to `ASSETS` in
+`scripts/update-asset-versions.js`. Without it, a visitor's (or your own) browser can keep serving an old
 cached copy of the CSS indefinitely, since the URL never otherwise changes — this
 actually happened during development (nav/section/about/shipping styles silently didn't
 apply for a real visitor while looking fine for anyone with a fresh cache). `npm test`
@@ -315,8 +319,9 @@ npm test
   changes. Screenshots are OS-dependent (font rendering differs across platforms) — if you
   run this on a different OS than the baseline was generated on, regenerate it there with
   `npm run test:update-snapshots` rather than treating a mismatch as a real bug.
-- `tests/data.spec.js`'s "css cache-busting" group — checks that every page's stylesheet
-  link version matches `css/style.css`'s current content hash (see "Editing CSS" above).
+- `tests/data.spec.js`'s "asset cache-busting" group — checks that every local stylesheet
+  and script on every page carries its file's current content hash (see "Editing CSS and
+  JS" above).
 - `tests/data.spec.js`'s "visited-link color safety" group — checks that every
   custom-colored link class has a matching `:visited` rule in `css/style.css` (see
   "Link colors and `:visited`" above).

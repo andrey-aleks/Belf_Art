@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@0.222.1/schema/sveltia-cms.json
 #
 # Sveltia CMS configuration — the editor UI at /admin/.
-# Generated structure mirrors content/*.json; see README.md "Editing content (CMS)".
+# Structure mirrors content/*.json; see README.md "Editing content (CMS)".
 # SECURITY: this file is public. Never put tokens, passwords or OAuth secrets here.
 
 backend:
@@ -38,39 +38,44 @@ media_libraries:
         width: 1600
         height: 1600
 
+# Translatable content is stored per language, with the language at the top of the file
+# ({ "en": {...}, "ru": {...}, ... }) — Sveltia's "single_file" i18n structure. This is
+# what enables the CMS's built-in Translate button (see EDITING.md "Auto-translate").
+# Fields marked i18n: true are edited per language; everything else is only edited in
+# English, and "duplicate" lists keep the same items, in the same order, in every language.
+i18n:
+  structure: single_file
+  locales: [en, ru, uk, pl]
+  default_locale: en
+
 collections:
   - name: shop
     label: Shop
     icon: storefront
+    i18n: true
     files:
       - name: products
         label: Products
         file: content/products.json
         format: json
+        i18n: true
         fields:
           - name: products
             label: Products
             label_singular: Product
             widget: list
-            summary: "{{fields.name.en}} — {{fields.price}} EUR"
+            i18n: duplicate
+            summary: "{{fields.name}} — {{fields.price}} EUR"
             collapsed: true
             fields:
               - name: name
                 label: Name
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: description
                 label: Description
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: text }
-                  - { name: ru, label: Russian, widget: text }
-                  - { name: uk, label: Ukrainian, widget: text }
-                  - { name: pl, label: Polish, widget: text }
+                widget: text
+                i18n: true
               - { name: price, label: Price (EUR), widget: number, value_type: float, min: 0 }
               - name: category
                 label: Category
@@ -96,11 +101,13 @@ collections:
         label: Categories
         file: content/categories.json
         format: json
+        i18n: true
         fields:
           - name: categories
             label: Categories
             label_singular: Category
             widget: list
+            i18n: duplicate
             summary: "{{fields.key}}"
             hint: Categories appear as tiles above the product grid, in this order (only categories that have products are shown).
             fields:
@@ -111,731 +118,436 @@ collections:
                 hint: Used to link products to this category. Renaming it un-links existing products.
               - name: label
                 label: Label shown on the site (plural, e.g. “Necklaces”)
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
 
   - name: site
     label: Site
     icon: web
+    i18n: true
     files:
       - name: texts
         label: Page texts
         file: content/texts.json
         format: json
+        i18n: true
         fields:
           - name: hero
             label: "Shop page — top banner"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: city
                 label: "City"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: cta
                 label: "Cta"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: tag1
                 label: "Tag 1"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: tag2
                 label: "Tag 2"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: tag3
                 label: "Tag 3"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: tag4
                 label: "Tag 4"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: title
                 label: "Title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: shop
             label: "Shop page — product list"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: availability
                 label: "Availability"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: availabilityAll
                 label: "Availability all"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: availabilityInStock
                 label: "Availability in stock"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: availabilityOutOfStock
                 label: "Availability out of stock"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: empty
                 label: "Empty"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: sort
                 label: "Sort"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: title
                 label: "Title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: sort
             label: "Shop page — sort options"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: nameAsc
                 label: "Name asc"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: nameDesc
                 label: "Name desc"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: priceAsc
                 label: "Price asc"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: priceDesc
                 label: "Price desc"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: relevant
                 label: "Relevant"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: product
             label: "Product cards & detail window"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: loadError
                 label: "Load error"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: order
                 label: "Order"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: soldOut
                 label: "Sold out"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: viewDetails
                 label: "View details"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string, hint: "Keep {name} as-is: it is replaced automatically." }
-                  - { name: ru, label: Russian, widget: string, hint: "Keep {name} as-is: it is replaced automatically." }
-                  - { name: uk, label: Ukrainian, widget: string, hint: "Keep {name} as-is: it is replaced automatically." }
-                  - { name: pl, label: Polish, widget: string, hint: "Keep {name} as-is: it is replaced automatically." }
+                widget: string
+                i18n: true
+                hint: "Keep {name} as-is: it is replaced automatically."
           - name: modal
             label: "Product detail window"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: close
                 label: "Close"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: photo
                 label: "Photo"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string, hint: "Keep {n} as-is: it is replaced automatically." }
-                  - { name: ru, label: Russian, widget: string, hint: "Keep {n} as-is: it is replaced automatically." }
-                  - { name: uk, label: Ukrainian, widget: string, hint: "Keep {n} as-is: it is replaced automatically." }
-                  - { name: pl, label: Polish, widget: string, hint: "Keep {n} as-is: it is replaced automatically." }
+                widget: string
+                i18n: true
+                hint: "Keep {n} as-is: it is replaced automatically."
           - name: categories
             label: "Shop page — category strip"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: all
                 label: "“All” tile (shows every product)"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: label
                 label: "Label"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: nav
             label: "Menu"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: about
                 label: "About"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: contact
                 label: "Contact"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: custom
                 label: "Custom"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: label
                 label: "Label"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: shipping
                 label: "Shipping"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: shop
                 label: "Shop"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: brand
             label: "Logo"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: home
                 label: "Home"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: subtitle
                 label: "Subtitle"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: lang
             label: "Language switcher"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: label
                 label: "Label"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: title
             label: "Browser tab titles"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: about
                 label: "About"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: contact
                 label: "Contact"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: custom
                 label: "Custom"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: shipping
                 label: "Shipping"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: shop
                 label: "Shop"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: feat
             label: "Features strip (bottom of every page)"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: handmadeText
                 label: "Handmade text"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: handmadeTitle
                 label: "Handmade title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: paymentsText
                 label: "Payments text"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: paymentsTitle
                 label: "Payments title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: script
                 label: "Script"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: shippingText
                 label: "Shipping text"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: shippingTitle
                 label: "Shipping title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: features
             label: "Features strip — screen-reader label"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: label
                 label: "Label"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: footer
             label: "Footer"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: orderThrough
                 label: "Order through"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: questions
                 label: "Questions"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: write
                 label: "Write"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: about
             label: "About page"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: bio
                 label: "Bio"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: text }
-                  - { name: ru, label: Russian, widget: text }
-                  - { name: uk, label: Ukrainian, widget: text }
-                  - { name: pl, label: Polish, widget: text }
+                widget: text
+                i18n: true
               - name: photo
                 label: "Photo"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: photoLabel
                 label: "Photo label"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: title
                 label: "Title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: custom
             label: "Custom Orders page"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: cta
                 label: "Cta"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: intro
                 label: "Intro"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: text }
-                  - { name: ru, label: Russian, widget: text }
-                  - { name: uk, label: Ukrainian, widget: text }
-                  - { name: pl, label: Polish, widget: text }
+                widget: text
+                i18n: true
               - name: step1Text
                 label: "Step 1text"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: text }
-                  - { name: ru, label: Russian, widget: text }
-                  - { name: uk, label: Ukrainian, widget: text }
-                  - { name: pl, label: Polish, widget: text }
+                widget: text
+                i18n: true
               - name: step1Title
                 label: "Step 1title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: step2Text
                 label: "Step 2text"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: step2Title
                 label: "Step 2title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: step3Text
                 label: "Step 3text"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: step3Title
                 label: "Step 3title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: step4Text
                 label: "Step 4text"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: step4Title
                 label: "Step 4title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: title
                 label: "Title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: shipping
             label: "Shipping page"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: p1
                 label: "P 1"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: text }
-                  - { name: ru, label: Russian, widget: text }
-                  - { name: uk, label: Ukrainian, widget: text }
-                  - { name: pl, label: Polish, widget: text }
+                widget: text
+                i18n: true
               - name: p2
                 label: "P 2"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: text }
-                  - { name: ru, label: Russian, widget: text }
-                  - { name: uk, label: Ukrainian, widget: text }
-                  - { name: pl, label: Polish, widget: text }
+                widget: text
+                i18n: true
               - name: p3a
                 label: "P 3a"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: text }
-                  - { name: ru, label: Russian, widget: text }
-                  - { name: uk, label: Ukrainian, widget: text }
-                  - { name: pl, label: Polish, widget: text }
+                widget: text
+                i18n: true
               - name: p3b
                 label: "P 3b"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: title
                 label: "Title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
           - name: contact
             label: "Contact page"
             widget: object
+            i18n: true
             collapsed: true
             fields:
               - name: instagram
                 label: "Instagram"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: intro
                 label: "Intro"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: text }
-                  - { name: ru, label: Russian, widget: text }
-                  - { name: uk, label: Ukrainian, widget: text }
-                  - { name: pl, label: Polish, widget: text }
+                widget: text
+                i18n: true
               - name: location
                 label: "Location"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: telegram
                 label: "Telegram"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: title
                 label: "Title"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
               - name: vinted
                 label: "Vinted"
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: string }
-                  - { name: ru, label: Russian, widget: string }
-                  - { name: uk, label: Ukrainian, widget: string }
-                  - { name: pl, label: Polish, widget: string }
+                widget: string
+                i18n: true
       - name: images
         label: Page photos
         file: content/site.json

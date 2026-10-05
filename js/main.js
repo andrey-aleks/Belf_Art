@@ -270,7 +270,7 @@ document.addEventListener("languagechange", () => {
   if (modalProduct) fillModal(modalProduct);
 });
 
-Promise.all([fetchContent("content/products.json"), fetchContent("content/categories.json"), textsReady])
+Promise.all([fetchLocalizedContent("content/products.json"), fetchLocalizedContent("content/categories.json"), textsReady])
   .then(([productData, categoryData]) => {
     products = productData.products || [];
     categories = categoryData.categories || [];

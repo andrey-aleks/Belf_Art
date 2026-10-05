@@ -76,9 +76,19 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   - The nav on each page marks its own link with `aria-current="page"` by hand (styled via
     `.site-nav a[aria-current="page"]`) — when adding a page, replicate this pattern.
 - **Content & CMS** — all editable content is JSON in `content/` (`products.json`,
-  `categories.json`, `texts.json` = `{group: {field: {en,ru,uk,pl}}}`, `site.json` =
-  hero/about photos), fetched at runtime by `js/content.js` (`fetchContent`, with
-  `cache: "no-cache"` so CMS edits show up promptly). `admin/config.yml` defines the
+  `categories.json`, `texts.json`, `site.json` = hero/about photos), fetched at runtime
+  by `js/content.js` (`fetchContent`, with `cache: "no-cache"` so CMS edits show up
+  promptly). The three translatable files are stored **per language at the top level**
+  (`{en: {...}, ru: {...}, uk: {...}, pl: {...}}` — Sveltia's i18n `single_file`
+  structure, required for the CMS's built-in Translate button, which the editor uses
+  with a free Google Gemini key kept in their browser). `fetchLocalizedContent` runs
+  `mergeLocales()` to turn them into the per-field shape the code reads
+  (`texts.group.field = {en,ru,uk,pl}`, `product.name = {en,…}`); English defines the
+  structure, and a value identical in every language (price, image path, category key,
+  or a text like the brand name) stays a plain value — so consumers must go through
+  `localize()` (and tests through `inLang()` in `tests/helpers.js`), never `.en`
+  directly. In `admin/config.yml`, translated fields have `i18n: true`; the product and
+  category lists have `i18n: duplicate` (same items in every language). `admin/config.yml` defines the
   editor's forms and **must mirror the JSON shapes exactly** (`tests/data.spec.js`
   compares them) — when you add a text/field, update the HTML, the JSON *and* the
   config. `EDITING.md` is the editor's guide; README "Editing content (CMS)" has setup

@@ -1,31 +1,66 @@
 {
-  "categories": [
-    {
-      "key": "Necklace",
-      "label": {
-        "en": "Necklaces",
-        "ru": "Ожерелья",
-        "uk": "Намиста",
-        "pl": "Naszyjniki"
+  "en": {
+    "categories": [
+      {
+        "key": "Necklace",
+        "label": "Necklaces"
+      },
+      {
+        "key": "Choker",
+        "label": "Chokers"
+      },
+      {
+        "key": "Charm",
+        "label": "Charms"
       }
-    },
-    {
-      "key": "Choker",
-      "label": {
-        "en": "Chokers",
-        "ru": "Чокеры",
-        "uk": "Чокери",
-        "pl": "Chokery"
+    ]
+  },
+  "ru": {
+    "categories": [
+      {
+        "key": "Necklace",
+        "label": "Ожерелья"
+      },
+      {
+        "key": "Choker",
+        "label": "Чокеры"
+      },
+      {
+        "key": "Charm",
+        "label": "Подвески"
       }
-    },
-    {
-      "key": "Charm",
-      "label": {
-        "en": "Charms",
-        "ru": "Подвески",
-        "uk": "Підвіски",
-        "pl": "Zawieszki"
+    ]
+  },
+  "uk": {
+    "categories": [
+      {
+        "key": "Necklace",
+        "label": "Намиста"
+      },
+      {
+        "key": "Choker",
+        "label": "Чокери"
+      },
+      {
+        "key": "Charm",
+        "label": "Підвіски"
       }
-    }
-  ]
+    ]
+  },
+  "pl": {
+    "categories": [
+      {
+        "key": "Necklace",
+        "label": "Naszyjniki"
+      },
+      {
+        "key": "Choker",
+        "label": "Chokery"
+      },
+      {
+        "key": "Charm",
+        "label": "Zawieszki"
+      }
+    ]
+  }
 }

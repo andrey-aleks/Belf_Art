@@ -1,5 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const { products, assetPath, gotoAndWait } = require("./helpers");
+const { products, inLang, assetPath, gotoAndWait } = require("./helpers");
 
 const INSTAGRAM_PATTERN = /instagram\.com\/be1fegor_jewelry/;
 
@@ -47,9 +47,9 @@ test("clicking a product card opens the modal with that product's details", asyn
 
   const modal = page.locator("#product-modal");
   await expect(modal).toBeVisible();
-  await expect(modal.locator(".product-modal-title")).toHaveText(product.name.en);
+  await expect(modal.locator(".product-modal-title")).toHaveText(inLang(product.name));
   await expect(modal.locator(".product-modal-price")).toHaveText(`${product.price} EUR`);
-  await expect(modal.locator(".product-modal-description")).toHaveText(product.description.en);
+  await expect(modal.locator(".product-modal-description")).toHaveText(inLang(product.description));
   await expect(modal.locator(".product-modal-image")).toHaveAttribute("src", assetPath(product.images[0]));
   await expect(modal.locator(".product-modal-order")).toHaveAttribute("href", INSTAGRAM_PATTERN);
 });
@@ -59,12 +59,12 @@ test("opening a different card after closing shows fresh content, not stale data
   const modal = page.locator("#product-modal");
 
   await cards.nth(0).click();
-  await expect(modal.locator(".product-modal-title")).toHaveText(products[0].name.en);
+  await expect(modal.locator(".product-modal-title")).toHaveText(inLang(products[0].name));
   await page.keyboard.press("Escape");
   await expect(modal).toBeHidden();
 
   await cards.nth(1).click();
-  await expect(modal.locator(".product-modal-title")).toHaveText(products[1].name.en);
+  await expect(modal.locator(".product-modal-title")).toHaveText(inLang(products[1].name));
   await expect(modal.locator(".product-modal-title")).toHaveCount(1);
 });
 
@@ -110,7 +110,7 @@ test("keyboard: focusing a card and pressing Enter opens its modal", async ({ pa
 
   const modal = page.locator("#product-modal");
   await expect(modal).toBeVisible();
-  await expect(modal.locator(".product-modal-title")).toHaveText(products[2].name.en);
+  await expect(modal.locator(".product-modal-title")).toHaveText(inLang(products[2].name));
 });
 
 test("clicking the modal's Order button does not close the modal", async ({ page, context }) => {

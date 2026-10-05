@@ -44,17 +44,55 @@ The editor has two sections:
 
 - **Shop**
   - **Products** — every product, in the order shown on the site (drag the ═ handle to reorder).
-    Each has a name and description in English, Russian, Ukrainian and Polish, a price
-    in EUR, a category, a "Sold out" switch, and photos (the first photo is shown in
-    the product grid; all photos appear when a customer opens the product).
+    Each has a name and description (in every language), a price in EUR, a category,
+    a "Sold out" switch, and photos (the first photo is shown in the product grid; all
+    photos appear when a customer opens the product).
   - **Categories** — the tiles above the products (Necklaces, Chokers, …). To use a new
     category, add it here first, then pick it on the product.
 - **Site**
-  - **Page texts** — every text on the website, grouped by page, in all four
-    languages. Keep things like `{name}` or `{n}` exactly as they are; the site fills
+  - **Page texts** — every text on the website, grouped by page. Keep things like `{name}` or `{n}` exactly as they are; the site fills
     them in automatically. Bracketed notes like `[Your City]` are placeholders waiting
     for real details.
   - **Page photos** — the big photo at the top of the shop, and the About page photo.
+
+### Languages
+
+The site is in English, Russian, Ukrainian and Polish. In the editor, **English is the
+main language**: you add and remove products, change prices, categories and photos in
+English, and the other languages follow automatically. For the other languages you only
+edit the *texts* (names, descriptions, page texts). The editor shows English and one
+other language side by side; switch the other language from the language menu above the
+fields. Every text must be filled in for all four languages before you can save.
+
+### Auto-translate
+
+The editor can translate texts for you with Google's Gemini AI, for free (no credit card
+needed).
+
+**One-time setup — get a free Gemini key:**
+
+1. Open https://aistudio.google.com/api-keys and sign in with a Google account.
+2. A key is created for you automatically (if not, click **Create API key**). Copy it.
+3. In the editor, click a **Translate** button (see below), choose **Google Gemini**, and
+   paste the key when asked. The editor remembers it in this browser, so you only do
+   this once per browser. (You can also change it later under **Settings**.)
+
+**Translating:**
+
+- **Translate** button at the top of a language's side — fills in **only the empty**
+  texts of that language from English. Useful after adding a new product: write it in
+  English, then switch to each other language and click Translate.
+- **Translate** button on a single field — re-translates that one text, **replacing**
+  what's there. Useful after changing an English text.
+
+Machine translation is good but not perfect — read the result before saving, especially
+names and anything with jewelry terms. Like the rest of the site, the texts you send for
+translation are public anyway; Google may use what you send through a free key to
+improve its products, so don't translate anything private. Keep the key private too —
+anyone with it can use your free allowance. If it leaks, delete it on the page from
+step 1 and create a new one.
+
+### Publishing
 
 Click **Save** to publish. The website updates about 1–2 minutes later (refresh the
 page to see it).

@@ -51,17 +51,28 @@ download needed. Each save is a commit to `master`; GitHub Pages redeploys in ~1
 
 | File | Contents |
 |---|---|
-| `content/products.json` | `products[]`: `name`/`description` as `{en, ru, uk, pl}`, `price` (number, EUR), `category` (a key from categories.json), `soldOut`, `images[]` (first = grid photo) |
-| `content/categories.json` | `categories[]`: `key` + `label {en, ru, uk, pl}`; tile order on the Shop page |
-| `content/texts.json` | `{ group: { field: { en, ru, uk, pl } } }` — referenced from HTML as `data-i18n="group.field"` |
+| `content/products.json` | per language: `{ en: { products: [...] }, ru: {...}, uk: {...}, pl: {...} }`. Each product: `name`, `description` (translated), `price` (number, EUR), `category` (a key from categories.json), `soldOut`, `images[]` (first = grid photo) — the untranslated fields are identical in every language |
+| `content/categories.json` | per language: `{ en: { categories: [{ key, label }] }, ... }`; tile order on the Shop page |
+| `content/texts.json` | per language: `{ en: { group: { field: "text" } }, ru: {...}, ... }` — referenced from HTML as `data-i18n="group.field"` |
 | `content/site.json` | `heroImage`, `aboutPhoto` (empty = placeholder) |
 | `admin/config.yml` | the editor's forms; must mirror the JSON shapes (enforced by `tests/data.spec.js`) |
 | `admin/index.html` | loads the CMS from unpkg, pinned + Subresource Integrity |
 
+The translatable files are stored **per language, with the language at the top** — the
+CMS's i18n `single_file` structure (`i18n:` in `admin/config.yml`). That's what enables
+the CMS's built-in **Translate** button (Google Gemini free tier, key kept in the
+editor's browser — see EDITING.md "Auto-translate"; Sveltia's
+[translation docs](https://sveltiacms.app/en/docs/integrations/translations)). In the
+config, translated fields have `i18n: true`, and the product/category lists have
+`i18n: duplicate` so items, prices, photos and keys stay identical across languages.
+The site merges the languages back together at load time (`mergeLocales()` in
+`js/content.js`) into `{ field: { en, ru, uk, pl } }`, which `localize()` reads.
+
 You can edit the JSON by hand too. Adding a new text: put `data-i18n="group.field"` on
-the element (keep English inside it as a pre-load fallback), add the entry to
-`content/texts.json`, and add a matching field to the `texts` file in
-`admin/config.yml` — the tests fail until all three agree.
+the element (keep English inside it as a pre-load fallback), add the text under
+`group.field` in **every** language section of `content/texts.json`, and add a matching
+field (with `i18n: true`) to the `texts` file in `admin/config.yml` — the tests fail
+until all of them agree.
 
 ### Setting up an editor (one-time, for the repo owner)
 

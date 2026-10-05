@@ -1,5 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const { products, categories, texts, gotoAndWait } = require("./helpers");
+const { products, categories, inLang, text, gotoAndWait } = require("./helpers");
 
 test.beforeEach(async ({ page }) => {
   await gotoAndWait(page, "/");
@@ -24,7 +24,7 @@ test("an \"All\" tile comes first and is selected by default", async ({ page }) 
   const all = page.locator(".category-tile").first();
   await expect(all).toHaveClass(/category-tile-all/);
   await expect(all).toHaveAttribute("aria-pressed", "true");
-  await expect(all.locator(".category-label")).toHaveText(texts.categories.all.en);
+  await expect(all.locator(".category-label")).toHaveText(text("categories.all"));
   await expect(page.locator('.category-tile[aria-pressed="true"]')).toHaveCount(1);
 });
 
@@ -53,7 +53,7 @@ test("clicking \"All\" keeps the availability filter", async ({ page }) => {
 
 test("the \"All\" tile is translated", async ({ page }) => {
   await page.selectOption("#lang-select", "pl");
-  await expect(page.locator(".category-tile-all .category-label")).toHaveText(texts.categories.all.pl);
+  await expect(page.locator(".category-tile-all .category-label")).toHaveText(text("categories.all", "pl"));
 });
 
 test("category tiles follow the order of content/categories.json and show its labels", async ({ page }) => {
@@ -63,7 +63,7 @@ test("category tiles follow the order of content/categories.json and show its la
   for (let i = 0; i < expected.length; i++) {
     const tile = page.locator(CATEGORY_TILES).nth(i);
     await expect(tile).toHaveAttribute("data-category", expected[i].key);
-    await expect(tile.locator(".category-label")).toHaveText(expected[i].label.en);
+    await expect(tile.locator(".category-label")).toHaveText(inLang(expected[i].label));
   }
 });
 
@@ -91,7 +91,7 @@ test("clicking a category tile shows only that category's products", async ({ pa
   await expect(tile).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator(".product-card")).toHaveCount(expected.length);
   for (const p of products.filter((p) => p.category !== firstCategory)) {
-    await expect(page.locator(".product-card", { hasText: p.name.en })).toHaveCount(0);
+    await expect(page.locator(".product-card", { hasText: inLang(p.name) })).toHaveCount(0);
   }
 });
 
@@ -166,7 +166,7 @@ test("choosing Most relevant restores the original catalog order", async ({ page
   await page.selectOption("#sort-select", "relevant");
 
   const names = await page.locator(".product-name").allTextContents();
-  expect(names.map((n) => n.trim())).toEqual(products.map((p) => p.name.en));
+  expect(names.map((n) => n.trim())).toEqual(products.map((p) => inLang(p.name)));
 });
 
 test("a filter combination with no matches shows an empty-state message", async ({ page }) => {

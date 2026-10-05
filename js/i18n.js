@@ -1,13 +1,14 @@
 // Language switching for every page.
 //
-// All page texts live in content/texts.json as { group: { field: { en, ru, uk, pl } } }
-// (editable through the CMS at /admin/). Elements are tagged with
+// All page texts live in content/texts.json (editable through the CMS at /admin/), stored
+// per language and merged by fetchLocalizedContent() (js/content.js) into
+// { group: { field: { en, ru, uk, pl } } } (or a plain string if all languages agree). Elements are tagged with
 // data-i18n="group.field" (textContent) or data-i18n-aria-label="group.field"
 // (aria-label). The English text already in the HTML is only a fallback for the moment
 // before texts.json has loaded (or if it fails to load).
 //
-// Product names/descriptions are { en, ru, uk, pl } objects in content/products.json;
-// see localizedProduct(). Everything is inserted as text, never as HTML.
+// Product names/descriptions become { en, ru, uk, pl } objects the same way; see
+// localizedProduct(). Everything is inserted as text, never as HTML.
 
 const LANGUAGES = ["en", "ru", "uk", "pl"];
 const DEFAULT_LANGUAGE = "en";
@@ -138,7 +139,7 @@ function initI18n() {
   document.documentElement.lang = currentLanguage;
   applyTranslations();
 
-  textsReady = fetchContent("content/texts.json")
+  textsReady = fetchLocalizedContent("content/texts.json")
     .then((loaded) => {
       texts = loaded;
       applyTranslations();

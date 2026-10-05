@@ -1,7 +1,11 @@
 const { test, expect } = require("@playwright/test");
-const { products, categories, texts, text, gotoAndWait, waitForContent } = require("./helpers");
+const { LANGS, products, categories, rawTexts, rawProducts, inLang, assetPath, text, gotoAndWait, waitForContent } = require("./helpers");
 
-const categoryLabel = (key, lang) => categories.find((c) => c.key === key).label[lang];
+const categoryLabel = (key, lang) => inLang(categories.find((c) => c.key === key).label, lang);
+
+// A products.json in the stored shape ({ en: { products }, ru: { products }, ... }) with
+// the same list in every language.
+const productsFile = (list) => Object.fromEntries(LANGS.map((lang) => [lang, { products: list }]));
 
 test.describe("language switching", () => {
   test("defaults to English", async ({ page }) => {
@@ -18,7 +22,7 @@ test.describe("language switching", () => {
     await expect(page.locator("html")).toHaveAttribute("lang", "pl");
     await expect(page.locator('.site-nav a[href="about.html"]')).toHaveText(text("nav.about", "pl"));
     await expect(page.locator(".hero-title")).toHaveText(text("hero.title", "pl"));
-    await expect(page.locator(".product-name").first()).toHaveText(products[0].name.pl);
+    await expect(page.locator(".product-name").first()).toHaveText(inLang(products[0].name, "pl"));
     await expect(page).toHaveTitle(text("title.shop", "pl"));
     await expect(page.locator(`.category-tile[data-category="${products[0].category}"]`)).toContainText(
       categoryLabel(products[0].category, "pl")
@@ -31,7 +35,7 @@ test.describe("language switching", () => {
     await page.selectOption("#lang-select", "en");
 
     await expect(page.locator(".hero-title")).toHaveText(text("hero.title"));
-    await expect(page.locator(".product-name").first()).toHaveText(products[0].name.en);
+    await expect(page.locator(".product-name").first()).toHaveText(inLang(products[0].name));
   });
 
   test("the header dropdown is the only language switcher", async ({ page }) => {
@@ -58,7 +62,7 @@ test.describe("language switching", () => {
     await page.locator(".product-card").first().click();
     await page.evaluate(() => setLanguage("pl"));
 
-    await expect(page.locator(".product-modal-title")).toHaveText(products[0].name.pl);
+    await expect(page.locator(".product-modal-title")).toHaveText(inLang(products[0].name, "pl"));
     await expect(page.locator(".product-modal-order")).toHaveText(text("product.order", "pl"));
   });
 
@@ -72,13 +76,24 @@ test.describe("language switching", () => {
 
   test("a missing translation falls back to English", async ({ page }) => {
     await page.route("**/content/texts.json", (route) => {
-      const copy = JSON.parse(JSON.stringify(texts));
-      delete copy.hero.title.pl;
+      const copy = JSON.parse(JSON.stringify(rawTexts));
+      delete copy.pl.hero.title;
       route.fulfill({ json: copy });
     });
     await gotoAndWait(page, "/");
     await page.selectOption("#lang-select", "pl");
     await expect(page.locator(".hero-title")).toHaveText(text("hero.title"));
+  });
+
+  test("an empty translation (not yet translated in the CMS) falls back to English", async ({ page }) => {
+    await page.route("**/content/products.json", (route) => {
+      const copy = JSON.parse(JSON.stringify(rawProducts));
+      copy.pl.products[0].name = "";
+      route.fulfill({ json: copy });
+    });
+    await gotoAndWait(page, "/");
+    await page.selectOption("#lang-select", "pl");
+    await expect(page.locator(".product-name").first()).toHaveText(inLang(products[0].name));
   });
 });
 
@@ -90,9 +105,7 @@ test.describe("edited content is shown and cannot inject HTML", () => {
   test("a product name containing HTML is shown literally", async ({ page }) => {
     await page.route("**/content/products.json", (route) =>
       route.fulfill({
-        json: {
-          products: [{ ...products[0], name: { en: payload, ru: payload, uk: payload, pl: payload }, category: `x"><b>y` }],
-        },
+        json: productsFile([{ ...rawProducts.en.products[0], name: payload, category: `x"><b>y` }]),
       })
     );
     await gotoAndWait(page, "/");
@@ -107,8 +120,8 @@ test.describe("edited content is shown and cannot inject HTML", () => {
 
   test("a page text containing HTML is shown literally", async ({ page }) => {
     await page.route("**/content/texts.json", (route) => {
-      const copy = JSON.parse(JSON.stringify(texts));
-      copy.hero.title.en = payload;
+      const copy = JSON.parse(JSON.stringify(rawTexts));
+      copy.en.hero.title = payload;
       route.fulfill({ json: copy });
     });
     await gotoAndWait(page, "/");
@@ -120,7 +133,7 @@ test.describe("edited content is shown and cannot inject HTML", () => {
 
   test("a leading slash in a product photo path still loads on a sub-path site", async ({ page }) => {
     await page.route("**/content/products.json", (route) =>
-      route.fulfill({ json: { products: [{ ...products[0], images: ["/" + products[0].images[0].replace(/^\//, "")] }] } })
+      route.fulfill({ json: productsFile([{ ...rawProducts.en.products[0], images: ["/" + assetPath(products[0].images[0])] }]) })
     );
     await gotoAndWait(page, "/");
     const img = page.locator(".product-card .product-image");

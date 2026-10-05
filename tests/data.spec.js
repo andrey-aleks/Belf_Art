@@ -3,10 +3,14 @@ const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
 const { cssVersion, PAGES: HTML_PAGES } = require("../scripts/update-css-version.js");
-const { ROOT, LANGS, products, categories, texts, site, assetPath } = require("./helpers");
+const { mergeLocales } = require("../js/content.js");
+const { ROOT, LANGS, products, categories, texts, rawTexts, rawProducts, rawCategories, site, assetPath } = require("./helpers");
 
 // Content is edited through the CMS (/admin/), and GitHub runs these checks on every
 // change (.github/workflows/tests.yml), so a broken edit is reported by email.
+//
+// Translatable files are stored per language ({ en: {...}, ru: {...}, uk: {...},
+// pl: {...} }, the CMS's i18n "single_file" structure); see js/content.js mergeLocales().
 
 function expectLocalImage(p, label) {
   expect(typeof p === "string" && p.length > 0, `${label}: missing image path`).toBe(true);
@@ -17,9 +21,23 @@ function expectLocalImage(p, label) {
   expect(fs.existsSync(path.join(ROOT, assetPath(p))), `${label}: file not found: ${p}`).toBe(true);
 }
 
-function expectAllLanguages(value, label) {
+function expectFilled(value, label) {
+  expect(typeof value === "string" && value.trim().length > 0, `${label} is empty`).toBe(true);
+}
+
+function expectAllLanguagesPresent(raw, file) {
+  expect(Object.keys(raw).sort(), `${file} must have exactly one section per language`).toEqual([...LANGS].sort());
+}
+
+// Fields of a list item that are the same in every language (the CMS keeps them in sync
+// with i18n: duplicate); everything else is translated.
+function expectSameExceptTranslated(items, translated, label) {
+  const strip = (item) => Object.fromEntries(Object.entries(item).filter(([key]) => !translated.includes(key)));
   for (const lang of LANGS) {
-    expect(typeof value?.[lang] === "string" && value[lang].trim().length > 0, `${label}: "${lang}" is empty`).toBe(true);
+    expect(items[lang].length, `${label}: "${lang}" has a different number of items than "en"`).toBe(items.en.length);
+    items[lang].forEach((item, i) => {
+      expect(strip(item), `${label} #${i + 1}: "${lang}" differs from "en" in a non-translated field`).toEqual(strip(items.en[i]));
+    });
   }
 }
 
@@ -28,12 +46,24 @@ test.describe("product content (content/products.json)", () => {
     expect(products.length).toBeGreaterThan(0);
   });
 
-  products.forEach((p, i) => {
-    const label = `product #${i + 1} (${p.name?.en || "unnamed"})`;
+  test("every language has the same products, prices, categories and photos", () => {
+    expectAllLanguagesPresent(rawProducts, "products.json");
+    expectSameExceptTranslated(
+      Object.fromEntries(LANGS.map((lang) => [lang, rawProducts[lang].products])),
+      ["name", "description"],
+      "product"
+    );
+  });
+
+  rawProducts.en.products.forEach((p, i) => {
+    const label = `product #${i + 1} (${p.name || "unnamed"})`;
 
     test(`${label} is well-formed`, () => {
-      expectAllLanguages(p.name, `${label} name`);
-      expectAllLanguages(p.description, `${label} description`);
+      for (const lang of LANGS) {
+        const localized = rawProducts[lang].products[i] || {};
+        expectFilled(localized.name, `${label} name (${lang})`);
+        expectFilled(localized.description, `${label} description (${lang})`);
+      }
       expect(typeof p.price === "number" && Number.isFinite(p.price) && p.price >= 0, `${label} price`).toBe(true);
       expect(typeof p.soldOut, `${label} soldOut`).toBe("boolean");
       expect(categories.map((c) => c.key), `${label} category must exist in content/categories.json`).toContain(p.category);
@@ -45,25 +75,40 @@ test.describe("product content (content/products.json)", () => {
 
 test.describe("category content (content/categories.json)", () => {
   test("keys are unique and every category is labelled in all languages", () => {
+    expectAllLanguagesPresent(rawCategories, "categories.json");
     const keys = categories.map((c) => c.key);
     expect(new Set(keys).size, "duplicate category keys").toBe(keys.length);
-    for (const c of categories) expectAllLanguages(c.label, `category ${c.key}`);
+    expectSameExceptTranslated(
+      Object.fromEntries(LANGS.map((lang) => [lang, rawCategories[lang].categories])),
+      ["label"],
+      "category"
+    );
+    for (const lang of LANGS) {
+      for (const c of rawCategories[lang].categories) expectFilled(c.label, `category ${c.key} label (${lang})`);
+    }
   });
 });
 
 test.describe("page content (content/texts.json, content/site.json)", () => {
+  const textKeys = (lang) =>
+    Object.entries(rawTexts[lang] || {}).flatMap(([group, fields]) => Object.keys(fields).map((field) => `${group}.${field}`));
+
   test("every text is filled in for every language", () => {
-    for (const [group, fields] of Object.entries(texts)) {
-      for (const [field, value] of Object.entries(fields)) expectAllLanguages(value, `${group}.${field}`);
+    expectAllLanguagesPresent(rawTexts, "texts.json");
+    for (const lang of LANGS) {
+      expect(textKeys(lang).sort(), `texts in "${lang}" must match the English ones`).toEqual(textKeys("en").sort());
+      for (const [group, fields] of Object.entries(rawTexts[lang])) {
+        for (const [field, value] of Object.entries(fields)) expectFilled(value, `${group}.${field} (${lang})`);
+      }
     }
   });
 
   test("placeholders like {name} are kept in every translation", () => {
-    for (const [group, fields] of Object.entries(texts)) {
-      for (const [field, value] of Object.entries(fields)) {
-        for (const placeholder of value.en.match(/\{\w+\}/g) || []) {
+    for (const [group, fields] of Object.entries(rawTexts.en)) {
+      for (const [field, english] of Object.entries(fields)) {
+        for (const placeholder of english.match(/\{\w+\}/g) || []) {
           for (const lang of LANGS) {
-            expect(value[lang], `${group}.${field} (${lang}) must contain ${placeholder}`).toContain(placeholder);
+            expect(rawTexts[lang][group][field], `${group}.${field} (${lang}) must contain ${placeholder}`).toContain(placeholder);
           }
         }
       }
@@ -138,23 +183,49 @@ test.describe("CMS configuration (admin/)", () => {
     expect(adminHtml).toMatch(/<meta name="robots" content="noindex/);
   });
 
-  test("the editor form covers exactly the texts in texts.json", () => {
+  // The CMS's Translate button only exists with its i18n support switched on, and that
+  // decides how content is stored (one section per language at the top of the file).
+  test("i18n is enabled with the site's languages, stored per language in one file", () => {
+    expect(config.i18n.structure).toBe("single_file");
+    expect(config.i18n.locales).toEqual(LANGS);
+    expect(config.i18n.default_locale).toBe("en");
+    for (const [collection, file] of [["shop", "products"], ["shop", "categories"], ["site", "texts"]]) {
+      expect(config.collections.find((c) => c.name === collection).i18n, `collection ${collection}`).toBe(true);
+      expect(collectionFile(collection, file).i18n, `file ${file}`).toBe(true);
+    }
+    // Page photos are the same in every language: no i18n, plain file.
+    expect(collectionFile("site", "images").i18n).toBeUndefined();
+  });
+
+  test("the editor form covers exactly the texts in texts.json, all translatable", () => {
     const textFields = collectionFile("site", "texts").fields;
     const formKeys = textFields.flatMap((group) => group.fields.map((f) => `${group.name}.${f.name}`)).sort();
-    const contentKeys = Object.entries(texts).flatMap(([g, fields]) => Object.keys(fields).map((f) => `${g}.${f}`)).sort();
+    const contentKeys = Object.entries(rawTexts.en).flatMap(([g, fields]) => Object.keys(fields).map((f) => `${g}.${f}`)).sort();
     expect(formKeys).toEqual(contentKeys);
 
     for (const group of textFields) {
+      expect(group.i18n, `group ${group.name}`).toBe(true);
       for (const f of group.fields) {
-        expect(f.fields.map((l) => l.name), `${group.name}.${f.name} languages`).toEqual(LANGS);
+        expect(f.i18n, `${group.name}.${f.name} must be translatable (i18n: true)`).toBe(true);
+        expect(["string", "text"], `${group.name}.${f.name} widget`).toContain(f.widget);
       }
     }
   });
 
-  test("the product form covers every product field", () => {
-    const productFields = collectionFile("shop", "products").fields[0].fields.map((f) => f.name).sort();
-    const dataFields = [...new Set(products.flatMap((p) => Object.keys(p)))].sort();
+  test("the product form covers every product field; only name and description are translated", () => {
+    const list = collectionFile("shop", "products").fields[0];
+    expect(list.i18n, "the product list must be the same in every language").toBe("duplicate");
+    const productFields = list.fields.map((f) => f.name).sort();
+    const dataFields = [...new Set(rawProducts.en.products.flatMap((p) => Object.keys(p)))].sort();
     expect(productFields).toEqual(dataFields);
+    const translated = list.fields.filter((f) => f.i18n === true).map((f) => f.name);
+    expect(translated.sort()).toEqual(["description", "name"]);
+  });
+
+  test("the category form translates only the label", () => {
+    const list = collectionFile("shop", "categories").fields[0];
+    expect(list.i18n).toBe("duplicate");
+    expect(list.fields.filter((f) => f.i18n === true).map((f) => f.name)).toEqual(["label"]);
   });
 
   test("every configured content file exists", () => {
@@ -226,4 +297,40 @@ test.describe("css cache-busting", () => {
       ).toContain(`href="css/style.css?v=${expectedVersion}"`);
     });
   }
+});
+
+test.describe("merging per-language content (js/content.js mergeLocales)", () => {
+  test("puts the languages at the leaves and keeps lists aligned", () => {
+    const merged = mergeLocales({
+      en: { hero: { title: "Shop" }, products: [{ name: "Ring", price: 5, images: ["media/a.webp"] }] },
+      ru: { hero: { title: "Магазин" }, products: [{ name: "Кольцо", price: 5, images: ["media/a.webp"] }] },
+    });
+    expect(merged).toEqual({
+      hero: { title: { en: "Shop", ru: "Магазин" } },
+      products: [{ name: { en: "Ring", ru: "Кольцо" }, price: 5, images: ["media/a.webp"] }],
+    });
+  });
+
+  test("values that are the same in every language stay plain", () => {
+    expect(mergeLocales({ en: { brand: "Belfegor" }, pl: { brand: "Belfegor" } })).toEqual({ brand: "Belfegor" });
+  });
+
+  test("English defines the structure; fields only stored in English are kept", () => {
+    const merged = mergeLocales({
+      en: { items: [{ key: "A", label: "One" }] },
+      ru: { items: [{ label: "Один" }, { label: "extra" }], unknown: "x" },
+    });
+    expect(merged).toEqual({ items: [{ key: "A", label: { en: "One", ru: "Один" } }] });
+  });
+
+  test("a missing or empty translation is left out or empty (the site falls back to English)", () => {
+    expect(mergeLocales({ en: { t: "Hi" }, ru: { t: "Привет" }, pl: {} })).toEqual({ t: { en: "Hi", ru: "Привет" } });
+    expect(mergeLocales({ en: { t: "Hi" }, ru: { t: "" } })).toEqual({ t: { en: "Hi", ru: "" } });
+  });
+
+  test("the real content files merge into the shape the site reads", () => {
+    expect(products.length).toBe(rawProducts.en.products.length);
+    expect(Object.keys(texts).sort()).toEqual(Object.keys(rawTexts.en).sort());
+    expect(categories.map((c) => c.key)).toEqual(rawCategories.en.categories.map((c) => c.key));
+  });
 });

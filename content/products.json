@@ -74,6 +74,47 @@
         "images": [
           "/media/web/img_20260918_105124-01.webp"
         ]
+      },
+      {
+        "name": "Gothic Warrior Princess",
+        "description": "Stainless steel. The length of the product is calculated based on its individual dimensions.",
+        "price": 25,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_104348-01.webp"
+        ]
+      },
+      {
+        "name": "Minimalist Chainmaille Choker №1",
+        "description": "Stainless steel. The length of the product is calculated based on its individual dimensions.",
+        "price": 10,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_123427-01.jpg"
+        ]
+      },
+      {
+        "name": "Minimalist Chainmaille Choker №2",
+        "description": "Stainless steel. The length of the product is calculated based on its individual dimensions.",
+        "price": 10,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_124236-01.jpg"
+        ]
+      },
+      {
+        "name": "Chainmail Heart Pendant",
+        "description": "Stainless steel heart pendant",
+        "price": 10,
+        "category": "Charm",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260908_120916-01.webp",
+          "/media/web/img_20260908_121322-01.webp"
+        ]
       }
     ]
   },
@@ -151,6 +192,47 @@
         "soldOut": false,
         "images": [
           "/media/web/img_20260918_105124-01.webp"
+        ]
+      },
+      {
+        "name": "Готическая принцесса-воительница",
+        "description": "Нержавеющая сталь. Длина изделия рассчитывается исходя из его индивидуальных размеров.",
+        "price": 25,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_104348-01.webp"
+        ]
+      },
+      {
+        "name": "Минималистичное колье из кольчуги №1",
+        "description": "Нержавеющая сталь. Длина изделия рассчитывается исходя из его индивидуальных размеров.",
+        "price": 10,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_123427-01.jpg"
+        ]
+      },
+      {
+        "name": "Минималистичное колье из кольчуги №2",
+        "description": "Нержавеющая сталь. Длина изделия рассчитывается исходя из его индивидуальных размеров.",
+        "price": 10,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_124236-01.jpg"
+        ]
+      },
+      {
+        "name": "Кулон в форме сердца из кольчуги",
+        "description": "Кулон в форме сердца из нержавеющей стали",
+        "price": 10,
+        "category": "Charm",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260908_120916-01.webp",
+          "/media/web/img_20260908_121322-01.webp"
         ]
       }
     ]
@@ -230,6 +312,47 @@
         "images": [
           "/media/web/img_20260918_105124-01.webp"
         ]
+      },
+      {
+        "name": "Готична войовнича принцеса",
+        "description": "Нержавіюча сталь. Довжина виробу розраховується виходячи з його індивідуальних розмірів.",
+        "price": 25,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_104348-01.webp"
+        ]
+      },
+      {
+        "name": "Мінімалістичний кольє-чокер із ланцюгової сітки №1",
+        "description": "Нержавіюча сталь. Довжина виробу розраховується виходячи з його індивідуальних розмірів.",
+        "price": 10,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_123427-01.jpg"
+        ]
+      },
+      {
+        "name": "Мінімалістичний кольє-чокер із ланцюгової сітки №2",
+        "description": "Нержавіюча сталь. Довжина виробу розраховується виходячи з його індивідуальних розмірів.",
+        "price": 10,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_124236-01.jpg"
+        ]
+      },
+      {
+        "name": "Кулон у формі серця з кольчуги",
+        "description": "Кулон у формі серця з нержавіючої сталі",
+        "price": 10,
+        "category": "Charm",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260908_120916-01.webp",
+          "/media/web/img_20260908_121322-01.webp"
+        ]
       }
     ]
   },
@@ -307,6 +430,47 @@
         "soldOut": false,
         "images": [
           "/media/web/img_20260918_105124-01.webp"
+        ]
+      },
+      {
+        "name": "Gotycka wojownicza księżniczka",
+        "description": "Stal nierdzewna. Długość produktu oblicza się na podstawie jego indywidualnych wymiarów.",
+        "price": 25,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_104348-01.webp"
+        ]
+      },
+      {
+        "name": "Minimalistyczny naszyjnik z kolczugi №1",
+        "description": "Stal nierdzewna. Długość produktu oblicza się na podstawie jego indywidualnych wymiarów.",
+        "price": 10,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_123427-01.jpg"
+        ]
+      },
+      {
+        "name": "Minimalistyczny naszyjnik z kolczugi №2",
+        "description": "Stal nierdzewna. Długość produktu oblicza się na podstawie jego indywidualnych wymiarów.",
+        "price": 10,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_124236-01.jpg"
+        ]
+      },
+      {
+        "name": "Wisiorek w kształcie serca z kolczugi",
+        "description": "Wisiorek w kształcie serca ze stali nierdzewnej",
+        "price": 10,
+        "category": "Charm",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260908_120916-01.webp",
+          "/media/web/img_20260908_121322-01.webp"
         ]
       }
     ]

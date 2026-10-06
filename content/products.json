@@ -54,6 +54,26 @@
           "/media/web/img_20261005_151620_059-01.webp",
           "/media/web/img_20261005_151633_707-01.webp"
         ]
+      },
+      {
+        "name": "\"Sacred Heart\" (red)",
+        "description": "Stainless steel. The length of the product is calculated based on its individual dimensions.",
+        "price": 15,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_104900-01.webp"
+        ]
+      },
+      {
+        "name": "\"Sacred Heart\" (black)",
+        "description": "Stainless steel. The length of the product is calculated based on its individual dimensions.",
+        "price": 15,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_105124-01.webp"
+        ]
       }
     ]
   },
@@ -111,6 +131,26 @@
         "images": [
           "/media/web/img_20261005_151620_059-01.webp",
           "/media/web/img_20261005_151633_707-01.webp"
+        ]
+      },
+      {
+        "name": "«Святое Сердце» (красный)",
+        "description": "Нержавеющая сталь. Длина изделия рассчитывается исходя из его индивидуальных размеров.",
+        "price": 15,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_104900-01.webp"
+        ]
+      },
+      {
+        "name": "«Святое Сердце» (черный)",
+        "description": "Нержавеющая сталь. Длина изделия рассчитывается исходя из его индивидуальных размеров.",
+        "price": 15,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_105124-01.webp"
         ]
       }
     ]
@@ -170,6 +210,26 @@
           "/media/web/img_20261005_151620_059-01.webp",
           "/media/web/img_20261005_151633_707-01.webp"
         ]
+      },
+      {
+        "name": "«Святе Серце» (червоний)",
+        "description": "Нержавіюча сталь. Довжина виробу розраховується виходячи з його індивідуальних розмірів.",
+        "price": 15,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_104900-01.webp"
+        ]
+      },
+      {
+        "name": "«Святе Серце» (чорний)",
+        "description": "Нержавіюча сталь. Довжина виробу розраховується виходячи з його індивідуальних розмірів.",
+        "price": 15,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_105124-01.webp"
+        ]
       }
     ]
   },
@@ -227,6 +287,26 @@
         "images": [
           "/media/web/img_20261005_151620_059-01.webp",
           "/media/web/img_20261005_151633_707-01.webp"
+        ]
+      },
+      {
+        "name": "„Najświętsze Serce” (czerwony)",
+        "description": "Stal nierdzewna. Długość produktu oblicza się na podstawie jego indywidualnych wymiarów.",
+        "price": 15,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_104900-01.webp"
+        ]
+      },
+      {
+        "name": "„Najświętsze Serce” (Czarny )",
+        "description": "Stal nierdzewna. Długość produktu oblicza się na podstawie jego indywidualnych wymiarów.",
+        "price": 15,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_105124-01.webp"
         ]
       }
     ]

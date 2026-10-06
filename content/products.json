@@ -43,6 +43,17 @@
           "/media/web/img_20261005_151542_557-01.webp",
           "/media/web/img_20260918_103407-01.webp"
         ]
+      },
+      {
+        "name": "Minimalist O-Ring Chainmaille Bracelet",
+        "description": "Stainless steel. The length of the product is calculated based on its individual dimensions.",
+        "price": 10,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20261005_151620_059-01.webp",
+          "/media/web/img_20261005_151633_707-01.webp"
+        ]
       }
     ]
   },
@@ -89,6 +100,17 @@
           "/media/web/img_20261005_151715_553.webp",
           "/media/web/img_20261005_151542_557-01.webp",
           "/media/web/img_20260918_103407-01.webp"
+        ]
+      },
+      {
+        "name": "Минималистичный браслет из кольчуги",
+        "description": "Нержавеющая сталь. Длина изделия рассчитывается исходя из его индивидуальных размеров.",
+        "price": 10,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20261005_151620_059-01.webp",
+          "/media/web/img_20261005_151633_707-01.webp"
         ]
       }
     ]
@@ -137,6 +159,17 @@
           "/media/web/img_20261005_151542_557-01.webp",
           "/media/web/img_20260918_103407-01.webp"
         ]
+      },
+      {
+        "name": "Мінімалістичний браслет із кольцевої сітки",
+        "description": "Нержавіюча сталь. Довжина виробу розраховується виходячи з його індивідуальних розмірів.",
+        "price": 10,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20261005_151620_059-01.webp",
+          "/media/web/img_20261005_151633_707-01.webp"
+        ]
       }
     ]
   },
@@ -183,6 +216,17 @@
           "/media/web/img_20261005_151715_553.webp",
           "/media/web/img_20261005_151542_557-01.webp",
           "/media/web/img_20260918_103407-01.webp"
+        ]
+      },
+      {
+        "name": "Minimalistyczna bransoletka z kolczugi z pierścieniami typu O-ring",
+        "description": "Stal nierdzewna. Długość produktu oblicza się na podstawie jego indywidualnych wymiarów.",
+        "price": 10,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20261005_151620_059-01.webp",
+          "/media/web/img_20261005_151633_707-01.webp"
         ]
       }
     ]

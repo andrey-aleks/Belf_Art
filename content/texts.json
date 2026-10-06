@@ -1,39 +1,65 @@
 {
   "en": {
-    "about": {
-      "bio": "Hi, I'm [Your Name] — the hands behind Belfegor. I've been making gothic-inspired jewelry for [X years], turning chain, wire, and small dark details into one-of-a-kind pieces. Every item is handmade start to finish, one link at a time, right here in [Your City].",
-      "photo": "Photo coming soon",
-      "photoLabel": "Photo of the maker (coming soon)",
-      "title": "About Me"
+    "hero": {
+      "city": "Kraków",
+      "cta": "Shop now",
+      "tag1": "Handmade",
+      "tag2": "Gothic",
+      "tag3": "Stainless Steel",
+      "tag4": "Unique",
+      "title": "Each piece is handmade to become a part of your style."
+    },
+    "shop": {
+      "availability": "Availability",
+      "availabilityAll": "All",
+      "availabilityInStock": "In stock",
+      "availabilityOutOfStock": "Sold out",
+      "empty": "No products match your filters.",
+      "sort": "Sort by",
+      "title": "All Items"
+    },
+    "sort": {
+      "nameAsc": "Name: A to Z",
+      "nameDesc": "Name: Z to A",
+      "priceAsc": "Price: low to high",
+      "priceDesc": "Price: high to low",
+      "relevant": "Most relevant"
+    },
+    "product": {
+      "loadError": "Products could not be loaded. Please refresh the page.",
+      "order": "Order via Instagram",
+      "soldOut": "Sold Out",
+      "viewDetails": "View details for {name}"
+    },
+    "modal": {
+      "close": "Close",
+      "photo": "Show photo {n}"
+    },
+    "categories": {
+      "all": "All",
+      "label": "Categories"
+    },
+    "nav": {
+      "about": "About",
+      "contact": "Contact",
+      "custom": "Custom Orders",
+      "label": "Main",
+      "shipping": "Shipping",
+      "shop": "Shop"
     },
     "brand": {
       "home": "Belfegor — home",
       "subtitle": "Handmade Jewelry"
     },
-    "categories": {
-      "label": "Categories",
-      "all": "All"
+    "lang": {
+      "label": "Language"
     },
-    "contact": {
-      "instagram": "Orders & questions",
-      "intro": "Questions about a piece, an order, or shipping? Write to us on any of these — we're happy to help.",
-      "location": "Kraków, Poland",
-      "telegram": "Messages & questions",
-      "title": "Contact",
-      "vinted": "Our listings on Vinted"
-    },
-    "custom": {
-      "cta": "Start a custom order",
-      "intro": "Have an idea for a piece that doesn't exist yet? I make custom jewelry to order — a new design, a variation of an existing piece, or a matching set.",
-      "step1Text": "Message us on Instagram or Telegram with a description, sketches, or reference photos.",
-      "step1Title": "Share your idea",
-      "step2Text": "We discuss materials, size, price, and timing before any work starts.",
-      "step2Title": "Agree on the details",
-      "step3Text": "Your piece is made by hand, one link at a time.",
-      "step3Title": "Handmade for you",
-      "step4Text": "Your order is packed and shipped from Poland.",
-      "step4Title": "Shipped with care",
-      "title": "Custom Orders"
+    "title": {
+      "about": "Belfegor — About",
+      "contact": "Belfegor — Contact",
+      "custom": "Belfegor — Custom Orders",
+      "shipping": "Belfegor — Shipping",
+      "shop": "Belfegor — Handmade Jewelry"
     },
     "feat": {
       "handmadeText": "Every piece is made by hand with attention to detail.",
@@ -52,35 +78,24 @@
       "questions": "Questions?",
       "write": "Feel free to write"
     },
-    "hero": {
-      "city": "Kraków",
-      "cta": "Shop now",
-      "tag1": "Unique",
-      "tag2": "Gothic",
-      "tag3": "Dark",
-      "tag4": "Handmade",
-      "title": "Handmade jewelry for those who feel too much"
+    "about": {
+      "bio": "Hi, I’m the creator of Belfegor Jewelry 🖤\n\nI create jewelry for you, inspired by gothic aesthetics, dark details, and a love for unique accessories.\n\nEach piece is handmade using chainmaille techniques. Every single link is carefully assembled by hand, one by one, turning each piece into something truly unique.\n\nI want to create jewelry that doesn’t just complete your look, but becomes a part of it and reflects your individuality.",
+      "photo": "Photo coming soon",
+      "photoLabel": "Photo of the maker (coming soon)",
+      "title": "About Me"
     },
-    "lang": {
-      "label": "Language"
-    },
-    "modal": {
-      "close": "Close",
-      "photo": "Show photo {n}"
-    },
-    "nav": {
-      "about": "About",
-      "contact": "Contact",
-      "custom": "Custom Orders",
-      "label": "Main",
-      "shipping": "Shipping",
-      "shop": "Shop"
-    },
-    "product": {
-      "order": "Order via Instagram",
-      "soldOut": "Sold Out",
-      "viewDetails": "View details for {name}",
-      "loadError": "Products could not be loaded. Please refresh the page."
+    "custom": {
+      "cta": "Start a custom order",
+      "intro": "Have an idea for a piece that doesn't exist yet? I make custom jewelry to order — a new design, a variation of an existing piece, or a matching set.",
+      "step1Text": "Tell us what kind of piece of jewelry you’d like to create. You can send us references, photos, screenshots, sketches, or simply describe your idea in words. Even if you only have a general idea, we’ll work through the details together and turn it into a finished design.",
+      "step1Title": "Share your idea",
+      "step2Text": "After that, we’ll go over all the key details of your order: the design, dimensions, type of chain mail weave, and any additional elements. At this stage, I’ll answer any questions you have and help you choose the best option for your idea.",
+      "step2Title": "Agree on the details",
+      "step3Text": "Once all the details have been finalized, a partial payment is made, after which I begin working on the order. Each piece of jewelry is assembled by hand. The production time depends on the complexity of the design and the number of components.",
+      "step3Title": "Payment and Production",
+      "step4Text": "Your order is packed and shipped from Poland.",
+      "step4Title": "Shipped with care",
+      "title": "Custom Orders"
     },
     "shipping": {
       "p1": "Every piece is made to order and ships from [City], Poland via [Carrier — e.g. Poczta Polska / InPost]. Please allow [X] business days for your order to be made and packed after we confirm the details over Instagram DM.",
@@ -89,65 +104,76 @@
       "p3b": "before ordering and we'll be happy to help.",
       "title": "Shipping"
     },
-    "shop": {
-      "availability": "Availability",
-      "availabilityAll": "All",
-      "availabilityInStock": "In stock",
-      "availabilityOutOfStock": "Sold out",
-      "empty": "No products match your filters.",
-      "sort": "Sort by",
-      "title": "All Items"
-    },
-    "sort": {
-      "nameAsc": "Name: A to Z",
-      "nameDesc": "Name: Z to A",
-      "priceAsc": "Price: low to high",
-      "priceDesc": "Price: high to low",
-      "relevant": "Most relevant"
-    },
-    "title": {
-      "about": "Belfegor — About",
-      "contact": "Belfegor — Contact",
-      "custom": "Belfegor — Custom Orders",
-      "shipping": "Belfegor — Shipping",
-      "shop": "Belfegor — Handmade Jewelry"
+    "contact": {
+      "instagram": "Orders & questions",
+      "intro": "Questions about a piece, an order, or shipping? Write to us on any of these — we're happy to help.",
+      "location": "Kraków, Poland",
+      "telegram": "Messages & questions",
+      "title": "Contact",
+      "vinted": "Our listings on Vinted"
     }
   },
   "ru": {
-    "about": {
-      "bio": "Привет, я [Your Name] — руки, которые создают Belfegor. Я делаю украшения в готическом стиле уже [X years], превращая цепочки, проволоку и мелкие тёмные детали в уникальные вещи. Каждое изделие сделано вручную от начала до конца, звено за звеном, здесь, в [Your City].",
-      "photo": "Фото скоро появится",
-      "photoLabel": "Фото мастера (скоро)",
-      "title": "Обо мне"
+    "hero": {
+      "city": "Краков",
+      "cta": "В магазин",
+      "tag1": "Уникальные",
+      "tag2": "Готические",
+      "tag3": "Тёмные",
+      "tag4": "Ручная работа",
+      "title": "Украшения ручной работы для тех, кто чувствует слишком сильно"
+    },
+    "shop": {
+      "availability": "Наличие",
+      "availabilityAll": "Все",
+      "availabilityInStock": "В наличии",
+      "availabilityOutOfStock": "Продано",
+      "empty": "Нет товаров, подходящих под фильтры.",
+      "sort": "Сортировка",
+      "title": "Все изделия"
+    },
+    "sort": {
+      "nameAsc": "Название: А–Я",
+      "nameDesc": "Название: Я–А",
+      "priceAsc": "Цена: по возрастанию",
+      "priceDesc": "Цена: по убыванию",
+      "relevant": "По умолчанию"
+    },
+    "product": {
+      "loadError": "Не удалось загрузить товары. Обновите страницу.",
+      "order": "Заказать в Instagram",
+      "soldOut": "Продано",
+      "viewDetails": "Подробнее: {name}"
+    },
+    "modal": {
+      "close": "Закрыть",
+      "photo": "Фото {n}"
+    },
+    "categories": {
+      "all": "Все",
+      "label": "Категории"
+    },
+    "nav": {
+      "about": "Обо мне",
+      "contact": "Контакты",
+      "custom": "Индивидуальные заказы",
+      "label": "Основное меню",
+      "shipping": "Доставка",
+      "shop": "Магазин"
     },
     "brand": {
       "home": "Belfegor — на главную",
       "subtitle": "Украшения ручной работы"
     },
-    "categories": {
-      "label": "Категории",
-      "all": "Все"
+    "lang": {
+      "label": "Язык"
     },
-    "contact": {
-      "instagram": "Заказы и вопросы",
-      "intro": "Вопросы об украшении, заказе или доставке? Пишите нам в любой из этих сервисов — мы с радостью поможем.",
-      "location": "Краков, Польша",
-      "telegram": "Сообщения и вопросы",
-      "title": "Контакты",
-      "vinted": "Наши объявления на Vinted"
-    },
-    "custom": {
-      "cta": "Начать индивидуальный заказ",
-      "intro": "Есть идея украшения, которого ещё не существует? Я делаю украшения на заказ — новый дизайн, вариацию существующего изделия или комплект.",
-      "step1Text": "Напишите нам в Instagram или Telegram: опишите идею, пришлите эскизы или фото-референсы.",
-      "step1Title": "Поделитесь идеей",
-      "step2Text": "Мы обсуждаем материалы, размер, цену и сроки до начала работы.",
-      "step2Title": "Согласуем детали",
-      "step3Text": "Ваше украшение создаётся вручную, звено за звеном.",
-      "step3Title": "Сделано вручную для вас",
-      "step4Text": "Заказ упаковывается и отправляется из Польши.",
-      "step4Title": "Отправка с заботой",
-      "title": "Индивидуальные заказы"
+    "title": {
+      "about": "Belfegor — Обо мне",
+      "contact": "Belfegor — Контакты",
+      "custom": "Belfegor — Индивидуальные заказы",
+      "shipping": "Belfegor — Доставка",
+      "shop": "Belfegor — украшения ручной работы"
     },
     "feat": {
       "handmadeText": "Каждое изделие сделано вручную с вниманием к деталям.",
@@ -166,35 +192,24 @@
       "questions": "Есть вопросы?",
       "write": "Смело пишите"
     },
-    "hero": {
-      "city": "Краков",
-      "cta": "В магазин",
-      "tag1": "Уникальные",
-      "tag2": "Готические",
-      "tag3": "Тёмные",
-      "tag4": "Ручная работа",
-      "title": "Украшения ручной работы для тех, кто чувствует слишком сильно"
+    "about": {
+      "bio": "Привет, я [Your Name] — руки, которые создают Belfegor. Я делаю украшения в готическом стиле уже [X years], превращая цепочки, проволоку и мелкие тёмные детали в уникальные вещи. Каждое изделие сделано вручную от начала до конца, звено за звеном, здесь, в [Your City].",
+      "photo": "Фото скоро появится",
+      "photoLabel": "Фото мастера (скоро)",
+      "title": "Обо мне"
     },
-    "lang": {
-      "label": "Язык"
-    },
-    "modal": {
-      "close": "Закрыть",
-      "photo": "Фото {n}"
-    },
-    "nav": {
-      "about": "Обо мне",
-      "contact": "Контакты",
-      "custom": "Индивидуальные заказы",
-      "label": "Основное меню",
-      "shipping": "Доставка",
-      "shop": "Магазин"
-    },
-    "product": {
-      "order": "Заказать в Instagram",
-      "soldOut": "Продано",
-      "viewDetails": "Подробнее: {name}",
-      "loadError": "Не удалось загрузить товары. Обновите страницу."
+    "custom": {
+      "cta": "Начать индивидуальный заказ",
+      "intro": "Есть идея украшения, которого ещё не существует? Я делаю украшения на заказ — новый дизайн, вариацию существующего изделия или комплект.",
+      "step1Text": "Напишите нам в Instagram или Telegram: опишите идею, пришлите эскизы или фото-референсы.",
+      "step1Title": "Поделитесь идеей",
+      "step2Text": "Мы обсуждаем материалы, размер, цену и сроки до начала работы.",
+      "step2Title": "Согласуем детали",
+      "step3Text": "Ваше украшение создаётся вручную, звено за звеном.",
+      "step3Title": "Сделано вручную для вас",
+      "step4Text": "Заказ упаковывается и отправляется из Польши.",
+      "step4Title": "Отправка с заботой",
+      "title": "Индивидуальные заказы"
     },
     "shipping": {
       "p1": "Каждое изделие делается под заказ и отправляется из [City], Польша, через [Carrier — e.g. Poczta Polska / InPost]. На изготовление и упаковку заказа нужно [X] рабочих дней после того, как мы согласуем детали в Instagram DM.",
@@ -203,65 +218,76 @@
       "p3b": "до оформления заказа — мы с радостью поможем.",
       "title": "Доставка"
     },
-    "shop": {
-      "availability": "Наличие",
-      "availabilityAll": "Все",
-      "availabilityInStock": "В наличии",
-      "availabilityOutOfStock": "Продано",
-      "empty": "Нет товаров, подходящих под фильтры.",
-      "sort": "Сортировка",
-      "title": "Все изделия"
-    },
-    "sort": {
-      "nameAsc": "Название: А–Я",
-      "nameDesc": "Название: Я–А",
-      "priceAsc": "Цена: по возрастанию",
-      "priceDesc": "Цена: по убыванию",
-      "relevant": "По умолчанию"
-    },
-    "title": {
-      "about": "Belfegor — Обо мне",
-      "contact": "Belfegor — Контакты",
-      "custom": "Belfegor — Индивидуальные заказы",
-      "shipping": "Belfegor — Доставка",
-      "shop": "Belfegor — украшения ручной работы"
+    "contact": {
+      "instagram": "Заказы и вопросы",
+      "intro": "Вопросы об украшении, заказе или доставке? Пишите нам в любой из этих сервисов — мы с радостью поможем.",
+      "location": "Краков, Польша",
+      "telegram": "Сообщения и вопросы",
+      "title": "Контакты",
+      "vinted": "Наши объявления на Vinted"
     }
   },
   "uk": {
-    "about": {
-      "bio": "Привіт, я [Your Name] — руки, що створюють Belfegor. Я роблю прикраси в готичному стилі вже [X years], перетворюючи ланцюжки, дріт і дрібні темні деталі на унікальні речі. Кожен виріб зроблено вручну від початку до кінця, ланка за ланкою, тут, у [Your City].",
-      "photo": "Фото незабаром",
-      "photoLabel": "Фото майстра (незабаром)",
-      "title": "Про мене"
+    "hero": {
+      "city": "Краків",
+      "cta": "До магазину",
+      "tag1": "Унікальні",
+      "tag2": "Готичні",
+      "tag3": "Темні",
+      "tag4": "Ручна робота",
+      "title": "Прикраси ручної роботи для тих, хто відчуває надто сильно"
+    },
+    "shop": {
+      "availability": "Наявність",
+      "availabilityAll": "Усі",
+      "availabilityInStock": "В наявності",
+      "availabilityOutOfStock": "Продано",
+      "empty": "Немає товарів, що відповідають фільтрам.",
+      "sort": "Сортування",
+      "title": "Усі вироби"
+    },
+    "sort": {
+      "nameAsc": "Назва: А–Я",
+      "nameDesc": "Назва: Я–А",
+      "priceAsc": "Ціна: за зростанням",
+      "priceDesc": "Ціна: за спаданням",
+      "relevant": "За замовчуванням"
+    },
+    "product": {
+      "loadError": "Не вдалося завантажити товари. Оновіть сторінку.",
+      "order": "Замовити в Instagram",
+      "soldOut": "Продано",
+      "viewDetails": "Детальніше: {name}"
+    },
+    "modal": {
+      "close": "Закрити",
+      "photo": "Фото {n}"
+    },
+    "categories": {
+      "all": "Усі",
+      "label": "Категорії"
+    },
+    "nav": {
+      "about": "Про мене",
+      "contact": "Контакти",
+      "custom": "Індивідуальні замовлення",
+      "label": "Головне меню",
+      "shipping": "Доставка",
+      "shop": "Магазин"
     },
     "brand": {
       "home": "Belfegor — на головну",
       "subtitle": "Прикраси ручної роботи"
     },
-    "categories": {
-      "label": "Категорії",
-      "all": "Усі"
+    "lang": {
+      "label": "Мова"
     },
-    "contact": {
-      "instagram": "Замовлення та питання",
-      "intro": "Питання щодо прикраси, замовлення чи доставки? Пишіть нам у будь-який із цих сервісів — ми з радістю допоможемо.",
-      "location": "Краків, Польща",
-      "telegram": "Повідомлення та питання",
-      "title": "Контакти",
-      "vinted": "Наші оголошення на Vinted"
-    },
-    "custom": {
-      "cta": "Почати індивідуальне замовлення",
-      "intro": "Маєте ідею прикраси, якої ще не існує? Я виготовляю прикраси на замовлення — новий дизайн, варіацію наявного виробу або комплект.",
-      "step1Text": "Напишіть нам в Instagram або Telegram: опишіть ідею, надішліть ескізи чи фото-референси.",
-      "step1Title": "Поділіться ідеєю",
-      "step2Text": "Ми обговорюємо матеріали, розмір, ціну та терміни до початку роботи.",
-      "step2Title": "Узгодимо деталі",
-      "step3Text": "Вашу прикрасу створюють вручну, ланка за ланкою.",
-      "step3Title": "Зроблено вручну для вас",
-      "step4Text": "Замовлення пакується та надсилається з Польщі.",
-      "step4Title": "Відправлення з турботою",
-      "title": "Індивідуальні замовлення"
+    "title": {
+      "about": "Belfegor — Про мене",
+      "contact": "Belfegor — Контакти",
+      "custom": "Belfegor — Індивідуальні замовлення",
+      "shipping": "Belfegor — Доставка",
+      "shop": "Belfegor — прикраси ручної роботи"
     },
     "feat": {
       "handmadeText": "Кожен виріб зроблено вручну з увагою до деталей.",
@@ -280,35 +306,24 @@
       "questions": "Є питання?",
       "write": "Сміливо пишіть"
     },
-    "hero": {
-      "city": "Краків",
-      "cta": "До магазину",
-      "tag1": "Унікальні",
-      "tag2": "Готичні",
-      "tag3": "Темні",
-      "tag4": "Ручна робота",
-      "title": "Прикраси ручної роботи для тих, хто відчуває надто сильно"
+    "about": {
+      "bio": "Привіт, я [Your Name] — руки, що створюють Belfegor. Я роблю прикраси в готичному стилі вже [X years], перетворюючи ланцюжки, дріт і дрібні темні деталі на унікальні речі. Кожен виріб зроблено вручну від початку до кінця, ланка за ланкою, тут, у [Your City].",
+      "photo": "Фото незабаром",
+      "photoLabel": "Фото майстра (незабаром)",
+      "title": "Про мене"
     },
-    "lang": {
-      "label": "Мова"
-    },
-    "modal": {
-      "close": "Закрити",
-      "photo": "Фото {n}"
-    },
-    "nav": {
-      "about": "Про мене",
-      "contact": "Контакти",
-      "custom": "Індивідуальні замовлення",
-      "label": "Головне меню",
-      "shipping": "Доставка",
-      "shop": "Магазин"
-    },
-    "product": {
-      "order": "Замовити в Instagram",
-      "soldOut": "Продано",
-      "viewDetails": "Детальніше: {name}",
-      "loadError": "Не вдалося завантажити товари. Оновіть сторінку."
+    "custom": {
+      "cta": "Почати індивідуальне замовлення",
+      "intro": "Маєте ідею прикраси, якої ще не існує? Я виготовляю прикраси на замовлення — новий дизайн, варіацію наявного виробу або комплект.",
+      "step1Text": "Напишіть нам в Instagram або Telegram: опишіть ідею, надішліть ескізи чи фото-референси.",
+      "step1Title": "Поділіться ідеєю",
+      "step2Text": "Ми обговорюємо матеріали, розмір, ціну та терміни до початку роботи.",
+      "step2Title": "Узгодимо деталі",
+      "step3Text": "Вашу прикрасу створюють вручну, ланка за ланкою.",
+      "step3Title": "Зроблено вручну для вас",
+      "step4Text": "Замовлення пакується та надсилається з Польщі.",
+      "step4Title": "Відправлення з турботою",
+      "title": "Індивідуальні замовлення"
     },
     "shipping": {
       "p1": "Кожен виріб виготовляється на замовлення й надсилається з [City], Польща, через [Carrier — e.g. Poczta Polska / InPost]. На виготовлення й пакування замовлення потрібно [X] робочих днів після того, як ми узгодимо деталі в Instagram DM.",
@@ -317,65 +332,76 @@
       "p3b": "до оформлення замовлення — ми з радістю допоможемо.",
       "title": "Доставка"
     },
-    "shop": {
-      "availability": "Наявність",
-      "availabilityAll": "Усі",
-      "availabilityInStock": "В наявності",
-      "availabilityOutOfStock": "Продано",
-      "empty": "Немає товарів, що відповідають фільтрам.",
-      "sort": "Сортування",
-      "title": "Усі вироби"
-    },
-    "sort": {
-      "nameAsc": "Назва: А–Я",
-      "nameDesc": "Назва: Я–А",
-      "priceAsc": "Ціна: за зростанням",
-      "priceDesc": "Ціна: за спаданням",
-      "relevant": "За замовчуванням"
-    },
-    "title": {
-      "about": "Belfegor — Про мене",
-      "contact": "Belfegor — Контакти",
-      "custom": "Belfegor — Індивідуальні замовлення",
-      "shipping": "Belfegor — Доставка",
-      "shop": "Belfegor — прикраси ручної роботи"
+    "contact": {
+      "instagram": "Замовлення та питання",
+      "intro": "Питання щодо прикраси, замовлення чи доставки? Пишіть нам у будь-який із цих сервісів — ми з радістю допоможемо.",
+      "location": "Краків, Польща",
+      "telegram": "Повідомлення та питання",
+      "title": "Контакти",
+      "vinted": "Наші оголошення на Vinted"
     }
   },
   "pl": {
-    "about": {
-      "bio": "Cześć, jestem [Your Name] — to moje ręce tworzą Belfegor. Robię biżuterię inspirowaną gotykiem od [X years], zamieniając łańcuszki, drut i drobne mroczne detale w jedyne w swoim rodzaju przedmioty. Każdy element powstaje ręcznie od początku do końca, ogniwo po ogniwie, tutaj, w [Your City].",
-      "photo": "Zdjęcie wkrótce",
-      "photoLabel": "Zdjęcie twórczyni (wkrótce)",
-      "title": "O mnie"
+    "hero": {
+      "city": "Kraków",
+      "cta": "Do sklepu",
+      "tag1": "Unikatowe",
+      "tag2": "Gotyckie",
+      "tag3": "Mroczne",
+      "tag4": "Ręcznie robione",
+      "title": "Biżuteria ręcznie robiona dla tych, którzy czują za mocno"
+    },
+    "shop": {
+      "availability": "Dostępność",
+      "availabilityAll": "Wszystkie",
+      "availabilityInStock": "Dostępne",
+      "availabilityOutOfStock": "Wyprzedane",
+      "empty": "Brak produktów spełniających kryteria.",
+      "sort": "Sortuj",
+      "title": "Wszystkie produkty"
+    },
+    "sort": {
+      "nameAsc": "Nazwa: A–Z",
+      "nameDesc": "Nazwa: Z–A",
+      "priceAsc": "Cena: od najniższej",
+      "priceDesc": "Cena: od najwyższej",
+      "relevant": "Domyślnie"
+    },
+    "product": {
+      "loadError": "Nie udało się załadować produktów. Odśwież stronę.",
+      "order": "Zamów przez Instagram",
+      "soldOut": "Wyprzedane",
+      "viewDetails": "Szczegóły: {name}"
+    },
+    "modal": {
+      "close": "Zamknij",
+      "photo": "Zdjęcie {n}"
+    },
+    "categories": {
+      "all": "Wszystkie",
+      "label": "Kategorie"
+    },
+    "nav": {
+      "about": "O mnie",
+      "contact": "Kontakt",
+      "custom": "Zamówienia indywidualne",
+      "label": "Menu główne",
+      "shipping": "Wysyłka",
+      "shop": "Sklep"
     },
     "brand": {
       "home": "Belfegor — strona główna",
       "subtitle": "Biżuteria ręcznie robiona"
     },
-    "categories": {
-      "label": "Kategorie",
-      "all": "Wszystkie"
+    "lang": {
+      "label": "Język"
     },
-    "contact": {
-      "instagram": "Zamówienia i pytania",
-      "intro": "Pytania o biżuterię, zamówienie lub wysyłkę? Napisz do nas w dowolnym z tych miejsc — chętnie pomożemy.",
-      "location": "Kraków, Polska",
-      "telegram": "Wiadomości i pytania",
-      "title": "Kontakt",
-      "vinted": "Nasze ogłoszenia na Vinted"
-    },
-    "custom": {
-      "cta": "Złóż zamówienie indywidualne",
-      "intro": "Masz pomysł na biżuterię, która jeszcze nie istnieje? Wykonuję biżuterię na zamówienie — nowy projekt, wariant istniejącego wzoru lub pasujący komplet.",
-      "step1Text": "Napisz do nas na Instagramie lub Telegramie — opisz pomysł, prześlij szkice lub zdjęcia inspiracji.",
-      "step1Title": "Podziel się pomysłem",
-      "step2Text": "Przed rozpoczęciem pracy omawiamy materiały, rozmiar, cenę i termin.",
-      "step2Title": "Ustalamy szczegóły",
-      "step3Text": "Twoja biżuteria powstaje ręcznie, ogniwo po ogniwie.",
-      "step3Title": "Ręcznie robione dla Ciebie",
-      "step4Text": "Zamówienie jest pakowane i wysyłane z Polski.",
-      "step4Title": "Wysłane z troską",
-      "title": "Zamówienia indywidualne"
+    "title": {
+      "about": "Belfegor — O mnie",
+      "contact": "Belfegor — Kontakt",
+      "custom": "Belfegor — Zamówienia indywidualne",
+      "shipping": "Belfegor — Wysyłka",
+      "shop": "Belfegor — biżuteria ręcznie robiona"
     },
     "feat": {
       "handmadeText": "Każdy element jest wykonany ręcznie z dbałością o szczegóły.",
@@ -394,35 +420,24 @@
       "questions": "Masz pytania?",
       "write": "Śmiało pisz"
     },
-    "hero": {
-      "city": "Kraków",
-      "cta": "Do sklepu",
-      "tag1": "Unikatowe",
-      "tag2": "Gotyckie",
-      "tag3": "Mroczne",
-      "tag4": "Ręcznie robione",
-      "title": "Biżuteria ręcznie robiona dla tych, którzy czują za mocno"
+    "about": {
+      "bio": "Cześć, jestem [Your Name] — to moje ręce tworzą Belfegor. Robię biżuterię inspirowaną gotykiem od [X years], zamieniając łańcuszki, drut i drobne mroczne detale w jedyne w swoim rodzaju przedmioty. Każdy element powstaje ręcznie od początku do końca, ogniwo po ogniwie, tutaj, w [Your City].",
+      "photo": "Zdjęcie wkrótce",
+      "photoLabel": "Zdjęcie twórczyni (wkrótce)",
+      "title": "O mnie"
     },
-    "lang": {
-      "label": "Język"
-    },
-    "modal": {
-      "close": "Zamknij",
-      "photo": "Zdjęcie {n}"
-    },
-    "nav": {
-      "about": "O mnie",
-      "contact": "Kontakt",
-      "custom": "Zamówienia indywidualne",
-      "label": "Menu główne",
-      "shipping": "Wysyłka",
-      "shop": "Sklep"
-    },
-    "product": {
-      "order": "Zamów przez Instagram",
-      "soldOut": "Wyprzedane",
-      "viewDetails": "Szczegóły: {name}",
-      "loadError": "Nie udało się załadować produktów. Odśwież stronę."
+    "custom": {
+      "cta": "Złóż zamówienie indywidualne",
+      "intro": "Masz pomysł na biżuterię, która jeszcze nie istnieje? Wykonuję biżuterię na zamówienie — nowy projekt, wariant istniejącego wzoru lub pasujący komplet.",
+      "step1Text": "Napisz do nas na Instagramie lub Telegramie — opisz pomysł, prześlij szkice lub zdjęcia inspiracji.",
+      "step1Title": "Podziel się pomysłem",
+      "step2Text": "Przed rozpoczęciem pracy omawiamy materiały, rozmiar, cenę i termin.",
+      "step2Title": "Ustalamy szczegóły",
+      "step3Text": "Twoja biżuteria powstaje ręcznie, ogniwo po ogniwie.",
+      "step3Title": "Ręcznie robione dla Ciebie",
+      "step4Text": "Zamówienie jest pakowane i wysyłane z Polski.",
+      "step4Title": "Wysłane z troską",
+      "title": "Zamówienia indywidualne"
     },
     "shipping": {
       "p1": "Każdy element jest wykonywany na zamówienie i wysyłany z [City] w Polsce przez [Carrier — e.g. Poczta Polska / InPost]. Na wykonanie i zapakowanie zamówienia potrzeba [X] dni roboczych od potwierdzenia szczegółów w wiadomości na Instagramie.",
@@ -431,28 +446,13 @@
       "p3b": "przed złożeniem zamówienia — chętnie pomożemy.",
       "title": "Wysyłka"
     },
-    "shop": {
-      "availability": "Dostępność",
-      "availabilityAll": "Wszystkie",
-      "availabilityInStock": "Dostępne",
-      "availabilityOutOfStock": "Wyprzedane",
-      "empty": "Brak produktów spełniających kryteria.",
-      "sort": "Sortuj",
-      "title": "Wszystkie produkty"
-    },
-    "sort": {
-      "nameAsc": "Nazwa: A–Z",
-      "nameDesc": "Nazwa: Z–A",
-      "priceAsc": "Cena: od najniższej",
-      "priceDesc": "Cena: od najwyższej",
-      "relevant": "Domyślnie"
-    },
-    "title": {
-      "about": "Belfegor — O mnie",
-      "contact": "Belfegor — Kontakt",
-      "custom": "Belfegor — Zamówienia indywidualne",
-      "shipping": "Belfegor — Wysyłka",
-      "shop": "Belfegor — biżuteria ręcznie robiona"
+    "contact": {
+      "instagram": "Zamówienia i pytania",
+      "intro": "Pytania o biżuterię, zamówienie lub wysyłkę? Napisz do nas w dowolnym z tych miejsc — chętnie pomożemy.",
+      "location": "Kraków, Polska",
+      "telegram": "Wiadomości i pytania",
+      "title": "Kontakt",
+      "vinted": "Nasze ogłoszenia na Vinted"
     }
   }
 }

@@ -93,14 +93,14 @@
       "step2Title": "Agree on the details",
       "step3Text": "Once all the details have been finalized, a partial payment is made, after which I begin working on the order. Each piece of jewelry is assembled by hand. The production time depends on the complexity of the design and the number of components.",
       "step3Title": "Payment and Production",
-      "step4Text": "Your order is packed and shipped from Poland.",
-      "step4Title": "Shipped with care",
+      "step4Text": "Once the piece is completely finished, I package it and send it to you. The result is a piece of jewelry that has been handcrafted specifically according to your design.",
+      "step4Title": "Ready to ship",
       "title": "Custom Orders"
     },
     "shipping": {
-      "p1": "Every piece is made to order and ships from [City], Poland via [Carrier — e.g. Poczta Polska / InPost]. Please allow [X] business days for your order to be made and packed after we confirm the details over Instagram DM.",
-      "p2": "Domestic shipping within Poland usually takes [A-B] business days. International shipping typically takes [C-D] weeks, depending on destination and local customs processing. A tracking number is sent once your order ships.",
-      "p3a": "Not sure if we ship to your country, or have a question about cost? Message us on",
+      "p1": "1. Where we ship\nWe ship our handmade jewelry to Poland, countries across Europe, and Ukraine.\n\n2. Delivery services\nOrders can be shipped using DPD, DHL or InPost, depending on the destination and available delivery options.",
+      "p2": "3. Shipping cost\nThe shipping cost depends on the destination, delivery service and parcel size.\n\n4. Check the cost in advance\nYou can check the estimated shipping cost yourself on the official website of DPD, DHL or InPost before placing your order.\n\n5. Final shipping cost\nWhen you contact us to place an order, we will confirm the available shipping options and the exact delivery cost for your address.",
+      "p3a": "6. Tracking\nOnce your order has been shipped, you will receive a tracking number so you can follow your parcel.\n\n7. Packaging\nEvery piece is carefully packed to make sure your jewelry arrives safely and in perfect condition.\n\n📩 If you have any questions about shipping, feel free to DM us.",
       "p3b": "before ordering and we'll be happy to help.",
       "title": "Shipping"
     },

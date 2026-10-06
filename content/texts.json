@@ -235,7 +235,7 @@
       "tag2": "Готичні",
       "tag3": "Темні",
       "tag4": "Ручна робота",
-      "title": "Прикраси ручної роботи для тих, хто відчуває надто сильно"
+      "title": "Кожен виріб виготовлений вручну, щоб стати частиною вашого стилю"
     },
     "shop": {
       "availability": "Наявність",
@@ -307,7 +307,7 @@
       "write": "Сміливо пишіть"
     },
     "about": {
-      "bio": "Привіт, я [Your Name] — руки, що створюють Belfegor. Я роблю прикраси в готичному стилі вже [X years], перетворюючи ланцюжки, дріт і дрібні темні деталі на унікальні речі. Кожен виріб зроблено вручну від початку до кінця, ланка за ланкою, тут, у [Your City].",
+      "bio": "Привіт, я — авторка прикрас Belfegor Jewelry 🖤 Я створюю для вас прикраси, натхненні готичною естетикою, похмурими деталями та любов’ю до унікальних аксесуарів. Кожен виріб виготовляється вручну за допомогою техніки кольчужного плетіння. Кожне ланка ретельно збирається вручну, одне за одним, перетворюючи кожну прикрасу на щось справді унікальне. Я хочу створювати прикраси, які не просто доповнюють ваш образ, а стають його частиною та відображають вашу індивідуальність.",
       "photo": "Фото незабаром",
       "photoLabel": "Фото майстра (незабаром)",
       "title": "Про мене"
@@ -315,20 +315,20 @@
     "custom": {
       "cta": "Почати індивідуальне замовлення",
       "intro": "Маєте ідею прикраси, якої ще не існує? Я виготовляю прикраси на замовлення — новий дизайн, варіацію наявного виробу або комплект.",
-      "step1Text": "Напишіть нам в Instagram або Telegram: опишіть ідею, надішліть ескізи чи фото-референси.",
+      "step1Text": "Розкажіть нам, яку прикрасу ви хотіли б створити. Ви можете надіслати нам зразки, фотографії, скріншоти, ескізи або просто описати свою ідею словами. Навіть якщо у вас є лише загальне уявлення, ми разом опрацюємо деталі та втілимо її у готовий дизайн.",
       "step1Title": "Поділіться ідеєю",
-      "step2Text": "Ми обговорюємо матеріали, розмір, ціну та терміни до початку роботи.",
+      "step2Text": "Після цього ми розглянемо всі основні деталі вашого замовлення: дизайн, розміри, тип плетіння кольчуги та будь-які додаткові елементи. На цьому етапі я відповім на всі ваші запитання та допоможу обрати найкращий варіант для втілення вашої ідеї.",
       "step2Title": "Узгодимо деталі",
-      "step3Text": "Вашу прикрасу створюють вручну, ланка за ланкою.",
-      "step3Title": "Зроблено вручну для вас",
-      "step4Text": "Замовлення пакується та надсилається з Польщі.",
-      "step4Title": "Відправлення з турботою",
+      "step3Text": "Після узгодження всіх деталей здійснюється частковий платіж, після чого я приступаю до виконання замовлення. Кожен ювелірний виріб виготовляється вручну. Термін виготовлення залежить від складності дизайну та кількості деталей.",
+      "step3Title": "Оплата та виробництво",
+      "step4Text": "Як тільки виріб буде повністю готовий, я його упакую та надішлю вам. У результаті ви отримаєте прикрасу, виготовлену вручну саме за вашим ескізом.",
+      "step4Title": "Готово до відправки",
       "title": "Індивідуальні замовлення"
     },
     "shipping": {
-      "p1": "Кожен виріб виготовляється на замовлення й надсилається з [City], Польща, через [Carrier — e.g. Poczta Polska / InPost]. На виготовлення й пакування замовлення потрібно [X] робочих днів після того, як ми узгодимо деталі в Instagram DM.",
-      "p2": "Доставка по Польщі зазвичай триває [A-B] робочих днів. Міжнародна доставка — як правило, [C-D] тижнів, залежно від країни призначення та митного оформлення. Після відправлення ви отримаєте трек-номер.",
-      "p3a": "Не впевнені, чи доставляємо ми у вашу країну, або маєте питання щодо вартості? Напишіть нам в",
+      "p1": "1. Куди ми здійснюємо доставку Ми доставляємо наші ювелірні вироби ручної роботи до Польщі, країн Європи та України. 2. Служби доставки Замовлення можуть доставлятися службами DPD, DHL або InPost, залежно від пункту призначення та доступних варіантів доставки.",
+      "p2": "3. Вартість доставки. Вартість доставки залежить від пункту призначення, служби доставки та розміру посилки. 4. Перевірте вартість заздалегідь. Ви можете самостійно перевірити орієнтовну вартість доставки на офіційному веб-сайті DPD, DHL або InPost перед тим, як оформити замовлення. 5. Остаточна вартість доставки. Коли ви зв’яжетеся з нами для оформлення замовлення, ми підтвердимо доступні варіанти доставки та точну вартість доставки за вашою адресою.",
+      "p3a": "6. Відстеження. Після відправлення замовлення ви отримаєте номер для відстеження, за допомогою якого зможете стежити за переміщенням вашої посилки. 7. Упаковка. Кожен виріб ретельно упаковується, щоб ваші прикраси надійшли безпечно та в ідеальному стані.\n 📩 Якщо у вас є питання щодо доставки, не соромтеся написати нам у приватні повідомлення в Instagram перед тим, як оформити замовлення, і ми з радістю допоможемо.",
       "p3b": "до оформлення замовлення — ми з радістю допоможемо.",
       "title": "Доставка"
     },
@@ -349,7 +349,7 @@
       "tag2": "Gotyckie",
       "tag3": "Mroczne",
       "tag4": "Ręcznie robione",
-      "title": "Biżuteria ręcznie robiona dla tych, którzy czują za mocno"
+      "title": "Każdy egzemplarz jest wykonywany ręcznie, by stać się częścią Twojego stylu."
     },
     "shop": {
       "availability": "Dostępność",
@@ -421,7 +421,7 @@
       "write": "Śmiało pisz"
     },
     "about": {
-      "bio": "Cześć, jestem [Your Name] — to moje ręce tworzą Belfegor. Robię biżuterię inspirowaną gotykiem od [X years], zamieniając łańcuszki, drut i drobne mroczne detale w jedyne w swoim rodzaju przedmioty. Każdy element powstaje ręcznie od początku do końca, ogniwo po ogniwie, tutaj, w [Your City].",
+      "bio": "Cześć, jestem twórczynią marki Belfegor Jewelry 🖤 Tworzę biżuterię dla Ciebie, czerpiąc inspirację z estetyki gotyckiej, mrocznych detali i zamiłowania do niepowtarzalnych dodatków. Każda sztuka jest wykonywana ręcznie przy użyciu technik chainmaille. Każde ogniwo jest starannie łączone ręcznie, jedno po drugim, dzięki czemu każda sztuka staje się czymś naprawdę wyjątkowym. Chcę tworzyć biżuterię, która nie tylko dopełnia Twój styl, ale staje się jego częścią i odzwierciedla Twoją indywidualność.",
       "photo": "Zdjęcie wkrótce",
       "photoLabel": "Zdjęcie twórczyni (wkrótce)",
       "title": "O mnie"
@@ -429,20 +429,20 @@
     "custom": {
       "cta": "Złóż zamówienie indywidualne",
       "intro": "Masz pomysł na biżuterię, która jeszcze nie istnieje? Wykonuję biżuterię na zamówienie — nowy projekt, wariant istniejącego wzoru lub pasujący komplet.",
-      "step1Text": "Napisz do nas na Instagramie lub Telegramie — opisz pomysł, prześlij szkice lub zdjęcia inspiracji.",
+      "step1Text": "Powiedz nam, jaką biżuterię chciałbyś stworzyć. Możesz przesłać nam materiały referencyjne, zdjęcia, zrzuty ekranu, szkice lub po prostu opisać swój pomysł słowami. Nawet jeśli masz tylko ogólny zarys pomysłu, wspólnie dopracujemy szczegóły i przekształcimy go w gotowy projekt.",
       "step1Title": "Podziel się pomysłem",
-      "step2Text": "Przed rozpoczęciem pracy omawiamy materiały, rozmiar, cenę i termin.",
-      "step2Title": "Ustalamy szczegóły",
-      "step3Text": "Twoja biżuteria powstaje ręcznie, ogniwo po ogniwie.",
-      "step3Title": "Ręcznie robione dla Ciebie",
-      "step4Text": "Zamówienie jest pakowane i wysyłane z Polski.",
-      "step4Title": "Wysłane z troską",
+      "step2Text": "Następnie omówimy wszystkie kluczowe szczegóły Twojego zamówienia: projekt, wymiary, rodzaj splotu kolczugi oraz wszelkie dodatkowe elementy. Na tym etapie odpowiem na wszystkie Twoje pytania i pomogę Ci wybrać najlepszą opcję dla Twojego pomysłu.",
+      "step2Title": "Uzgodnić szczegóły",
+      "step3Text": "Po ustaleniu wszystkich szczegółów następuje wpłata zaliczki, po czym przystępuję do realizacji zamówienia. Każda sztuka biżuterii jest montowana ręcznie. Czas wykonania zależy od stopnia skomplikowania projektu oraz liczby elementów.",
+      "step3Title": "Płatności i produkcja",
+      "step4Text": "Gdy biżuteria jest już w pełni gotowa, pakuję ją i wysyłam do Ciebie. Efektem jest biżuteria wykonana ręcznie specjalnie według Twojego projektu.",
+      "step4Title": "Gotowe do wysyłki",
       "title": "Zamówienia indywidualne"
     },
     "shipping": {
-      "p1": "Każdy element jest wykonywany na zamówienie i wysyłany z [City] w Polsce przez [Carrier — e.g. Poczta Polska / InPost]. Na wykonanie i zapakowanie zamówienia potrzeba [X] dni roboczych od potwierdzenia szczegółów w wiadomości na Instagramie.",
-      "p2": "Wysyłka na terenie Polski trwa zwykle [A-B] dni roboczych. Wysyłka zagraniczna trwa zazwyczaj [C-D] tygodni, w zależności od kraju docelowego i odprawy celnej. Po nadaniu paczki otrzymasz numer śledzenia.",
-      "p3a": "Nie wiesz, czy wysyłamy do Twojego kraju, albo masz pytanie o koszt? Napisz do nas na",
+      "p1": "1. Obszary dostaw Wysyłamy naszą ręcznie wykonaną biżuterię do Polski, krajów europejskich oraz na Ukrainę. 2. Firmy kurierskie Zamówienia mogą być wysyłane za pośrednictwem firm DPD, DHL lub InPost, w zależności od miejsca przeznaczenia i dostępnych opcji dostawy.",
+      "p2": "3. Koszt wysyłki Koszt wysyłki zależy od miejsca przeznaczenia, firmy kurierskiej oraz rozmiaru przesyłki. 4. Sprawdź koszt z wyprzedzeniem Przed złożeniem zamówienia możesz samodzielnie sprawdzić szacunkowy koszt wysyłki na oficjalnej stronie internetowej DPD, DHL lub InPost. 5. Ostateczny koszt wysyłki Kiedy skontaktujesz się z nami w celu złożenia zamówienia, potwierdzimy dostępne opcje wysyłki oraz dokładny koszt dostawy na podany przez Ciebie adres.",
+      "p3a": "6. Śledzenie przesyłki Po wysłaniu zamówienia otrzymasz numer śledzenia, dzięki któremu będziesz mógł śledzić swoją przesyłkę. 7. Pakowanie Każdy egzemplarz jest starannie pakowany, aby Twoja biżuteria dotarła bezpiecznie i w idealnym stanie. 📩 Jeśli masz jakiekolwiek pytania dotyczące wysyłki, napisz do nas na Instagramie przed złożeniem zamówienia, a chętnie Ci pomożemy.",
       "p3b": "przed złożeniem zamówienia — chętnie pomożemy.",
       "title": "Wysyłka"
     },

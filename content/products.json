@@ -10,6 +10,39 @@
         "images": [
           "/media/web/1000030969-01.jpg"
         ]
+      },
+      {
+        "name": "Alternative Spiked Collar",
+        "description": "Stainless steel. The length of the item is calculated based on individual measurements",
+        "price": 19,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_151912-01.jpg",
+          "/media/web/img_20260908_152219-01.webp"
+        ]
+      },
+      {
+        "name": "Vampire Blood Drop Necklace",
+        "description": "Stainless steel The length of the item is calculated based on individual measurements",
+        "price": 10,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_103629-01.webp"
+        ]
+      },
+      {
+        "name": "Notre Dame Gothic Cathedral Necklace",
+        "description": "Stainless steel The length of the item is calculated based on individual measurements",
+        "price": 27,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20261005_151715_553.webp",
+          "/media/web/img_20261005_151542_557-01.webp",
+          "/media/web/img_20260918_103407-01.webp"
+        ]
       }
     ]
   },
@@ -23,6 +56,39 @@
         "soldOut": false,
         "images": [
           "/media/web/1000030969-01.jpg"
+        ]
+      },
+      {
+        "name": "Альтернативное колье с шипами",
+        "description": "Нержавеющая сталь. Длина изделия рассчитывается исходя из индивидуальных размеров.",
+        "price": 19,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_151912-01.jpg",
+          "/media/web/img_20260908_152219-01.webp"
+        ]
+      },
+      {
+        "name": "Ожерелье «Капля вампирской крови»",
+        "description": "Нержавеющая сталь. Длина изделия рассчитывается исходя из индивидуальных размеров.",
+        "price": 10,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_103629-01.webp"
+        ]
+      },
+      {
+        "name": "Ожерелье в виде готического собора Нотр-Дам",
+        "description": "Нержавеющая сталь. Длина изделия рассчитывается исходя из индивидуальных размеров.",
+        "price": 27,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20261005_151715_553.webp",
+          "/media/web/img_20261005_151542_557-01.webp",
+          "/media/web/img_20260918_103407-01.webp"
         ]
       }
     ]
@@ -38,6 +104,39 @@
         "images": [
           "/media/web/1000030969-01.jpg"
         ]
+      },
+      {
+        "name": "Альтернативне намисто з шипами",
+        "description": "Нержавіюча сталь. Довжина виробу розраховується на основі індивідуальних розмірів",
+        "price": 19,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_151912-01.jpg",
+          "/media/web/img_20260908_152219-01.webp"
+        ]
+      },
+      {
+        "name": "Намисто  \"крапля крові вампіра\"",
+        "description": "Нержавіюча сталь. Довжина виробу розраховується на основі індивідуальних розмірів",
+        "price": 10,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_103629-01.webp"
+        ]
+      },
+      {
+        "name": "Намисто у вигляді готичного собору Нотр-Дам",
+        "description": "Нержавіюча сталь. Довжина виробу розраховується на основі індивідуальних розмірів",
+        "price": 27,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20261005_151715_553.webp",
+          "/media/web/img_20261005_151542_557-01.webp",
+          "/media/web/img_20260918_103407-01.webp"
+        ]
       }
     ]
   },
@@ -51,6 +150,39 @@
         "soldOut": false,
         "images": [
           "/media/web/1000030969-01.jpg"
+        ]
+      },
+      {
+        "name": "Niecodzienne naszyjnik z kolcami",
+        "description": "Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów",
+        "price": 19,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/IMG_20260908_151912-01.jpg",
+          "/media/web/img_20260908_152219-01.webp"
+        ]
+      },
+      {
+        "name": "Naszyjnik „Kropla krwi wampira”",
+        "description": "Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów",
+        "price": 10,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20260918_103629-01.webp"
+        ]
+      },
+      {
+        "name": "Naszyjnik w kształcie gotyckiej katedry Notre-Dame",
+        "description": "Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów",
+        "price": 27,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_20261005_151715_553.webp",
+          "/media/web/img_20261005_151542_557-01.webp",
+          "/media/web/img_20260918_103407-01.webp"
         ]
       }
     ]

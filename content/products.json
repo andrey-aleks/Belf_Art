@@ -2,63 +2,13 @@
   "en": {
     "products": [
       {
-        "name": "Gothic Cross Statement Necklace",
-        "description": "A dramatic swagged choker with looping chains, faceted red and clear beads, delicate spikes, and an ornate cross pendant at the center.",
-        "price": 20,
+        "name": "Gothic Cross Necklace",
+        "description": "Stainless steel\n The length of the item is calculated based on individual measurements",
+        "price": 25,
         "category": "Necklace",
         "soldOut": false,
         "images": [
-          "media/web/1000030969-01.jpg"
-        ]
-      },
-      {
-        "name": "Spike Drop Necklace",
-        "description": "A fine chain necklace gathered into a small chainmail cluster at the front, with three slender spikes hanging below.",
-        "price": 17,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_151912-01.jpg"
-        ]
-      },
-      {
-        "name": "Chunky Ring-Chain Necklace",
-        "description": "A bold necklace made of large linked rings, giving a substantial, statement-making chain look.",
-        "price": 14,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_124236-01.jpg"
-        ]
-      },
-      {
-        "name": "Ring-Chain Choker",
-        "description": "A shorter, close-fitting version of our ring-chain design — linked rings for a clean, minimal gothic look.",
-        "price": 12,
-        "category": "Choker",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_123427-01.jpg"
-        ]
-      },
-      {
-        "name": "Chainmail Heart Charm",
-        "description": "A small woven chainmail heart charm on a lobster clasp, perfect as a pendant or keychain accent.",
-        "price": 10,
-        "category": "Charm",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_120916-01.jpg"
-        ]
-      },
-      {
-        "name": "N",
-        "description": "Nnn",
-        "price": 100,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "/media/web/img_20261005_151450_652-01.webp"
+          "/media/web/1000030969-01.jpg"
         ]
       }
     ]
@@ -66,63 +16,13 @@
   "ru": {
     "products": [
       {
-        "name": "Готическое колье с крестом",
-        "description": "Эффектный чокер с драпированными цепочками, гранёными красными и прозрачными бусинами, тонкими шипами и узорным крестом в центре.",
-        "price": 20,
+        "name": "Готическое ожерелье с крестом",
+        "description": "Нержавеющая сталь \nДлина изделия рассчитывается на основе индивидуальных замеров",
+        "price": 25,
         "category": "Necklace",
         "soldOut": false,
         "images": [
-          "media/web/1000030969-01.jpg"
-        ]
-      },
-      {
-        "name": "Колье с подвесками-шипами",
-        "description": "Тонкая цепочка, собранная спереди в небольшой узор из кольчужного плетения, с тремя тонкими шипами внизу.",
-        "price": 17,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_151912-01.jpg"
-        ]
-      },
-      {
-        "name": "Массивное колье из колец",
-        "description": "Смелое колье из крупных соединённых колец — объёмная цепь, которая сразу привлекает внимание.",
-        "price": 14,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_124236-01.jpg"
-        ]
-      },
-      {
-        "name": "Чокер из колец",
-        "description": "Короткая, плотно прилегающая версия нашего дизайна из колец — соединённые кольца для лаконичного готического образа.",
-        "price": 12,
-        "category": "Choker",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_123427-01.jpg"
-        ]
-      },
-      {
-        "name": "Подвеска-сердце из кольчуги",
-        "description": "Небольшое сердце в технике кольчужного плетения на карабине — подойдёт как кулон или украшение для брелока.",
-        "price": 10,
-        "category": "Charm",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_120916-01.jpg"
-        ]
-      },
-      {
-        "name": "Н",
-        "description": "Нн",
-        "price": 100,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "/media/web/img_20261005_151450_652-01.webp"
+          "/media/web/1000030969-01.jpg"
         ]
       }
     ]
@@ -130,63 +30,13 @@
   "uk": {
     "products": [
       {
-        "name": "Готичне кольє з хрестом",
-        "description": "Ефектний чокер із драпірованими ланцюжками, гранованими червоними й прозорими намистинами, тонкими шипами та візерунчастим хрестом у центрі.",
-        "price": 20,
+        "name": "Готичне намисто з хрестом",
+        "description": "Нержавіюча сталь \nДовжина виробу розраховується на основі індивідуальних вимірів",
+        "price": 25,
         "category": "Necklace",
         "soldOut": false,
         "images": [
-          "media/web/1000030969-01.jpg"
-        ]
-      },
-      {
-        "name": "Кольє з підвісками-шипами",
-        "description": "Тонкий ланцюжок, зібраний спереду в невеликий візерунок кольчужного плетіння, з трьома тонкими шипами внизу.",
-        "price": 17,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_151912-01.jpg"
-        ]
-      },
-      {
-        "name": "Масивне кольє з кілець",
-        "description": "Сміливе кольє з великих з'єднаних кілець — об'ємний ланцюг, що одразу привертає увагу.",
-        "price": 14,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_124236-01.jpg"
-        ]
-      },
-      {
-        "name": "Чокер із кілець",
-        "description": "Коротка, щільно прилегла версія нашого дизайну з кілець — з'єднані кільця для лаконічного готичного образу.",
-        "price": 12,
-        "category": "Choker",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_123427-01.jpg"
-        ]
-      },
-      {
-        "name": "Підвіска-серце з кольчуги",
-        "description": "Невелике серце в техніці кольчужного плетіння на карабіні — підійде як кулон або прикраса для брелока.",
-        "price": 10,
-        "category": "Charm",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_120916-01.jpg"
-        ]
-      },
-      {
-        "name": "Н",
-        "description": "Нн",
-        "price": 100,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "/media/web/img_20261005_151450_652-01.webp"
+          "/media/web/1000030969-01.jpg"
         ]
       }
     ]
@@ -195,62 +45,12 @@
     "products": [
       {
         "name": "Gotycki naszyjnik z krzyżem",
-        "description": "Efektowny choker z opadającymi łańcuszkami, fasetowanymi czerwonymi i przezroczystymi koralikami, delikatnymi kolcami i ozdobnym krzyżem pośrodku.",
-        "price": 20,
+        "description": "Stal nierdzewna \nDługość wyrobu oblicza się na podstawie indywidualnych pomiarów",
+        "price": 25,
         "category": "Necklace",
         "soldOut": false,
         "images": [
-          "media/web/1000030969-01.jpg"
-        ]
-      },
-      {
-        "name": "Naszyjnik z kolcami",
-        "description": "Delikatny łańcuszek zebrany z przodu w niewielki splot kolczugowy, z trzema smukłymi kolcami zwisającymi poniżej.",
-        "price": 17,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_151912-01.jpg"
-        ]
-      },
-      {
-        "name": "Masywny naszyjnik z ogniw",
-        "description": "Wyrazisty naszyjnik z dużych połączonych ogniw — masywny łańcuch, który od razu przyciąga uwagę.",
-        "price": 14,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_124236-01.jpg"
-        ]
-      },
-      {
-        "name": "Choker z ogniw",
-        "description": "Krótsza, dopasowana wersja naszego wzoru z ogniw — połączone kółka w czystym, minimalistycznym gotyckim stylu.",
-        "price": 12,
-        "category": "Choker",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_123427-01.jpg"
-        ]
-      },
-      {
-        "name": "Zawieszka-serce z kolczugi",
-        "description": "Małe serce splecione techniką kolczugi na karabińczyku — idealne jako wisiorek lub ozdoba breloka.",
-        "price": 10,
-        "category": "Charm",
-        "soldOut": false,
-        "images": [
-          "media/web/IMG_20260908_120916-01.jpg"
-        ]
-      },
-      {
-        "name": "N",
-        "description": "Nn",
-        "price": 100,
-        "category": "Necklace",
-        "soldOut": false,
-        "images": [
-          "/media/web/img_20261005_151450_652-01.webp"
+          "/media/web/1000030969-01.jpg"
         ]
       }
     ]

@@ -12,6 +12,10 @@
       {
         "key": "Charm",
         "label": "Charms"
+      },
+      {
+        "key": "Bracelets",
+        "label": "Bracelets"
       }
     ]
   },
@@ -28,6 +32,10 @@
       {
         "key": "Charm",
         "label": "Подвески"
+      },
+      {
+        "key": "Bracelets",
+        "label": "Браслеты"
       }
     ]
   },
@@ -44,6 +52,10 @@
       {
         "key": "Charm",
         "label": "Підвіски"
+      },
+      {
+        "key": "Bracelets",
+        "label": "Браслети"
       }
     ]
   },
@@ -60,6 +72,10 @@
       {
         "key": "Charm",
         "label": "Zawieszki"
+      },
+      {
+        "key": "Bracelets",
+        "label": "Bransoletki"
       }
     ]
   }

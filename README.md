@@ -55,6 +55,7 @@ download needed. Each save is a commit to `master`; GitHub Pages redeploys in ~1
 | `content/categories.json` | per language: `{ en: { categories: [{ key, label }] }, ... }`; tile order on the Shop page |
 | `content/texts.json` | per language: `{ en: { group: { field: "text" } }, ru: {...}, ... }` — referenced from HTML as `data-i18n="group.field"` |
 | `content/site.json` | `heroImage`, `aboutPhoto` (empty = placeholder) |
+| `content/links.json` | `instagram`, `telegram`, `vinted`, `email` (optional; hidden while empty) — applied by `js/content.js` to every `data-link` / `data-link-handle` / `data-link-optional` element |
 | `admin/config.yml` | the editor's forms; must mirror the JSON shapes (enforced by `tests/data.spec.js`) |
 | `admin/index.html` | loads the CMS from unpkg, pinned + Subresource Integrity |
 
@@ -101,6 +102,10 @@ until all of them agree.
   template (`escapeHtml`), and `js/i18n.js` only sets `textContent`. Tested with an
   injection payload in `tests/i18n.spec.js`.
 - **Only local images**: tests reject image paths that aren't `media/…` files in the repo.
+- **Links are validated before use**: shop links end up in `href`s, so `js/content.js`
+  (`LINK_RULES`) only accepts real instagram.com / t.me / vinted / email values and
+  otherwise keeps the built-in default — a `javascript:` URL can never reach the page.
+  The CMS form uses the identical patterns (tested), so the editor sees the error first.
 - **Photos are cleaned on upload**: resized to ≤1600px, WebP, EXIF (incl. GPS location)
   stripped — verified with a GPS-tagged test photo.
 - **Everything committed is public forever**, including history. EDITING.md warns the

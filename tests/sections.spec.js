@@ -1,7 +1,7 @@
 const { test, expect } = require("@playwright/test");
 const fs = require("fs");
 const path = require("path");
-const { text, site, gotoAndWait } = require("./helpers");
+const { text, site, links, gotoAndWait } = require("./helpers");
 
 // Nav labels come from content/texts.json (editable in the CMS).
 const PAGES = [
@@ -12,9 +12,8 @@ const PAGES = [
   { path: "/contact.html", href: "contact.html", label: text("nav.contact") },
 ];
 
-const INSTAGRAM_PATTERN = /instagram\.com\/be1fegor_jewelry/;
-const TELEGRAM_URL = "https://t.me/be11fegor";
-const VINTED_URL = "https://www.vinted.pl/member/306870155-be1fegor";
+// Shop links come from content/links.json (editable in the CMS).
+const EMAIL_SHOWN = !!links.email;
 
 for (const { path: pagePath, href: pageHref, label } of PAGES) {
   test.describe(`${label} page`, () => {
@@ -49,18 +48,26 @@ for (const { path: pagePath, href: pageHref, label } of PAGES) {
       expect(height, "logo should be clearly visible").toBeGreaterThanOrEqual(80);
     });
 
-    test("footer has working Instagram, Telegram and Vinted links", async ({ page }) => {
-      const links = page.locator(".site-footer .footer-link");
-      await expect(links).toHaveCount(3);
-      await expect(links.nth(0)).toHaveAttribute("href", INSTAGRAM_PATTERN);
-      await expect(links.nth(1)).toHaveAttribute("href", TELEGRAM_URL);
-      await expect(links.nth(2)).toHaveAttribute("href", VINTED_URL);
+    test("footer has the shop's Instagram, Telegram, Vinted (and email, if set) links", async ({ page }) => {
+      const footer = page.locator(".site-footer");
+      await expect(footer.locator('[data-link="instagram"]')).toHaveAttribute("href", links.instagram);
+      await expect(footer.locator('[data-link="telegram"]')).toHaveAttribute("href", links.telegram);
+      await expect(footer.locator('[data-link="vinted"]')).toHaveAttribute("href", links.vinted);
+      await expect(footer.locator(".footer-link:visible")).toHaveCount(EMAIL_SHOWN ? 4 : 3);
+      if (EMAIL_SHOWN) await expect(footer.locator('[data-link="email"]')).toHaveAttribute("href", `mailto:${links.email}`);
       await expect(page.locator(".footer-questions")).toHaveAttribute("href", "contact.html");
     });
 
     test("shows the features strip", async ({ page }) => {
       await expect(page.locator(".features .feature")).toHaveCount(3);
-      await expect(page.locator(".feature-script")).toBeVisible();
+      // "More than just jewelry..." was removed at the user's request.
+      await expect(page.locator(".feature-script, [data-i18n='feat.script']")).toHaveCount(0);
+    });
+
+    test("the footer question uses a readable (non-script) font", async ({ page }) => {
+      const family = await page.locator(".footer-questions").evaluate((el) => getComputedStyle(el).fontFamily);
+      expect(family).toMatch(/^"?Cormorant Garamond/);
+      expect(family).not.toMatch(/Pinyon|Marck|cursive/);
     });
 
     test("never scrolls horizontally", async ({ page }) => {
@@ -136,28 +143,32 @@ test("About page has a heading, photo placeholder, and non-empty bio", async ({ 
   await expect(page.locator(".about-bio")).not.toBeEmpty();
 });
 
-test("Shipping page has a heading, mentions Poland, and links to Instagram", async ({ page }) => {
+test("Shipping page shows its single editable text and an Instagram button", async ({ page }) => {
   await gotoAndWait(page, "/shipping.html");
   await expect(page.locator(".section-title")).toHaveText(text("shipping.title"));
-  await expect(page.locator(".shipping-content")).toContainText(/poland/i);
-  await expect(page.locator(".shipping-content a")).toHaveAttribute("href", INSTAGRAM_PATTERN);
+  // One text, one element — the old p1/p2/p3a + inline link + p3b split is gone.
+  await expect(page.locator(".shipping-content [data-i18n]")).toHaveCount(1);
+  expect(await page.locator('[data-i18n="shipping.body"]').evaluate((el) => el.innerText)).toBe(text("shipping.body"));
+  await expect(page.locator(".shipping-content a")).toHaveCount(0);
+  const cta = page.locator(".section-shipping .hero-cta");
+  await expect(cta).toHaveText(text("shipping.cta"));
+  await expect(cta).toHaveAttribute("href", links.instagram);
 });
 
 test("Custom Orders page lists the steps and links to Instagram", async ({ page }) => {
   await gotoAndWait(page, "/custom-orders.html");
   await expect(page.locator(".section-title")).toHaveText(text("custom.title"));
   await expect(page.locator(".custom-step")).toHaveCount(4);
-  await expect(page.locator(".custom-cta-wrap a")).toHaveAttribute("href", INSTAGRAM_PATTERN);
+  await expect(page.locator(".custom-cta-wrap a")).toHaveAttribute("href", links.instagram);
 });
 
-test("Contact page links to Instagram, Telegram and Vinted", async ({ page }) => {
+test("Contact page links to Instagram, Telegram, Vinted (and email, if set)", async ({ page }) => {
   await gotoAndWait(page, "/contact.html");
   await expect(page.locator(".section-title")).toHaveText(text("contact.title"));
-  const links = page.locator(".contact-link");
-  await expect(links).toHaveCount(3);
-  await expect(links.nth(0)).toHaveAttribute("href", INSTAGRAM_PATTERN);
-  await expect(links.nth(1)).toHaveAttribute("href", TELEGRAM_URL);
-  await expect(links.nth(2)).toHaveAttribute("href", VINTED_URL);
+  await expect(page.locator(".contact-link:visible")).toHaveCount(EMAIL_SHOWN ? 4 : 3);
+  for (const kind of ["instagram", "telegram", "vinted"]) {
+    await expect(page.locator(`.contact-link[data-link="${kind}"]`)).toHaveAttribute("href", links[kind]);
+  }
 });
 
 test("every page declares the favicon, and it is served as a 32x32 image", async ({ page }) => {

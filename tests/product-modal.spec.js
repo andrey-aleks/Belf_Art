@@ -1,7 +1,6 @@
 const { test, expect } = require("@playwright/test");
-const { products, inLang, assetPath, gotoAndWait } = require("./helpers");
+const { products, inLang, assetPath, gotoAndWait, links } = require("./helpers");
 
-const INSTAGRAM_PATTERN = /instagram\.com\/be1fegor_jewelry/;
 
 test.beforeEach(async ({ page }) => {
   await gotoAndWait(page, "/");
@@ -51,7 +50,7 @@ test("clicking a product card opens the modal with that product's details", asyn
   await expect(modal.locator(".product-modal-price")).toHaveText(`${product.price} EUR`);
   await expect(modal.locator(".product-modal-description")).toHaveText(inLang(product.description));
   await expect(modal.locator(".product-modal-image")).toHaveAttribute("src", assetPath(product.images[0]));
-  await expect(modal.locator(".product-modal-order")).toHaveAttribute("href", INSTAGRAM_PATTERN);
+  await expect(modal.locator(".product-modal-order")).toHaveAttribute("href", links.instagram);
 });
 
 test("opening a different card after closing shows fresh content, not stale data", async ({ page }) => {

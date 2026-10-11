@@ -1,3 +1,4 @@
+// Default for the Order button; the editor's link from content/links.json wins (shopLink).
 const INSTAGRAM_URL = "https://www.instagram.com/be1fegor_jewelry/";
 const CURRENCY = "EUR";
 
@@ -193,7 +194,7 @@ function fillModal(item) {
     modalOrder.classList.add("is-disabled");
   } else {
     modalOrder.textContent = t("product.order");
-    modalOrder.href = INSTAGRAM_URL;
+    modalOrder.href = shopLink("instagram", INSTAGRAM_URL);
     modalOrder.removeAttribute("aria-disabled");
     modalOrder.classList.remove("is-disabled");
   }

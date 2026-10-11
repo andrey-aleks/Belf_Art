@@ -3,8 +3,8 @@ const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
 const { assetVersion, ASSETS, PAGES: HTML_PAGES } = require("../scripts/update-asset-versions.js");
-const { mergeLocales } = require("../js/content.js");
-const { ROOT, LANGS, products, categories, texts, rawTexts, rawProducts, rawCategories, site, assetPath } = require("./helpers");
+const { mergeLocales, LINK_RULES, validLink } = require("../js/content.js");
+const { ROOT, LANGS, products, categories, texts, rawTexts, rawProducts, rawCategories, site, links, assetPath } = require("./helpers");
 
 // Content is edited through the CMS (/admin/), and GitHub runs these checks on every
 // change (.github/workflows/tests.yml), so a broken edit is reported by email.
@@ -138,6 +138,15 @@ test.describe("page content (content/texts.json, content/site.json)", () => {
     expect(missing).toEqual([]);
   });
 
+  test("shop links (content/links.json) are valid", () => {
+    expect(Object.keys(links).sort()).toEqual(Object.keys(LINK_RULES).sort());
+    for (const kind of ["instagram", "telegram", "vinted"]) {
+      expect(validLink(kind, links[kind]), `${kind} link "${links[kind]}"`).not.toBe("");
+    }
+    // Email is optional (hidden on the site while empty).
+    if (links.email) expect(validLink("email", links.email), `email "${links.email}"`).not.toBe("");
+  });
+
   test("site photos exist", () => {
     expectLocalImage(site.heroImage, "heroImage");
     if (site.aboutPhoto) expectLocalImage(site.aboutPhoto, "aboutPhoto");
@@ -226,6 +235,19 @@ test.describe("CMS configuration (admin/)", () => {
     const list = collectionFile("shop", "categories").fields[0];
     expect(list.i18n).toBe("duplicate");
     expect(list.fields.filter((f) => f.i18n === true).map((f) => f.name)).toEqual(["label"]);
+  });
+
+  test("the Shop links form uses exactly the site's validation rules", () => {
+    // The same patterns guard the CMS form (so the editor sees the error) and the site
+    // (js/content.js LINK_RULES, so a bad value can never reach an href).
+    const form = collectionFile("site", "links");
+    expect(form.file).toBe("content/links.json");
+    expect(form.i18n, "links are the same in every language").toBeUndefined();
+    expect(form.fields.map((f) => f.name).sort()).toEqual(Object.keys(LINK_RULES).sort());
+    for (const f of form.fields) {
+      expect(new RegExp(f.pattern[0]).source, `${f.name} pattern`).toBe(LINK_RULES[f.name].source);
+      expect(f.required, `${f.name} required`).toBe(f.name === "email" ? false : undefined);
+    }
   });
 
   test("every configured content file exists", () => {

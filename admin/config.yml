@@ -380,10 +380,6 @@ collections:
                 label: "Payments title"
                 widget: string
                 i18n: true
-              - name: script
-                label: "Script"
-                widget: string
-                i18n: true
               - name: shippingText
                 label: "Shipping text"
                 widget: string
@@ -408,6 +404,10 @@ collections:
             i18n: true
             collapsed: true
             fields:
+              - name: email
+                label: "Email (link label)"
+                widget: string
+                i18n: true
               - name: orderThrough
                 label: "Order through"
                 widget: string
@@ -498,20 +498,13 @@ collections:
             i18n: true
             collapsed: true
             fields:
-              - name: p1
-                label: "P 1"
+              - name: body
+                label: "Text"
                 widget: text
                 i18n: true
-              - name: p2
-                label: "P 2"
-                widget: text
-                i18n: true
-              - name: p3a
-                label: "P 3a"
-                widget: text
-                i18n: true
-              - name: p3b
-                label: "P 3b"
+                hint: "Press Enter for a new line, twice for a blank line between paragraphs."
+              - name: cta
+                label: "Button under the text (opens Instagram)"
                 widget: string
                 i18n: true
               - name: title
@@ -524,6 +517,10 @@ collections:
             i18n: true
             collapsed: true
             fields:
+              - name: email
+                label: "Email card description"
+                widget: string
+                i18n: true
               - name: instagram
                 label: "Instagram"
                 widget: string
@@ -548,6 +545,30 @@ collections:
                 label: "Vinted"
                 widget: string
                 i18n: true
+      - name: links
+        label: Shop links
+        file: content/links.json
+        format: json
+        fields:
+          - name: instagram
+            label: Instagram profile link
+            widget: string
+            pattern: ['^https:\/\/(www\.)?instagram\.com\/[A-Za-z0-9._]+\/?$', "Must look like https://www.instagram.com/yourname/"]
+            hint: Used in the footer, on the Contact page, and by every “Order via Instagram” button.
+          - name: telegram
+            label: Telegram link
+            widget: string
+            pattern: ['^https:\/\/t\.me\/[A-Za-z0-9_]+\/?$', "Must look like https://t.me/yourname"]
+          - name: vinted
+            label: Vinted profile link
+            widget: string
+            pattern: ['^https:\/\/(www\.)?vinted\.[a-z]{2,3}(\.[a-z]{2})?\/[A-Za-z0-9._\/-]+$', "Must look like https://www.vinted.pl/member/123456-yourname"]
+          - name: email
+            label: Email address
+            widget: string
+            required: false
+            pattern: ['^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$', "Must be an email address, e.g. hello@example.com"]
+            hint: Shown in the footer and on the Contact page; leave empty to hide it. Anything here is public — spam bots may find it, so consider a separate address for the shop.
       - name: images
         label: Page photos
         file: content/site.json

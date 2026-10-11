@@ -1,7 +1,6 @@
 const { test, expect } = require("@playwright/test");
-const { products, site, text, assetPath, gotoAndWait } = require("./helpers");
+const { products, site, links, text, assetPath, gotoAndWait } = require("./helpers");
 
-const INSTAGRAM_PATTERN = /instagram\.com\/be1fegor_jewelry/;
 
 test.beforeEach(async ({ page }) => {
   await gotoAndWait(page, "/");
@@ -13,7 +12,7 @@ test("page has the expected title", async ({ page }) => {
 
 test("header shows the shop name and the footer has a working Instagram link", async ({ page }) => {
   await expect(page.locator(".site-header .site-logo")).toHaveAccessibleName(/Belfegor/i);
-  await expect(page.locator(".site-footer .footer-link").first()).toHaveAttribute("href", INSTAGRAM_PATTERN);
+  await expect(page.locator(".site-footer .footer-link").first()).toHaveAttribute("href", links.instagram);
 });
 
 test("hero shows the headline and a Shop Now link that jumps to the product grid", async ({ page }) => {

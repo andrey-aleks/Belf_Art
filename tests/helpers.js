@@ -22,6 +22,7 @@ const { products } = mergeLocales(rawProducts);
 const { categories } = mergeLocales(rawCategories);
 const texts = mergeLocales(rawTexts);
 const site = readJson("content/site.json");
+const links = readJson("content/links.json");
 
 // A merged value is { en, ru, uk, pl }, or a plain string when all languages agree.
 function inLang(value, lang = "en") {
@@ -48,7 +49,7 @@ async function waitForContent(page) {
   await page.waitForFunction(() => {
     const ds = document.documentElement.dataset;
     const needsShop = !!document.getElementById("product-grid");
-    return ds.textsReady === "true" && (!needsShop || ds.shopReady === "true");
+    return ds.textsReady === "true" && ds.linksReady === "true" && (!needsShop || ds.shopReady === "true");
   });
 }
 
@@ -62,6 +63,7 @@ module.exports = {
   rawProducts,
   rawCategories,
   site,
+  links,
   inLang,
   assetPath,
   text,

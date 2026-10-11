@@ -66,7 +66,6 @@
       "handmadeTitle": "Handmade",
       "paymentsText": "Safe and convenient payment methods.",
       "paymentsTitle": "Secure payments",
-      "script": "More than just jewelry...",
       "shippingText": "From Poland, with care.",
       "shippingTitle": "Shipping across Europe"
     },
@@ -76,7 +75,8 @@
     "footer": {
       "orderThrough": "Order through:",
       "questions": "Questions?",
-      "write": "Feel free to write"
+      "write": "Feel free to write",
+      "email": "Email"
     },
     "about": {
       "bio": "Hi, I’m the creator of Belfegor Jewelry 🖤\n\nI create jewelry for you, inspired by gothic aesthetics, dark details, and a love for unique accessories.\n\nEach piece is handmade using chainmaille techniques. Every single link is carefully assembled by hand, one by one, turning each piece into something truly unique.\n\nI want to create jewelry that doesn’t just complete your look, but becomes a part of it and reflects your individuality.",
@@ -98,10 +98,8 @@
       "title": "Custom Orders"
     },
     "shipping": {
-      "p1": "1. Where we ship\nWe ship our handmade jewelry to Poland, countries across Europe, and Ukraine.\n\n2. Delivery services\nOrders can be shipped using DPD, DHL or InPost, depending on the destination and available delivery options.",
-      "p2": "3. Shipping cost\nThe shipping cost depends on the destination, delivery service and parcel size.\n\n4. Check the cost in advance\nYou can check the estimated shipping cost yourself on the official website of DPD, DHL or InPost before placing your order.\n\n5. Final shipping cost\nWhen you contact us to place an order, we will confirm the available shipping options and the exact delivery cost for your address.",
-      "p3a": "6. Tracking\nOnce your order has been shipped, you will receive a tracking number so you can follow your parcel.\n\n7. Packaging\nEvery piece is carefully packed to make sure your jewelry arrives safely and in perfect condition.\n\n📩 If you have any questions about shipping, feel free to DM us.",
-      "p3b": "before ordering and we'll be happy to help.",
+      "body": "1. Where we ship\nWe ship our handmade jewelry to Poland, countries across Europe, and Ukraine.\n\n2. Delivery services\nOrders can be shipped using DPD, DHL or InPost, depending on the destination and available delivery options.\n\n3. Shipping cost\nThe shipping cost depends on the destination, delivery service and parcel size.\n\n4. Check the cost in advance\nYou can check the estimated shipping cost yourself on the official website of DPD, DHL or InPost before placing your order.\n\n5. Final shipping cost\nWhen you contact us to place an order, we will confirm the available shipping options and the exact delivery cost for your address.\n\n6. Tracking\nOnce your order has been shipped, you will receive a tracking number so you can follow your parcel.\n\n7. Packaging\nEvery piece is carefully packed to make sure your jewelry arrives safely and in perfect condition.\n\n📩 If you have any questions about shipping, feel free to DM us.",
+      "cta": "Message us on Instagram",
       "title": "Shipping"
     },
     "contact": {
@@ -110,7 +108,8 @@
       "location": "Kraków, Poland",
       "telegram": "Messages & questions",
       "title": "Contact",
-      "vinted": "Our listings on Vinted"
+      "vinted": "Our listings on Vinted",
+      "email": "Orders & questions by email"
     }
   },
   "ru": {
@@ -180,7 +179,6 @@
       "handmadeTitle": "Ручная работа",
       "paymentsText": "Удобные и надёжные способы оплаты.",
       "paymentsTitle": "Безопасная оплата",
-      "script": "Больше, чем просто украшения...",
       "shippingText": "Из Польши, с заботой.",
       "shippingTitle": "Доставка по Европе"
     },
@@ -190,7 +188,8 @@
     "footer": {
       "orderThrough": "Заказать через:",
       "questions": "Есть вопросы?",
-      "write": "Смело пишите"
+      "write": "Смело пишите",
+      "email": "Почта"
     },
     "about": {
       "bio": "Привет, я создательница украшений Belfegor Jewelry 🖤 Я создаю для вас украшения, вдохновленные готической эстетикой, мрачными деталями и любовью к уникальным аксессуарам. Каждое изделие изготавливается вручную с использованием техники кольчужного плетения. Каждое звено тщательно собирается вручную, одно за другим, превращая каждое украшение в нечто поистине уникальное. Я хочу создавать украшения, которые не просто дополняют ваш образ, а становятся его частью и отражают вашу индивидуальность.",
@@ -212,10 +211,8 @@
       "title": "Индивидуальные заказы"
     },
     "shipping": {
-      "p1": "1. Куда мы отправляем?\nМы отправляем наши украшения ручной работы по Польше, странам Европы и в Украину.\n2. Службы доставки\nЗаказы отправляются через DPD, DHL или InPost — в зависимости от страны назначения и доступных вариантов доставки.",
-      "p2": "3. Стоимость доставки\nСтоимость зависит от страны назначения, выбранной службы доставки и размера посылки.\n\n4. Как узнать стоимость заранее\nВы можете самостоятельно предварительно рассчитать стоимость доставки на официальном сайте DPD, DHL или InPost.\n\n5. Точная стоимость доставки\nПри оформлении заказа мы уточним доступные варианты доставки и подтвердим точную стоимость отправки на ваш адрес.",
-      "p3a": "6. Отслеживание\nПосле отправки вы получите трек-номер, с помощью которого сможете отслеживать посылку.\n\n7. Упаковка\nКаждое украшение тщательно упаковывается, чтобы оно безопасно дошло до вас в идеальном состоянии.\n\n📩 Если у вас есть вопросы по доставке, пишите нам в Direct.",
-      "p3b": "до оформления заказа — мы с радостью поможем.",
+      "body": "1. Куда мы отправляем?\nМы отправляем наши украшения ручной работы по Польше, странам Европы и в Украину.\n2. Службы доставки\nЗаказы отправляются через DPD, DHL или InPost — в зависимости от страны назначения и доступных вариантов доставки.\n\n3. Стоимость доставки\nСтоимость зависит от страны назначения, выбранной службы доставки и размера посылки.\n\n4. Как узнать стоимость заранее\nВы можете самостоятельно предварительно рассчитать стоимость доставки на официальном сайте DPD, DHL или InPost.\n\n5. Точная стоимость доставки\nПри оформлении заказа мы уточним доступные варианты доставки и подтвердим точную стоимость отправки на ваш адрес.\n\n6. Отслеживание\nПосле отправки вы получите трек-номер, с помощью которого сможете отслеживать посылку.\n\n7. Упаковка\nКаждое украшение тщательно упаковывается, чтобы оно безопасно дошло до вас в идеальном состоянии.\n\n📩 Если у вас есть вопросы по доставке, пишите нам в Direct.",
+      "cta": "Написать нам в Instagram",
       "title": "Доставка"
     },
     "contact": {
@@ -224,7 +221,8 @@
       "location": "Краков, Польша",
       "telegram": "Сообщения и вопросы",
       "title": "Контакты",
-      "vinted": "Наши объявления на Vinted"
+      "vinted": "Наши объявления на Vinted",
+      "email": "Заказы и вопросы по почте"
     }
   },
   "uk": {
@@ -294,7 +292,6 @@
       "handmadeTitle": "Ручна робота",
       "paymentsText": "Зручні та надійні способи оплати.",
       "paymentsTitle": "Безпечна оплата",
-      "script": "Більше, ніж просто прикраси...",
       "shippingText": "З Польщі, з турботою.",
       "shippingTitle": "Доставка по Європі"
     },
@@ -304,7 +301,8 @@
     "footer": {
       "orderThrough": "Замовити через:",
       "questions": "Є питання?",
-      "write": "Сміливо пишіть"
+      "write": "Сміливо пишіть",
+      "email": "Пошта"
     },
     "about": {
       "bio": "Привіт, я — авторка прикрас Belfegor Jewelry 🖤 Я створюю для вас прикраси, натхненні готичною естетикою, похмурими деталями та любов’ю до унікальних аксесуарів. Кожен виріб виготовляється вручну за допомогою техніки кольчужного плетіння. Кожне ланка ретельно збирається вручну, одне за одним, перетворюючи кожну прикрасу на щось справді унікальне. Я хочу створювати прикраси, які не просто доповнюють ваш образ, а стають його частиною та відображають вашу індивідуальність.",
@@ -326,10 +324,8 @@
       "title": "Індивідуальні замовлення"
     },
     "shipping": {
-      "p1": "1. Куди ми здійснюємо доставку Ми доставляємо наші ювелірні вироби ручної роботи до Польщі, країн Європи та України. 2. Служби доставки Замовлення можуть доставлятися службами DPD, DHL або InPost, залежно від пункту призначення та доступних варіантів доставки.",
-      "p2": "3. Вартість доставки. Вартість доставки залежить від пункту призначення, служби доставки та розміру посилки. 4. Перевірте вартість заздалегідь. Ви можете самостійно перевірити орієнтовну вартість доставки на офіційному веб-сайті DPD, DHL або InPost перед тим, як оформити замовлення. 5. Остаточна вартість доставки. Коли ви зв’яжетеся з нами для оформлення замовлення, ми підтвердимо доступні варіанти доставки та точну вартість доставки за вашою адресою.",
-      "p3a": "6. Відстеження. Після відправлення замовлення ви отримаєте номер для відстеження, за допомогою якого зможете стежити за переміщенням вашої посилки. 7. Упаковка. Кожен виріб ретельно упаковується, щоб ваші прикраси надійшли безпечно та в ідеальному стані.\n 📩 Якщо у вас є питання щодо доставки, не соромтеся написати нам у приватні повідомлення в Instagram перед тим, як оформити замовлення, і ми з радістю допоможемо.",
-      "p3b": "до оформлення замовлення — ми з радістю допоможемо.",
+      "body": "1. Куди ми здійснюємо доставку Ми доставляємо наші ювелірні вироби ручної роботи до Польщі, країн Європи та України. 2. Служби доставки Замовлення можуть доставлятися службами DPD, DHL або InPost, залежно від пункту призначення та доступних варіантів доставки.\n\n3. Вартість доставки. Вартість доставки залежить від пункту призначення, служби доставки та розміру посилки. 4. Перевірте вартість заздалегідь. Ви можете самостійно перевірити орієнтовну вартість доставки на офіційному веб-сайті DPD, DHL або InPost перед тим, як оформити замовлення. 5. Остаточна вартість доставки. Коли ви зв’яжетеся з нами для оформлення замовлення, ми підтвердимо доступні варіанти доставки та точну вартість доставки за вашою адресою.\n\n6. Відстеження. Після відправлення замовлення ви отримаєте номер для відстеження, за допомогою якого зможете стежити за переміщенням вашої посилки. 7. Упаковка. Кожен виріб ретельно упаковується, щоб ваші прикраси надійшли безпечно та в ідеальному стані.\n 📩 Якщо у вас є питання щодо доставки, не соромтеся написати нам у приватні повідомлення в Instagram перед тим, як оформити замовлення, і ми з радістю допоможемо.",
+      "cta": "Написати нам в Instagram",
       "title": "Доставка"
     },
     "contact": {
@@ -338,7 +334,8 @@
       "location": "Краків, Польща",
       "telegram": "Повідомлення та питання",
       "title": "Контакти",
-      "vinted": "Наші оголошення на Vinted"
+      "vinted": "Наші оголошення на Vinted",
+      "email": "Замовлення та питання поштою"
     }
   },
   "pl": {
@@ -408,7 +405,6 @@
       "handmadeTitle": "Ręczna robota",
       "paymentsText": "Wygodne i bezpieczne metody płatności.",
       "paymentsTitle": "Bezpieczne płatności",
-      "script": "Więcej niż biżuteria...",
       "shippingText": "Z Polski, z troską.",
       "shippingTitle": "Wysyłka po całej Europie"
     },
@@ -418,7 +414,8 @@
     "footer": {
       "orderThrough": "Zamów przez:",
       "questions": "Masz pytania?",
-      "write": "Śmiało pisz"
+      "write": "Śmiało pisz",
+      "email": "E-mail"
     },
     "about": {
       "bio": "Cześć, jestem twórczynią marki Belfegor Jewelry 🖤 Tworzę biżuterię dla Ciebie, czerpiąc inspirację z estetyki gotyckiej, mrocznych detali i zamiłowania do niepowtarzalnych dodatków. Każda sztuka jest wykonywana ręcznie przy użyciu technik chainmaille. Każde ogniwo jest starannie łączone ręcznie, jedno po drugim, dzięki czemu każda sztuka staje się czymś naprawdę wyjątkowym. Chcę tworzyć biżuterię, która nie tylko dopełnia Twój styl, ale staje się jego częścią i odzwierciedla Twoją indywidualność.",
@@ -440,10 +437,8 @@
       "title": "Zamówienia indywidualne"
     },
     "shipping": {
-      "p1": "1. Obszary dostaw Wysyłamy naszą ręcznie wykonaną biżuterię do Polski, krajów europejskich oraz na Ukrainę. 2. Firmy kurierskie Zamówienia mogą być wysyłane za pośrednictwem firm DPD, DHL lub InPost, w zależności od miejsca przeznaczenia i dostępnych opcji dostawy.",
-      "p2": "3. Koszt wysyłki Koszt wysyłki zależy od miejsca przeznaczenia, firmy kurierskiej oraz rozmiaru przesyłki. 4. Sprawdź koszt z wyprzedzeniem Przed złożeniem zamówienia możesz samodzielnie sprawdzić szacunkowy koszt wysyłki na oficjalnej stronie internetowej DPD, DHL lub InPost. 5. Ostateczny koszt wysyłki Kiedy skontaktujesz się z nami w celu złożenia zamówienia, potwierdzimy dostępne opcje wysyłki oraz dokładny koszt dostawy na podany przez Ciebie adres.",
-      "p3a": "6. Śledzenie przesyłki Po wysłaniu zamówienia otrzymasz numer śledzenia, dzięki któremu będziesz mógł śledzić swoją przesyłkę. 7. Pakowanie Każdy egzemplarz jest starannie pakowany, aby Twoja biżuteria dotarła bezpiecznie i w idealnym stanie. 📩 Jeśli masz jakiekolwiek pytania dotyczące wysyłki, napisz do nas na Instagramie przed złożeniem zamówienia, a chętnie Ci pomożemy.",
-      "p3b": "przed złożeniem zamówienia — chętnie pomożemy.",
+      "body": "1. Obszary dostaw Wysyłamy naszą ręcznie wykonaną biżuterię do Polski, krajów europejskich oraz na Ukrainę. 2. Firmy kurierskie Zamówienia mogą być wysyłane za pośrednictwem firm DPD, DHL lub InPost, w zależności od miejsca przeznaczenia i dostępnych opcji dostawy.\n\n3. Koszt wysyłki Koszt wysyłki zależy od miejsca przeznaczenia, firmy kurierskiej oraz rozmiaru przesyłki. 4. Sprawdź koszt z wyprzedzeniem Przed złożeniem zamówienia możesz samodzielnie sprawdzić szacunkowy koszt wysyłki na oficjalnej stronie internetowej DPD, DHL lub InPost. 5. Ostateczny koszt wysyłki Kiedy skontaktujesz się z nami w celu złożenia zamówienia, potwierdzimy dostępne opcje wysyłki oraz dokładny koszt dostawy na podany przez Ciebie adres.\n\n6. Śledzenie przesyłki Po wysłaniu zamówienia otrzymasz numer śledzenia, dzięki któremu będziesz mógł śledzić swoją przesyłkę. 7. Pakowanie Każdy egzemplarz jest starannie pakowany, aby Twoja biżuteria dotarła bezpiecznie i w idealnym stanie. 📩 Jeśli masz jakiekolwiek pytania dotyczące wysyłki, napisz do nas na Instagramie przed złożeniem zamówienia, a chętnie Ci pomożemy.",
+      "cta": "Napisz do nas na Instagramie",
       "title": "Wysyłka"
     },
     "contact": {
@@ -452,7 +447,8 @@
       "location": "Kraków, Polska",
       "telegram": "Wiadomości i pytania",
       "title": "Kontakt",
-      "vinted": "Nasze ogłoszenia na Vinted"
+      "vinted": "Nasze ogłoszenia na Vinted",
+      "email": "Zamówienia i pytania e-mailem"
     }
   }
 }

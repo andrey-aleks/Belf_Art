@@ -54,6 +54,15 @@ The editor has two sections:
     them in automatically. Bracketed notes like `[Your City]` are placeholders waiting
     for real details.
   - **Page photos** — the big photo at the top of the shop, and the About page photo.
+  - **Shop links** — the shop's Instagram, Telegram and Vinted links and its email
+    address. They're used everywhere on the site at once (footer, Contact page, every
+    "Order via Instagram" button). The editor only accepts real links of each kind —
+    e.g. Instagram must look like `https://www.instagram.com/yourname/`. The email is
+    optional: while it's empty, it's hidden on the site. Once filled in it's **public**,
+    and spam bots may pick it up, so a separate address just for the shop is a good idea.
+
+Long texts (like the Shipping page) keep the line breaks you type: press Enter for a new
+line, or twice for an empty line between paragraphs.
 
 ### Languages
 

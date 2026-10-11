@@ -97,6 +97,48 @@ test.describe("language switching", () => {
   });
 });
 
+test.describe("line breaks typed in the CMS", () => {
+  // Regression guard: the editor wrote the Shipping page as several lines/paragraphs, but
+  // the page showed it as one run-on line, because inserted text collapsed newlines.
+  const SHIPPING_WITH_BREAKS = ["1. Where we ship", "Poland and Europe.", "", "2. Delivery", "DPD or InPost."].join("\n");
+  const TWO_LINES = ["Line one", "Line two"].join("\n");
+
+  test("a page text keeps its line breaks and blank lines", async ({ page }) => {
+    await page.route("**/content/texts.json", (route) => {
+      const copy = JSON.parse(JSON.stringify(rawTexts));
+      copy.en.shipping.body = SHIPPING_WITH_BREAKS;
+      route.fulfill({ json: copy });
+    });
+    await gotoAndWait(page, "/shipping.html");
+
+    const p1 = page.locator('[data-i18n="shipping.body"]');
+    // innerText reflects what's rendered: collapsed newlines would come back as spaces.
+    expect(await p1.evaluate((el) => el.innerText)).toBe(SHIPPING_WITH_BREAKS);
+    const lineHeight = await p1.evaluate((el) => parseFloat(getComputedStyle(el).lineHeight));
+    const height = await p1.evaluate((el) => el.getBoundingClientRect().height);
+    expect(height, "five lines (incl. the blank one) should be rendered").toBeGreaterThan(lineHeight * 4.5);
+  });
+
+  test("a product description keeps its line breaks in the detail window", async ({ page }) => {
+    await page.route("**/content/products.json", (route) => {
+      const copy = JSON.parse(JSON.stringify(rawProducts));
+      for (const lang of Object.keys(copy)) copy[lang].products[0].description = TWO_LINES;
+      route.fulfill({ json: copy });
+    });
+    await gotoAndWait(page, "/");
+    await page.locator(".product-card").first().click();
+    expect(await page.locator(".product-modal-description").evaluate((el) => el.innerText)).toBe(TWO_LINES);
+  });
+
+  test("texts without line breaks still wrap normally", async ({ page }) => {
+    await gotoAndWait(page, "/");
+    const box = await page.locator(".hero-title").boundingBox();
+    expect(box.width).toBeLessThanOrEqual(page.viewportSize().width);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+  });
+});
+
 test.describe("edited content is shown and cannot inject HTML", () => {
   // The CMS editor is a different person than the developer; anything they type must be
   // displayed as text, never run as HTML/script.

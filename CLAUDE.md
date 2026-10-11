@@ -45,7 +45,10 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   to transparency, exported at 3x display height; the "Handmade Jewelry" tagline under
   it stays HTML text so it's readable and translated. The footer still uses the text
   wordmark (`.site-title`), hero banner, category strip,
-  framed cards with star accents, features strip, "Order through" footer). Keep new UI in
+  framed cards with star accents, features strip [3 items; the user had the
+  "More than just jewelry..." script text removed], "Order through" footer; the footer's
+  "Questions? Feel free to write" is Cormorant Garamond italic — the user found the
+  original script font unreadable, and it had no Cyrillic). Keep new UI in
   that style: silver line-art SVG icons from `media/icons/`, used as CSS masks via
   `.icon` + `--icon` so they take `currentColor` (don't add per-color copies of icons).
 - Five separate pages, each with its own copy of the header, `.features` strip and footer
@@ -95,6 +98,21 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
   and the security model. Hard rules (public repo):
   - Never commit secrets (tokens, OAuth client secrets). Sign-in is token-only
     (`auth_methods: [token]`); the token lives in the editor's browser.
+  - CMS texts may contain line breaks (the editor presses Enter; the Shipping page is
+    written as numbered paragraphs). Since they're inserted as text, `[data-i18n]` and
+    `.product-modal-description` have `white-space: pre-line` — give any new element
+    that shows CMS text the same, or its line breaks collapse into one run-on line
+    (a real bug; guarded by "line breaks typed in the CMS" in `tests/i18n.spec.js`).
+  - Shop links live in `content/links.json` (CMS "Site → Shop links"); never hard-code
+    a shop URL in JS — mark elements `data-link="instagram|telegram|vinted|email"` (+
+    `data-link-handle`, `data-link-optional` for the optional email, which is hidden
+    while empty) and use `shopLink(kind, fallback)` in JS. Every value is checked against
+    `LINK_RULES` in `js/content.js` before it reaches an `href` (no `javascript:` URLs);
+    the CMS `pattern`s must stay identical (tested in `tests/data.spec.js`;
+    `tests/links.spec.js` covers propagation + the unsafe values). The Shipping page is a
+    single multi-line `shipping.body` text + `shipping.cta` button — it used to be
+    p1/p2/p3a + a hard-coded inline Instagram link + p3b, and the editor naturally typed
+    the whole ending into p3a, leaving a dangling "Instagram before ordering…" tail.
   - Content is untrusted input: never insert it as HTML. `main.js` escapes every
     interpolated value with `escapeHtml`; `i18n.js` only sets `textContent`/attributes.
     Guarded by the injection tests in `tests/i18n.spec.js`.

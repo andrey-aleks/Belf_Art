@@ -73,10 +73,10 @@
       "label": "Why Belfegor"
     },
     "footer": {
+      "email": "Email",
       "orderThrough": "Order through:",
       "questions": "Questions?",
-      "write": "Feel free to write",
-      "email": "Email"
+      "write": "Feel free to write"
     },
     "about": {
       "bio": "Hi, I’m the creator of Belfegor Jewelry 🖤\n\nI create jewelry for you, inspired by gothic aesthetics, dark details, and a love for unique accessories.\n\nEach piece is handmade using chainmaille techniques. Every single link is carefully assembled by hand, one by one, turning each piece into something truly unique.\n\nI want to create jewelry that doesn’t just complete your look, but becomes a part of it and reflects your individuality.",
@@ -103,13 +103,13 @@
       "title": "Shipping"
     },
     "contact": {
+      "email": "Orders & questions by email",
       "instagram": "Orders & questions",
       "intro": "Questions about a piece, an order, or shipping? Write to us on any of these — we're happy to help.",
       "location": "Kraków, Poland",
       "telegram": "Messages & questions",
       "title": "Contact",
-      "vinted": "Our listings on Vinted",
-      "email": "Orders & questions by email"
+      "vinted": "Our listings on Vinted"
     }
   },
   "ru": {
@@ -186,10 +186,10 @@
       "label": "Почему Belfegor"
     },
     "footer": {
+      "email": "Почта",
       "orderThrough": "Заказать через:",
       "questions": "Есть вопросы?",
-      "write": "Смело пишите",
-      "email": "Почта"
+      "write": "Смело пишите"
     },
     "about": {
       "bio": "Привет, я создательница украшений Belfegor Jewelry 🖤 Я создаю для вас украшения, вдохновленные готической эстетикой, мрачными деталями и любовью к уникальным аксессуарам. Каждое изделие изготавливается вручную с использованием техники кольчужного плетения. Каждое звено тщательно собирается вручную, одно за другим, превращая каждое украшение в нечто поистине уникальное. Я хочу создавать украшения, которые не просто дополняют ваш образ, а становятся его частью и отражают вашу индивидуальность.",
@@ -216,13 +216,13 @@
       "title": "Доставка"
     },
     "contact": {
+      "email": "Заказы и вопросы по почте",
       "instagram": "Заказы и вопросы",
       "intro": "Вопросы об украшении, заказе или доставке? Пишите нам в любой из этих сервисов — мы с радостью поможем.",
       "location": "Краков, Польша",
       "telegram": "Сообщения и вопросы",
       "title": "Контакты",
-      "vinted": "Наши объявления на Vinted",
-      "email": "Заказы и вопросы по почте"
+      "vinted": "Наши объявления на Vinted"
     }
   },
   "uk": {
@@ -299,13 +299,13 @@
       "label": "Чому Belfegor"
     },
     "footer": {
+      "email": "Пошта",
       "orderThrough": "Замовити через:",
       "questions": "Є питання?",
-      "write": "Сміливо пишіть",
-      "email": "Пошта"
+      "write": "Сміливо пишіть"
     },
     "about": {
-      "bio": "Привіт, я — авторка прикрас Belfegor Jewelry 🖤 Я створюю для вас прикраси, натхненні готичною естетикою, похмурими деталями та любов’ю до унікальних аксесуарів. Кожен виріб виготовляється вручну за допомогою техніки кольчужного плетіння. Кожне ланка ретельно збирається вручну, одне за одним, перетворюючи кожну прикрасу на щось справді унікальне. Я хочу створювати прикраси, які не просто доповнюють ваш образ, а стають його частиною та відображають вашу індивідуальність.",
+      "bio": "Привіт, я — авторка прикрас Belfegor Jewelry 🖤 Я створюю для вас прикраси, натхненні готичною естетикою, похмурими деталями та любов’ю до унікальних аксесуарів. Кожен виріб виготовляється вручну за допомогою техніки кольчужного плетіння. Кожна ланка ретельно збирається вручну, одна за одноб, перетворюючи кожну прикрасу на щось справді унікальне. Я хочу створювати прикраси, які не просто доповнюють ваш образ, а стають його частиною та відображають вашу індивідуальність.",
       "photo": "Фото незабаром",
       "photoLabel": "Фото майстра (незабаром)",
       "title": "Про мене"
@@ -329,13 +329,13 @@
       "title": "Доставка"
     },
     "contact": {
+      "email": "Замовлення та питання поштою",
       "instagram": "Замовлення та питання",
       "intro": "Питання щодо прикраси, замовлення чи доставки? Пишіть нам у будь-який із цих сервісів — ми з радістю допоможемо.",
       "location": "Краків, Польща",
       "telegram": "Повідомлення та питання",
       "title": "Контакти",
-      "vinted": "Наші оголошення на Vinted",
-      "email": "Замовлення та питання поштою"
+      "vinted": "Наші оголошення на Vinted"
     }
   },
   "pl": {
@@ -412,10 +412,10 @@
       "label": "Dlaczego Belfegor"
     },
     "footer": {
+      "email": "E-mail",
       "orderThrough": "Zamów przez:",
       "questions": "Masz pytania?",
-      "write": "Śmiało pisz",
-      "email": "E-mail"
+      "write": "Śmiało pisz"
     },
     "about": {
       "bio": "Cześć, jestem twórczynią marki Belfegor Jewelry 🖤 Tworzę biżuterię dla Ciebie, czerpiąc inspirację z estetyki gotyckiej, mrocznych detali i zamiłowania do niepowtarzalnych dodatków. Każda sztuka jest wykonywana ręcznie przy użyciu technik chainmaille. Każde ogniwo jest starannie łączone ręcznie, jedno po drugim, dzięki czemu każda sztuka staje się czymś naprawdę wyjątkowym. Chcę tworzyć biżuterię, która nie tylko dopełnia Twój styl, ale staje się jego częścią i odzwierciedla Twoją indywidualność.",
@@ -442,13 +442,13 @@
       "title": "Wysyłka"
     },
     "contact": {
+      "email": "Zamówienia i pytania e-mailem",
       "instagram": "Zamówienia i pytania",
       "intro": "Pytania o biżuterię, zamówienie lub wysyłkę? Napisz do nas w dowolnym z tych miejsc — chętnie pomożemy.",
       "location": "Kraków, Polska",
       "telegram": "Wiadomości i pytania",
       "title": "Kontakt",
-      "vinted": "Nasze ogłoszenia na Vinted",
-      "email": "Zamówienia i pytania e-mailem"
+      "vinted": "Nasze ogłoszenia na Vinted"
     }
   }
 }

@@ -115,6 +115,106 @@
           "/media/web/img_20260908_120916-01.webp",
           "/media/web/img_20260908_121322-01.webp"
         ]
+      },
+      {
+        "name": "Japanese Flower",
+        "description": "Handcrafted chainmaille piece. Stainless steel. The length of the product is calculated based on your individual dimensions.",
+        "price": 12,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0146.webp"
+        ]
+      },
+      {
+        "name": "Aquarius",
+        "description": "Handcrafted chainmaille piece. Stainless steel. The length of the product is calculated based on your individual dimensions.",
+        "price": 12,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0147.webp"
+        ]
+      },
+      {
+        "name": "butterfly-wing",
+        "description": "Handcrafted chainmaille piece. Stainless steel. The length of the product is calculated based on your individual dimensions.",
+        "price": 10,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0150.webp"
+        ]
+      },
+      {
+        "name": "European 4-in-1",
+        "description": "Handcrafted chainmaille piece. Stainless steel. The length of the product is calculated based on your individual dimensions.",
+        "price": 9,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0144.webp"
+        ]
+      },
+      {
+        "name": "Metal Blossom",
+        "description": "Handcrafted chainmaille piece. Stainless steel. The length of the product is calculated based on your individual dimensions.",
+        "price": 13,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0139.webp"
+        ]
+      },
+      {
+        "name": "Steel Fang",
+        "description": "Handcrafted chainmaille piece. Stainless steel. The length of the product is calculated based on your individual dimensions.",
+        "price": 15,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0138.webp"
+        ]
+      },
+      {
+        "name": "Byzantine Dot",
+        "description": "Handcrafted chainmaille piece. Stainless steel. The length of the product is calculated based on your individual dimensions.",
+        "price": 13,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0136.webp"
+        ]
+      },
+      {
+        "name": "Valkyrie",
+        "description": "Handcrafted chainmaille piece. Stainless steel. The length of the product is calculated based on your individual dimensions.",
+        "price": 45,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0047.webp"
+        ]
+      },
+      {
+        "name": "Astral",
+        "description": "Handcrafted chainmaille piece. Stainless steel. The length of the product is calculated based on your individual dimensions",
+        "price": 35,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0038.webp"
+        ]
+      },
+      {
+        "name": "Vampire Tear",
+        "description": "Handcrafted chainmaille piece. Stainless steel. The length of the product is calculated based on your individual dimensions.",
+        "price": 12,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0045.webp"
+        ]
       }
     ]
   },
@@ -233,6 +333,106 @@
         "images": [
           "/media/web/img_20260908_120916-01.webp",
           "/media/web/img_20260908_121322-01.webp"
+        ]
+      },
+      {
+        "name": "Японский цветок",
+        "description": "Изделие из кольчуги, изготовленное вручную. Нержавеющая сталь. \nДлина изделия рассчитывается исходя из ваших индивидуальных размеров.",
+        "price": 12,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0146.webp"
+        ]
+      },
+      {
+        "name": "Водолей",
+        "description": "Изделие из кольчуги, изготовленное вручную. Нержавеющая сталь. Длина изделия рассчитывается исходя из ваших индивидуальных размеров.",
+        "price": 12,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0147.webp"
+        ]
+      },
+      {
+        "name": "крыло бабочки",
+        "description": "Изделие из кольчуги, изготовленное вручную. Нержавеющая сталь. Длина изделия рассчитывается исходя из ваших индивидуальных размеров.",
+        "price": 10,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0150.webp"
+        ]
+      },
+      {
+        "name": "Европейский «4 в 1»",
+        "description": "Изделие из кольчуги, изготовленное вручную. Нержавеющая сталь. Длина изделия рассчитывается исходя из ваших индивидуальных размеров.",
+        "price": 9,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0144.webp"
+        ]
+      },
+      {
+        "name": "«Металлический цветок»",
+        "description": "Изделие из кольчуги, изготовленное вручную. Нержавеющая сталь. Длина изделия рассчитывается исходя из ваших индивидуальных размеров",
+        "price": 13,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0139.webp"
+        ]
+      },
+      {
+        "name": "Стальной Клык",
+        "description": "Изделие из кольчуги, изготовленное вручную. Нержавеющая сталь. Длина изделия рассчитывается исходя из ваших индивидуальных размеров",
+        "price": 15,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0138.webp"
+        ]
+      },
+      {
+        "name": "Византийская точка",
+        "description": "Изделие из кольчуги, изготовленное вручную. Нержавеющая сталь. Длина изделия рассчитывается исходя из ваших индивидуальных размеров",
+        "price": 13,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0136.webp"
+        ]
+      },
+      {
+        "name": "«Валькирия»",
+        "description": "Изделие из кольчуги, изготовленное вручную. Нержавеющая сталь. Длина изделия рассчитывается исходя из ваших индивидуальных размеров",
+        "price": 45,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0047.webp"
+        ]
+      },
+      {
+        "name": "Астрал",
+        "description": "Изделие из кольчуги, изготовленное вручную. Нержавеющая сталь. Длина изделия рассчитывается исходя из ваших индивидуальных размеров",
+        "price": 35,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0038.webp"
+        ]
+      },
+      {
+        "name": "«Слеза вампира»",
+        "description": "Изделие из кольчуги, изготовленное вручную. Нержавеющая сталь. Длина изделия рассчитывается исходя из ваших индивидуальных размеров",
+        "price": 12,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0045.webp"
         ]
       }
     ]
@@ -353,6 +553,106 @@
           "/media/web/img_20260908_120916-01.webp",
           "/media/web/img_20260908_121322-01.webp"
         ]
+      },
+      {
+        "name": "Японська квітка",
+        "description": "Виріб із кольчуги, виготовлений вручну. Нержавіюча сталь. Довжина виробу розраховується виходячи з ваших індивідуальних розмірів.",
+        "price": 12,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0146.webp"
+        ]
+      },
+      {
+        "name": "Водолій",
+        "description": "Виріб із кольчуги, виготовлений вручну. Нержавіюча сталь. Довжина виробу розраховується виходячи з ваших індивідуальних розмірів.",
+        "price": 12,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0147.webp"
+        ]
+      },
+      {
+        "name": "крило метелика",
+        "description": "Виріб із кольчуги, виготовлений вручну. Нержавіюча сталь. Довжина виробу розраховується виходячи з ваших індивідуальних розмірів.",
+        "price": 10,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0150.webp"
+        ]
+      },
+      {
+        "name": "Європейський 4-в-1",
+        "description": "Виріб із кольчуги, виготовлений вручну. Нержавіюча сталь. Довжина виробу розраховується виходячи з ваших індивідуальних розмірів",
+        "price": 9,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0144.webp"
+        ]
+      },
+      {
+        "name": "«Металева квітка»",
+        "description": "Виріб із кольчуги, виготовлений вручну. Нержавіюча сталь. Довжина виробу розраховується виходячи з ваших індивідуальних розмірів",
+        "price": 13,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0139.webp"
+        ]
+      },
+      {
+        "name": "Сталевий ікло",
+        "description": "Виріб із кольчуги, виготовлений вручну. Нержавіюча сталь. Довжина виробу розраховується виходячи з ваших індивідуальних розмірів",
+        "price": 15,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0138.webp"
+        ]
+      },
+      {
+        "name": "Візантійська крапка",
+        "description": "Виріб із кольчуги, виготовлений вручну. Нержавіюча сталь. Довжина виробу розраховується виходячи з ваших індивідуальних розмірів",
+        "price": 13,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0136.webp"
+        ]
+      },
+      {
+        "name": "«Валькірія»",
+        "description": "Виріб із кольчуги, виготовлений вручну. Нержавіюча сталь. Довжина виробу розраховується виходячи з ваших індивідуальних розмірів",
+        "price": 45,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0047.webp"
+        ]
+      },
+      {
+        "name": "Астрал",
+        "description": "Виріб із кольчуги, виготовлений вручну. Нержавіюча сталь. Довжина виробу розраховується виходячи з ваших індивідуальних розмірів",
+        "price": 35,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0038.webp"
+        ]
+      },
+      {
+        "name": "«Сльоза вампіра»",
+        "description": "Виріб із кольчуги, виготовлений вручну. Нержавіюча сталь. Довжина виробу розраховується виходячи з ваших індивідуальних розмірів",
+        "price": 12,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0045.webp"
+        ]
       }
     ]
   },
@@ -471,6 +771,106 @@
         "images": [
           "/media/web/img_20260908_120916-01.webp",
           "/media/web/img_20260908_121322-01.webp"
+        ]
+      },
+      {
+        "name": "Japoński kwiat",
+        "description": "Ręcznie wykonany wyrób z kolczugi. Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów klienta.",
+        "price": 12,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0146.webp"
+        ]
+      },
+      {
+        "name": "Aquarius",
+        "description": "Ręcznie wykonany wyrób z kolczugi. Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów klienta.",
+        "price": 12,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0147.webp"
+        ]
+      },
+      {
+        "name": "skrzydło motyla",
+        "description": "Ręcznie wykonany wyrób z kolczugi. Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów klienta.",
+        "price": 10,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0150.webp"
+        ]
+      },
+      {
+        "name": "Europejski zestaw 4 w 1",
+        "description": "Ręcznie wykonany wyrób z kolczugi. Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów klienta",
+        "price": 9,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0144.webp"
+        ]
+      },
+      {
+        "name": "Metalowy kwiat",
+        "description": "Ręcznie wykonany wyrób z kolczugi. Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów klienta",
+        "price": 13,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0139.webp"
+        ]
+      },
+      {
+        "name": "Stalowy Kieł",
+        "description": "Ręcznie wykonany wyrób z kolczugi. Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów klienta",
+        "price": 15,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0138.webp"
+        ]
+      },
+      {
+        "name": "Kropka bizantyjska",
+        "description": "Ręcznie wykonany wyrób z kolczugi. Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów klienta",
+        "price": 13,
+        "category": "Bracelets",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0136.webp"
+        ]
+      },
+      {
+        "name": "Walkiria",
+        "description": "Ręcznie wykonany wyrób z kolczugi. Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów klienta",
+        "price": 45,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0047.webp"
+        ]
+      },
+      {
+        "name": "Astral",
+        "description": "Ręcznie wykonany wyrób z kolczugi. Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów klienta",
+        "price": 35,
+        "category": "Necklace",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0038.webp"
+        ]
+      },
+      {
+        "name": "Łza wampira",
+        "description": "Ręcznie wykonany wyrób z kolczugi. Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów klienta",
+        "price": 12,
+        "category": "Choker",
+        "soldOut": false,
+        "images": [
+          "/media/web/img_0045.webp"
         ]
       }
     ]

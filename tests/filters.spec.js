@@ -1,5 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const { products, categories, inLang, text, gotoAndWait } = require("./helpers");
+const { products, categories, inLang, text, gotoAndWait, rawTexts } = require("./helpers");
 
 test.beforeEach(async ({ page }) => {
   await gotoAndWait(page, "/");
@@ -185,32 +185,97 @@ test.describe("sold-out product rendering", () => {
     category: "Necklace",
     soldOut: true,
   };
+  // The note as rendered: the CMS text with its {link} placeholder replaced by the link text.
+  const expectedNote = (lang = "en") => text("product.soldOutNote", lang).replace("{link}", text("product.soldOutLink", lang));
 
-  test("shows a Sold Out badge on the card image", async ({ page }) => {
+  test("a sold-out card shows the SOLD OUT pill and the note between the name and the price", async ({ page }) => {
     await page.evaluate((product) => window.renderProducts([product]), soldOutProduct);
-
     const card = page.locator(".product-card");
-    await expect(card.locator(".sold-out-badge")).toHaveText(/sold out/i);
+
+    await expect(card).toHaveClass(/is-sold-out/);
+    await expect(card.locator(".sold-out-badge")).toHaveText(new RegExp(text("product.soldOut"), "i"));
+    await expect(card.locator(".product-image-wrap .sold-out-badge"), "the pill is no longer on the photo").toHaveCount(0);
+    await expect(card.locator(".sold-out-note")).toHaveText(expectedNote());
+    await expect(card.locator(".product-price")).toHaveText("99 EUR");
     await expect(card.locator(".order-button")).toHaveCount(0);
+
+    const y = async (sel) => (await card.locator(sel).boundingBox()).y;
+    expect(await y(".product-name")).toBeLessThan(await y(".sold-out-badge"));
+    expect(await y(".sold-out-badge")).toBeLessThan(await y(".sold-out-note"));
+    expect(await y(".sold-out-note")).toBeLessThan(await y(".product-price"));
   });
 
-  test("the modal shows a disabled order control for a sold-out product", async ({ page }) => {
+  test("the note's link goes to the Custom Orders page without opening the detail window", async ({ page }) => {
+    await page.evaluate((product) => window.renderProducts([product]), soldOutProduct);
+    const link = page.locator(".product-card .sold-out-link");
+    await expect(link).toHaveText(text("product.soldOutLink"));
+    await expect(link).toHaveAttribute("href", "custom-orders.html");
+
+    await link.click();
+    await expect(page).toHaveURL(/custom-orders\.html$/);
+  });
+
+  test("pressing Enter on the note's link follows it instead of opening the detail window", async ({ page }) => {
+    await page.evaluate((product) => window.renderProducts([product]), soldOutProduct);
+    await page.locator(".product-card .sold-out-link").focus();
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(/custom-orders\.html$/);
+  });
+
+  test("the detail window shows the pill and note, keeps the price, and has no Order button", async ({ page }) => {
     await page.evaluate((product) => window.openModal(product), soldOutProduct);
 
     const modal = page.locator("#product-modal");
     await expect(modal).toBeVisible();
-    const modalOrder = modal.locator(".product-modal-order");
-    await expect(modalOrder).toHaveText(/sold out/i);
-    await expect(modalOrder).toHaveAttribute("aria-disabled", "true");
-    await expect(modalOrder).not.toHaveAttribute("href", /.+/);
+    await expect(modal.locator(".product-modal-sold-out")).toBeVisible();
+    await expect(modal.locator(".sold-out-badge")).toHaveText(new RegExp(text("product.soldOut"), "i"));
+    await expect(modal.locator(".sold-out-note")).toHaveText(expectedNote());
+    await expect(modal.locator(".sold-out-link")).toHaveAttribute("href", "custom-orders.html");
+    await expect(modal.locator(".product-modal-price")).toHaveText("99 EUR");
+    await expect(modal.locator(".product-modal-order"), "no button for a sold-out item").toBeHidden();
   });
 
-  test("an in-stock product does not show a Sold Out badge", async ({ page }) => {
+  test("after a sold-out item, an in-stock item's detail window shows the Order button again", async ({ page }) => {
+    await page.evaluate((product) => window.openModal(product), soldOutProduct);
+    await page.keyboard.press("Escape");
+    await page.evaluate((product) => window.openModal({ ...product, soldOut: false }), soldOutProduct);
+
+    const modal = page.locator("#product-modal");
+    await expect(modal.locator(".product-modal-sold-out")).toBeHidden();
+    await expect(modal.locator(".product-modal-order")).toBeVisible();
+    await expect(modal.locator(".product-modal-order")).toHaveAttribute("href", /instagram\.com/);
+  });
+
+  test("an in-stock product shows no pill or note", async ({ page }) => {
     await page.evaluate((product) => window.renderProducts([{ ...product, soldOut: false }]), soldOutProduct);
     await expect(page.locator(".product-card .sold-out-badge")).toHaveCount(0);
+    await expect(page.locator(".product-card .sold-out-note")).toHaveCount(0);
   });
 
-  test("the badges in the real catalog match each product's soldOut flag", async ({ page }) => {
+  test("the pill and note are translated", async ({ page }) => {
+    await page.selectOption("#lang-select", "pl");
+    await page.evaluate((product) => window.renderProducts([product]), soldOutProduct);
+    await expect(page.locator(".product-card .sold-out-badge")).toHaveText(new RegExp(text("product.soldOut", "pl"), "i"));
+    await expect(page.locator(".product-card .sold-out-note")).toHaveText(expectedNote("pl"));
+  });
+
+  test("HTML typed into the note text is shown literally", async ({ page }) => {
+    await page.route("**/content/texts.json", (route) => {
+      const copy = JSON.parse(JSON.stringify(rawTexts));
+      copy.en.product.soldOutNote = '<img src=x onerror="window.__xss=1">Gone, {link}';
+      copy.en.product.soldOutLink = "<b>custom</b>";
+      route.fulfill({ json: copy });
+    });
+    await gotoAndWait(page, "/");
+    await page.evaluate((product) => window.renderProducts([product]), soldOutProduct);
+
+    const note = page.locator(".product-card .sold-out-note");
+    await expect(note).toHaveText('<img src=x onerror="window.__xss=1">Gone, <b>custom</b>');
+    await expect(note.locator("img, b")).toHaveCount(0);
+    expect(await page.evaluate(() => window.__xss)).toBeUndefined();
+  });
+
+  test("the cards in the real catalog match each product's soldOut flag", async ({ page }) => {
     await expect(page.locator(".product-card .sold-out-badge")).toHaveCount(products.filter((p) => p.soldOut).length);
   });
 });

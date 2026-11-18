@@ -17,6 +17,8 @@ const LANGUAGE_STORAGE_KEY = "belfegor-lang";
 // Fallbacks for strings rendered by JS, used only if texts.json can't be loaded.
 const FALLBACK_TEXTS = {
   "product.soldOut": "Sold Out",
+  "product.soldOutNote": "This item is currently out of stock, but you can {link}.",
+  "product.soldOutLink": "order it as a custom piece",
   "product.order": "Order via Instagram",
   "product.viewDetails": "View details for {name}",
   "product.loadError": "Products could not be loaded. Please refresh the page.",

@@ -29,7 +29,9 @@
       "loadError": "Products could not be loaded. Please refresh the page.",
       "order": "Order via Instagram",
       "soldOut": "Sold Out",
-      "viewDetails": "View details for {name}"
+      "viewDetails": "View details for {name}",
+      "soldOutNote": "This item is currently out of stock, but you can {link}.",
+      "soldOutLink": "order it as a custom piece"
     },
     "modal": {
       "close": "Close",
@@ -142,7 +144,9 @@
       "loadError": "Не удалось загрузить товары. Обновите страницу.",
       "order": "Заказать в Instagram",
       "soldOut": "Продано",
-      "viewDetails": "Подробнее: {name}"
+      "viewDetails": "Подробнее: {name}",
+      "soldOutNote": "Этого изделия сейчас нет в наличии, но вы можете {link}.",
+      "soldOutLink": "заказать его индивидуально"
     },
     "modal": {
       "close": "Закрыть",
@@ -255,7 +259,9 @@
       "loadError": "Не вдалося завантажити товари. Оновіть сторінку.",
       "order": "Замовити в Instagram",
       "soldOut": "Продано",
-      "viewDetails": "Детальніше: {name}"
+      "viewDetails": "Детальніше: {name}",
+      "soldOutNote": "Цього виробу зараз немає в наявності, але ви можете {link}.",
+      "soldOutLink": "замовити його індивідуально"
     },
     "modal": {
       "close": "Закрити",
@@ -368,7 +374,9 @@
       "loadError": "Nie udało się załadować produktów. Odśwież stronę.",
       "order": "Zamów przez Instagram",
       "soldOut": "Wyprzedane",
-      "viewDetails": "Szczegóły: {name}"
+      "viewDetails": "Szczegóły: {name}",
+      "soldOutNote": "Tego produktu obecnie nie ma w magazynie, ale możesz {link}.",
+      "soldOutLink": "zamówić go indywidualnie"
     },
     "modal": {
       "close": "Zamknij",

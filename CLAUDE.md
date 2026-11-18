@@ -174,8 +174,9 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
     `position: absolute; z-index: auto` element**, even though plain positioning rules
     say it shouldn't — confirmed by reproducing it (the modal close button became
     unclickable, sitting under the image, only on narrow/fullscreen viewports where they
-    visually overlap) and fixing it by removing the filter. Both `.product-modal-close`
-    and `.sold-out-badge` now have an explicit `z-index` because of this. Any new control
+    visually overlap) and fixing it by removing the filter. `.product-modal-close` has an
+    explicit `z-index` because of this (the sold-out badge used to as well, before it moved
+    off the photo). Any new control
     overlaid on a `.product-image`/`.product-modal-image` needs one too.
   - The "closing via the backdrop" test is skipped below 720px width: a fullscreen mobile
     sheet has no visible backdrop to tap by design (standard pattern — close via the
@@ -190,10 +191,19 @@ flaky `ERR_CONNECTION_REFUSED` failures during test-suite setup).
     back to all items. Clicking the active tile again also clears it. `applyFiltersAndSort()` reads the active
     category plus the `#filter-availability` and `#sort-select` dropdowns, filters+sorts
     a copy of `products`, and calls `renderProducts`. An empty result renders `.filter-empty` instead of a blank
-    grid. A product with `soldOut: true` renders a `.sold-out-badge` over its card image
-    (no button-level sold-out state on the card, since cards have no button); the
-    modal's order control still shows a disabled `<span class="order-button is-disabled">`
-    for a sold-out product.
+    grid. A product with `soldOut: true` (design from a user-supplied reference): the card
+    gets `.is-sold-out`, and between name and price a `.sold-out-block` (red "✕ SOLD OUT"
+    `.sold-out-badge` pill flanked by fading lines) plus a small `.sold-out-note` — one
+    CMS text `product.soldOutNote` with a `{link}` placeholder, replaced by an
+    `<a class="sold-out-link" href="custom-orders.html">` holding `product.soldOutLink`
+    (both escaped; `soldOutNoteHtml()`). The detail window shows the same pill + note and
+    **hides the Order button** (the user explicitly didn't want an "Order on custom"
+    button); the price stays. Card clicks/Enter on that link follow it instead of opening
+    the modal. The card's price row (`.product-meta`) is pinned to the bottom
+    (`margin-top: auto`) so prices line up across a grid row even though sold-out cards
+    are taller — guarded in `tests/shop.spec.js`.
+  - A global `[hidden] { display: none !important; }` exists because class rules like
+    `.order-button { display: block }` silently override the `hidden` attribute; keep it.
 - `css/style.css` — all styling: a dark/gothic/elegant theme (near-black background with a
   subtle grain texture, cool silver text/borders, blood-red accent — colors picked to
   match the jewelry photos themselves) and a responsive CSS grid

@@ -119,19 +119,34 @@ test("shop layout expands to use available width on wide viewports, not capped l
   expect(width, "shop layout should expand well past the old 1300px page cap on wide screens").toBeGreaterThan(1500);
 });
 
-test("product price sits at the same offset in every card, regardless of name length", async ({ page }) => {
-  const offsets = await page.locator(".product-card").evaluateAll((cards) =>
+async function priceOffsetsFromCardBottom(page) {
+  return page.locator(".product-card").evaluateAll((cards) =>
     cards.map((card) => {
       const cardRect = card.getBoundingClientRect();
       const priceRect = card.querySelector(".product-price").getBoundingClientRect();
-      return Math.round((priceRect.top - cardRect.top) * 100) / 100;
+      return Math.round((cardRect.bottom - priceRect.bottom) * 100) / 100;
     })
   );
+}
 
+function expectAllEqual(offsets) {
   expect(offsets.length).toBeGreaterThan(1);
-
   const [first, ...rest] = offsets;
   for (const offset of rest) {
-    expect(Math.abs(offset - first), "price should be the same distance from its card's top on every card").toBeLessThanOrEqual(1);
+    expect(Math.abs(offset - first), "price should sit at the same place at the bottom of every card").toBeLessThanOrEqual(1);
   }
+}
+
+test("product price sits at the same place in every card, regardless of name length", async ({ page }) => {
+  expectAllEqual(await priceOffsetsFromCardBottom(page));
+});
+
+test("prices stay aligned when sold-out cards (with their extra note) are in the same row", async ({ page }) => {
+  await page.evaluate(() => {
+    // eslint-disable-next-line no-undef -- main.js top-level `products`
+    const items = products.slice(0, 6).map((p, i) => ({ ...p, soldOut: i % 2 === 0 }));
+    window.renderProducts(items);
+  });
+  await expect(page.locator(".product-card.is-sold-out")).toHaveCount(3);
+  expectAllEqual(await priceOffsetsFromCardBottom(page));
 });

@@ -244,6 +244,15 @@ collections:
                 label: "Sold out"
                 widget: string
                 i18n: true
+              - name: soldOutNote
+                label: "Sold out — note under the name"
+                widget: text
+                i18n: true
+                hint: "Keep {link} as-is: it becomes the link below (to the Custom Orders page)."
+              - name: soldOutLink
+                label: "Sold out — link text inside the note"
+                widget: string
+                i18n: true
               - name: viewDetails
                 label: "View details"
                 widget: string

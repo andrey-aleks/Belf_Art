@@ -289,6 +289,7 @@ test.describe("visited-link color safety", () => {
     ".footer-questions",
     ".contact-link",
     ".shipping-content a",
+    ".sold-out-link",
   ];
 
   const cssContent = fs.readFileSync(path.join(ROOT, "css", "style.css"), "utf8");

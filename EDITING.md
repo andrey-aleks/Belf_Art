@@ -45,7 +45,9 @@ The editor has two sections:
 - **Shop**
   - **Products** — every product, in the order shown on the site (drag the ═ handle to reorder).
     Each has a name and description (in every language), a price in EUR, a category,
-    a "Sold out" switch, and photos (the first photo is shown in the product grid; all
+    a "Sold out" switch (a sold-out item stays on the site with a red "SOLD OUT" mark and
+    a note inviting a custom order — its wording is under Page texts → Product cards),
+    and photos (the first photo is shown in the product grid; all
     photos appear when a customer opens the product).
   - **Categories** — the tiles above the products (Necklaces, Chokers, …). To use a new
     category, add it here first, then pick it on the product.

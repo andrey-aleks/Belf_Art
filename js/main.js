@@ -17,6 +17,20 @@ function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
+// Sold-out items show a "SOLD OUT" pill and a note pointing to custom orders. The note
+// is one CMS text with a {link} placeholder, so the editor controls the whole sentence;
+// both parts are escaped, and only the link itself is markup we write.
+function soldOutBadgeHtml() {
+  return `<span class="sold-out-x" aria-hidden="true">&#10005;</span>${escapeHtml(t("product.soldOut"))}`;
+}
+
+function soldOutNoteHtml() {
+  const [before, ...rest] = t("product.soldOutNote").split("{link}");
+  if (rest.length === 0) return escapeHtml(before);
+  const link = `<a class="sold-out-link" href="custom-orders.html">${escapeHtml(t("product.soldOutLink"))}</a>`;
+  return escapeHtml(before) + link + escapeHtml(rest.join("{link}"));
+}
+
 function formatPrice(price) {
   return `${price} ${CURRENCY}`;
 }
@@ -43,20 +57,23 @@ function renderProducts(items) {
     .map((item, index) => {
       const product = localizedProduct(item);
       const name = escapeHtml(product.name);
-      const badge = product.soldOut
-        ? `<span class="sold-out-badge">${escapeHtml(t("product.soldOut"))}</span>`
+      const soldOut = product.soldOut
+        ? `<div class="sold-out-block"><span class="sold-out-badge">${soldOutBadgeHtml()}</span></div>
+        <p class="sold-out-note">${soldOutNoteHtml()}</p>`
         : "";
 
       return `
-    <article class="product-card" data-index="${index}" tabindex="0" aria-haspopup="dialog" aria-label="${escapeHtml(t("product.viewDetails", { name: product.name }))}">
+    <article class="product-card${product.soldOut ? " is-sold-out" : ""}" data-index="${index}" tabindex="0" aria-haspopup="dialog" aria-label="${escapeHtml(t("product.viewDetails", { name: product.name }))}">
       <div class="product-image-wrap">
         <img class="product-image" src="${escapeHtml(productImages(product)[0])}" alt="${name}" loading="lazy" />
-        ${badge}
       </div>
       <div class="product-info">
         <h3 class="product-name">${name}</h3>
-        <p class="product-price">${escapeHtml(formatPrice(product.price))}</p>
-        <span class="icon icon-star product-star" aria-hidden="true"></span>
+        ${soldOut}
+        <div class="product-meta">
+          <p class="product-price">${escapeHtml(formatPrice(product.price))}</p>
+          <span class="icon icon-star product-star" aria-hidden="true"></span>
+        </div>
       </div>
     </article>
   `;
@@ -168,6 +185,7 @@ const modalTitle = modal.querySelector(".product-modal-title");
 const modalDescription = modal.querySelector(".product-modal-description");
 const modalPrice = modal.querySelector(".product-modal-price");
 const modalOrder = modal.querySelector(".product-modal-order");
+const modalSoldOut = modal.querySelector(".product-modal-sold-out");
 const modalClose = modal.querySelector(".product-modal-close");
 
 let lastFocusedElement = null;
@@ -187,16 +205,15 @@ function fillModal(item) {
   modalPrice.textContent = formatPrice(product.price);
   setModalImage(images[0] || "");
 
+  // Sold out: the pill + note replace the Order button (no button, per the user).
+  modalSoldOut.hidden = !product.soldOut;
+  modalOrder.hidden = !!product.soldOut;
   if (product.soldOut) {
-    modalOrder.textContent = t("product.soldOut");
-    modalOrder.removeAttribute("href");
-    modalOrder.setAttribute("aria-disabled", "true");
-    modalOrder.classList.add("is-disabled");
+    modalSoldOut.querySelector(".sold-out-badge").innerHTML = soldOutBadgeHtml();
+    modalSoldOut.querySelector(".sold-out-note").innerHTML = soldOutNoteHtml();
   } else {
     modalOrder.textContent = t("product.order");
     modalOrder.href = shopLink("instagram", INSTAGRAM_URL);
-    modalOrder.removeAttribute("aria-disabled");
-    modalOrder.classList.remove("is-disabled");
   }
 
   modalThumbs.innerHTML =
@@ -237,6 +254,8 @@ function productForCard(card) {
 const grid = document.getElementById("product-grid");
 
 grid.addEventListener("click", (event) => {
+  // A link inside a card (the sold-out note's "custom piece" link) navigates instead.
+  if (event.target.closest("a")) return;
   const card = event.target.closest(".product-card");
   if (!card) return;
   const product = productForCard(card);
@@ -245,6 +264,7 @@ grid.addEventListener("click", (event) => {
 
 grid.addEventListener("keydown", (event) => {
   if (event.key !== "Enter" && event.key !== " ") return;
+  if (event.target.closest("a")) return;
   const card = event.target.closest(".product-card");
   if (!card) return;
   event.preventDefault();

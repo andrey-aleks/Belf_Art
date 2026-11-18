@@ -144,8 +144,9 @@ Below the hero, a category strip has one tile per category from
 category's first product photo as its picture. Clicking a tile shows only that category; the
 **All** tile at the start of the strip (selected by default) shows everything again. Above the grid, an Availability dropdown (All / In stock / Sold
 out) and a Sort dropdown refine the list. Marking a product `soldOut: true` shows a
-"SOLD OUT" badge on its card, disables the modal's order control, and puts it under
-"Sold out".
+red "SOLD OUT" pill and a short note ("…you can order it as a custom piece", linking to
+the Custom Orders page) between its name and price — on the card and in the detail
+window, which shows no Order button for it — and puts it under "Sold out".
 
 ## Shop layout width
 
@@ -177,7 +178,7 @@ If you add a control that overlays `.product-image` or `.product-modal-image`, g
 an explicit `z-index`: images have had a `filter` (and may again), which creates a CSS
 stacking context that can paint above a plain
 `position: absolute; z-index: auto` sibling — this actually broke the close button on
-mobile once (see `.product-modal-close` and `.sold-out-badge` in `css/style.css` for the
+mobile once (see `.product-modal-close` in `css/style.css` for the
 fix).
 
 ## Editing the About page

@@ -16,7 +16,7 @@
         "description": "Stainless steel. The length of the item is calculated based on individual measurements",
         "price": 19,
         "category": "Necklace",
-        "soldOut": false,
+        "soldOut": true,
         "images": [
           "/media/web/IMG_20260908_151912-01.jpg",
           "/media/web/img_20260908_152219-01.webp"
@@ -235,7 +235,7 @@
         "description": "Нержавеющая сталь. Длина изделия рассчитывается исходя из индивидуальных размеров.",
         "price": 19,
         "category": "Necklace",
-        "soldOut": false,
+        "soldOut": true,
         "images": [
           "/media/web/IMG_20260908_151912-01.jpg",
           "/media/web/img_20260908_152219-01.webp"
@@ -454,7 +454,7 @@
         "description": "Нержавіюча сталь. Довжина виробу розраховується на основі індивідуальних розмірів",
         "price": 19,
         "category": "Necklace",
-        "soldOut": false,
+        "soldOut": true,
         "images": [
           "/media/web/IMG_20260908_151912-01.jpg",
           "/media/web/img_20260908_152219-01.webp"
@@ -673,7 +673,7 @@
         "description": "Stal nierdzewna. Długość wyrobu jest obliczana na podstawie indywidualnych wymiarów",
         "price": 19,
         "category": "Necklace",
-        "soldOut": false,
+        "soldOut": true,
         "images": [
           "/media/web/IMG_20260908_151912-01.jpg",
           "/media/web/img_20260908_152219-01.webp"
